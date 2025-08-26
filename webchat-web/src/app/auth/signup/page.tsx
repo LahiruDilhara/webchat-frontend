@@ -1,10 +1,10 @@
 "use client";
-import { useSingUpViewModel } from "@/viewmodels/auth/useSignUpViewModel";
+import { useSignUpViewModel } from "@/viewmodels/auth/useSignUpViewModel";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 const SignUpPage = () => {
-    const { username, updateUsername, password, updatePassword, error, isLoading, submit } = useSingUpViewModel();
+    const { username, updateUsername, password, updatePassword, error, isLoading, submit } = useSignUpViewModel();
 
     useEffect(() => {
         if (error) {
