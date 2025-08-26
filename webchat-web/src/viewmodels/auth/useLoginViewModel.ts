@@ -1,0 +1,47 @@
+import TokenDto from "@/dto/auth/TokenDto";
+import AuthMapper from "@/mapper/AuthMapper";
+import LoginModel from "@/models/auth/LoginModel";
+import AuthService from "@/services/AuthService";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+
+export function useLoginViewModel() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
+
+    const updateUsername = (value: string) => setUsername(value);
+    const updatePassword = (value: string) => setPassword(value);
+
+    const mutation = useMutation({
+        mutationFn: AuthService.login,
+        onSuccess: (data: TokenDto) => {
+            setError(null);
+            localStorage.setItem("token", data.token);
+        },
+        onError: (error) => {
+            setError(error.message);
+        }
+    })
+
+    const submit = () => {
+        const loginModel = new LoginModel(username, password);
+        const error = loginModel.validate();
+        if (error) {
+            setError(error);
+            return;
+        }
+        mutation.mutate(AuthMapper.loginModelToLoginDto(loginModel));
+    }
+
+
+    return {
+        username,
+        updateUsername,
+        password,
+        updatePassword,
+        error,
+        isLoading: mutation.isPending,
+        submit
+    }
+}
