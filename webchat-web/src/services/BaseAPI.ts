@@ -24,7 +24,9 @@ API.interceptors.request.use(
         return request;
     },
     (error) => {
-        return Promise.reject(error);
+        return Promise.reject({
+            message: error.message
+        });
     }
 )
 
