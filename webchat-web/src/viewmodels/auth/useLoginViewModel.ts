@@ -3,12 +3,14 @@ import AuthMapper from "@/mapper/AuthMapper";
 import LoginModel from "@/models/auth/LoginModel";
 import AuthService from "@/services/AuthService";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function useLoginViewModel() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
     const updateUsername = (value: string) => setUsername(value);
     const updatePassword = (value: string) => setPassword(value);
@@ -18,6 +20,7 @@ export function useLoginViewModel() {
         onSuccess: (data: TokenDto) => {
             setError(null);
             localStorage.setItem("token", data.token);
+            router.replace("/home");
         },
         onError: (error) => {
             setError(error.message);
@@ -33,6 +36,13 @@ export function useLoginViewModel() {
         }
         mutation.mutate(AuthMapper.loginModelToLoginDto(loginModel));
     }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            router.replace("/home");
+        }
+    }, [router])
 
 
     return {

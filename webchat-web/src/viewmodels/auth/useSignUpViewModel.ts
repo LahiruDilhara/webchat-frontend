@@ -2,12 +2,14 @@ import AuthMapper from "@/mapper/AuthMapper";
 import SignUpModel from "@/models/auth/SignUpModel";
 import AuthService from "@/services/AuthService";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function useSingUpViewModel() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
     const updateUsername = (value: string) => setUsername(value);
     const updatePassword = (value: string) => setPassword(value);
@@ -16,7 +18,7 @@ export function useSingUpViewModel() {
     const mutation = useMutation({
         mutationFn: AuthService.singUp,
         onSuccess: (data) => {
-
+            router.replace("/home");
         },
         onError: (error) => {
             setError(error.message);
@@ -33,6 +35,13 @@ export function useSingUpViewModel() {
         }
         mutation.mutate(AuthMapper.signUpModelToSignUpDto(signUpModel));
     }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            router.replace("/home");
+        }
+    }, [router])
 
     return {
         username,
