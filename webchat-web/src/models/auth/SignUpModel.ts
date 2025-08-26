@@ -1,7 +1,7 @@
 import { errorToString } from "@/utils/JoiUtil";
 import Joi from "joi";
 
-export default class SignUpDto {
+export default class SignUpModel {
     username: string;
     password: string;
 

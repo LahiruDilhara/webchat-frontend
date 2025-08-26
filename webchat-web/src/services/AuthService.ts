@@ -1,6 +1,7 @@
 import LoginDto from "@/dto/auth/LoginDto";
 import API from "./BaseAPI";
 import TokenDto from "@/dto/auth/TokenDto";
+import SignUpDto from "@/dto/auth/SignUpDto";
 
 export default class AuthService {
 
@@ -9,5 +10,9 @@ export default class AuthService {
         return {
             token: response.data.token
         }
+    }
+
+    static async singUp(signUpDto: SignUpDto): Promise<void> {
+        await API.post("/auth/signup", signUpDto)
     }
 }

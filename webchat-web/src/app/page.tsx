@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <>
-    <div className="bg-card-bg m-10 p-4 bg-amber-950 rounded-lg flex flex-col items-center">
+    <div className="bg-card-bg m-10 p-4 rounded-lg flex flex-col items-center">
       <h1 className="text-4xl bg-background rounded-4xl font-bold p-5">Lahiru Dilhara</h1>
       <h1 className="text-8xl m-20 flex font-extrabold">{counter}</h1>
       <button className="px-5 py-2 bg-primary text-on-primary rounded-2xl" onClick={()=>setCounter(counter+5)}>Increment</button>
