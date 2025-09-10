@@ -6,6 +6,8 @@ import "./globals.css";
 import { useEffect } from "react";
 import ReactQueryProvider from "@/components/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
+import { Provider } from "react-redux";
+import { store } from './store';
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -35,8 +37,10 @@ export default function RootLayout({
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-        <ToastContainer />
+        <Provider store={store}>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ToastContainer />
+        </Provider>
       </body>
     </html>
   );
