@@ -1,13 +1,8 @@
-"use client";
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { useEffect } from "react";
-import ReactQueryProvider from "@/components/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
-import { Provider } from "react-redux";
-import { store } from './store';
+import ClientProvider from "@/features/providers/ClientProvider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -29,18 +24,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }, [])
+
   return (
     <html lang="en" className="bg-background">
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider store={store}>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-          <ToastContainer />
-        </Provider>
+        <ClientProvider>{children}</ClientProvider>
+        <ToastContainer />
       </body>
     </html>
   );
