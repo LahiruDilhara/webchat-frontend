@@ -12,7 +12,7 @@ export default class AuthService {
         }
     }
 
-    static async singUp(signUpDto: SignUpDto): Promise<void> {
+    static async signUp(signUpDto: SignUpDto): Promise<void> {
         await API.post("/auth/signup", signUpDto)
     }
 }

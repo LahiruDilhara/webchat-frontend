@@ -16,9 +16,9 @@ export function useSignUpViewModel() {
 
 
     const mutation = useMutation({
-        mutationFn: AuthService.singUp,
+        mutationFn: AuthService.signUp,
         onSuccess: (data) => {
-            router.replace("/home");
+            router.replace("/auth/login");
         },
         onError: (error) => {
             setError(error.message);
@@ -35,13 +35,6 @@ export function useSignUpViewModel() {
         }
         mutation.mutate(AuthMapper.signUpModelToSignUpDto(signUpModel));
     }
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            router.replace("/home");
-        }
-    }, [router])
 
     return {
         username,
