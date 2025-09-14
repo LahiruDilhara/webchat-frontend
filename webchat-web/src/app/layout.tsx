@@ -1,8 +1,14 @@
+"use client";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
-import ClientProvider from "@/features/providers/ClientProvider";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { useRouter } from "next/navigation";
+import { useApplicationInitializer } from "@/hooks/useAppInitializer";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/QueryClient";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -24,14 +30,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const {isReady} = useApplicationInitializer();
 
   return (
     <html lang="en" className="bg-background">
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ClientProvider>{children}</ClientProvider>
-        <ToastContainer />
+          <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            {isReady ? children : null}
+          </Provider>
+          </QueryClientProvider>
+          <ToastContainer />
       </body>
     </html>
   );
