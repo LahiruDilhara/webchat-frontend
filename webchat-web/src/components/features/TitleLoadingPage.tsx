@@ -1,23 +1,21 @@
 "use client";
 
 import { DotLoader } from "react-spinners";
-import ProgressBar from "../primitive/ProgressBar";
 
-type RootLoadingScreenProps = {
-    progress: number;
+type TitleLoadingPageProps = {
     title: string;
 };
-const RootLoadingScreen = ({ progress, title }: RootLoadingScreenProps) => {
+const TitleLoadingPage = ({title}:TitleLoadingPageProps) => {
     return (
         <div className="w-full h-screen flex flex-col">
             <div className="flex-4 flex flex-col justify-center items-center">
                 <DotLoader color="#4d4dff" size={100} />
             </div>
             <div className="flex-1 items-center flex flex-col gap-4">
-                <ProgressBar progress={progress} title={title} />
+                <h1>{title}</h1>
             </div>
         </div>
     );
 }
-
-export default RootLoadingScreen;
+ 
+export default TitleLoadingPage;

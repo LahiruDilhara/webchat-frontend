@@ -14,7 +14,7 @@ const ClientInitializer = ({ children }: { children: React.ReactNode }) => {
         <>
             <QueryClientProvider client={queryClient}>
                 <Provider store={store}>
-                    {isReady ? children : RootLoadingScreen({ progress, title })}
+                    {isReady ? children : <RootLoadingScreen progress={progress} title={title} ></RootLoadingScreen>}
                 </Provider>
             </QueryClientProvider>
             <ToastContainer />

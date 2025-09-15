@@ -7,7 +7,8 @@ type RootLoadingScreenProps = {
     progress: number;
     title: string;
 };
-const RootLoadingScreen = ({ progress, title }: RootLoadingScreenProps) => {
+
+const ProgressLoadingPage = ({ progress, title }: RootLoadingScreenProps) => {
     return (
         <div className="w-full h-screen flex flex-col">
             <div className="flex-4 flex flex-col justify-center items-center">
@@ -19,5 +20,5 @@ const RootLoadingScreen = ({ progress, title }: RootLoadingScreenProps) => {
         </div>
     );
 }
-
-export default RootLoadingScreen;
+ 
+export default ProgressLoadingPage;
