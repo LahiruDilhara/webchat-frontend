@@ -4,17 +4,17 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { Provider } from 'react-redux';
 import { store } from "./store";
-import { useApplicationInitializer } from "@/viewmodels/root/useAppInitializer";
 import { ToastContainer } from "react-toastify";
-import RootLoadingScreen from "@/components/root/RootLoadingScreen";
+import { useClientProviderViewModel } from "@/viewmodels/root/clientProviderViewModel";
+import TitleLoadingPage from "@/components/features/TitleLoadingPage";
 
-const ClientInitializer = ({ children }: { children: React.ReactNode }) => {
-    const { isReady, progress, title } = useApplicationInitializer();
+const ClientProvider = ({ children }: { children: React.ReactNode }) => {
+    const { ready } = useClientProviderViewModel();
     return (
         <>
             <QueryClientProvider client={queryClient}>
                 <Provider store={store}>
-                    {isReady ? children : <RootLoadingScreen progress={progress} title={title} ></RootLoadingScreen>}
+                    {ready ? children : <TitleLoadingPage title="Loading...."></TitleLoadingPage>}
                 </Provider>
             </QueryClientProvider>
             <ToastContainer />
@@ -22,4 +22,4 @@ const ClientInitializer = ({ children }: { children: React.ReactNode }) => {
     );
 }
 
-export default ClientInitializer;
+export default ClientProvider;
