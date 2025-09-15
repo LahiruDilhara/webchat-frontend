@@ -15,14 +15,12 @@ export function useApplicationInitializer() {
 
     useEffect(() => {
         (async () => {
-            setProgress(() => 10);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            setProgress(() => 0);
+            await new Promise((resolve) => setTimeout(resolve, 200));
             for (let i = 0; i < tasks.length; i++) {
                 setTitle(() => tasks[i].description);
                 await tasks[i].runnable();
                 setProgress(() => ((i + 1) / tasks.length) * 100);
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-
             }
             setTitle("Ready.....");
             await new Promise((resolve) => setTimeout(resolve, 1000));
