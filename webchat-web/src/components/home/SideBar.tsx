@@ -9,17 +9,22 @@ type SideBarProps = {
 }
 const SideBar = ({ folded, onRoomClick, rooms, onAddRoomClick }: SideBarProps) => {
     return (
-        <section className={`px-4 h-full grid grid-rows-[11fr_1fr] ${folded ? "lg:w-25 md:w-20" : "lg:w-80 md:w-60"} transition-all duration-300`}>
-            <section>
-                <h1 className={`text-gray-500 font-bold lg:text-xl md:text-lg pb-5 ${folded ? "hidden" : ""}`}>Rooms /</h1>
-                <div className="flex flex-col gap-4">
-                    {rooms.map((r) =>
-                        <RoomItem key={r.id} id={r.id} roomName={r.roomName} folded={folded} onClick={() => onRoomClick(r.id)} icon={getRoomLetter(r.roomName)} iconColor={getRoomColor(r.roomName)}></RoomItem>
-                    )}
+        <section className="grid grid-rows-2 h-full">
+            <section className="h-full">
+                {/* <h1 className={`text-gray-500 font-bold lg:text-xl md:text-lg pb-2 ${folded ? "hidden" : ""}`}>Rooms /</h1> */}
+                <div className="h-full space-y-4">
+                    <div className="h-40 w-full bg-amber-800"></div>
+                    <div className="h-40 w-full bg-amber-800"></div>
+                    <div className="h-40 w-full bg-amber-800"></div>
+                    {/* {rooms.map((r) =>
+                        <div className="h-48 mb-5 w-full bg-amber-100">
+                            <RoomItem key={r.id} id={r.id} roomName={r.roomName} folded={folded} onClick={() => onRoomClick(r.id)} icon={getRoomLetter(r.roomName)} iconColor={getRoomColor(r.roomName)}></RoomItem>
+                        </div>
+                    )} */}
                 </div>
             </section>
-            <section>
-                <SideBarBottomButton folded={folded} onClick={() => onAddRoomClick()} icon={"+"} iconColor={"#2563EB"} name={"Add Room"}></SideBarBottomButton>
+            <section className=" bg-amber-50">
+                {/* <SideBarBottomButton folded={folded} onClick={() => onAddRoomClick()} icon={"+"} iconColor={"#2563EB"} name={"Add Room"}></SideBarBottomButton> */}
             </section>
         </section>
     );
