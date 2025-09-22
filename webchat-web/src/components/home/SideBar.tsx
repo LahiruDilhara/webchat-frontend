@@ -9,22 +9,19 @@ type SideBarProps = {
 }
 const SideBar = ({ folded, onRoomClick, rooms, onAddRoomClick }: SideBarProps) => {
     return (
-        <section className="grid grid-rows-2 h-full">
-            <section className="h-full">
-                {/* <h1 className={`text-gray-500 font-bold lg:text-xl md:text-lg pb-2 ${folded ? "hidden" : ""}`}>Rooms /</h1> */}
-                <div className="h-full space-y-4">
-                    <div className="h-40 w-full bg-amber-800"></div>
-                    <div className="h-40 w-full bg-amber-800"></div>
-                    <div className="h-40 w-full bg-amber-800"></div>
-                    {/* {rooms.map((r) =>
-                        <div className="h-48 mb-5 w-full bg-amber-100">
+        <section className="grid grid-rows-[6fr_1fr] h-full">
+            <section className="h-full min-h-0 min-w-0">
+                <h1 className={`text-gray-500 font-bold lg:text-xl md:text-lg pb-2 overflow-hidden whitespace-nowrap ${folded ? "opacity-0" : ""}`}>Rooms /</h1>
+                <div className="min-h-0 h-full overflow-y-auto space-y-5">
+                    {rooms.map((r) =>
+                        <div className="w-full">
                             <RoomItem key={r.id} id={r.id} roomName={r.roomName} folded={folded} onClick={() => onRoomClick(r.id)} icon={getRoomLetter(r.roomName)} iconColor={getRoomColor(r.roomName)}></RoomItem>
                         </div>
-                    )} */}
+                    )}
                 </div>
             </section>
-            <section className=" bg-amber-50">
-                {/* <SideBarBottomButton folded={folded} onClick={() => onAddRoomClick()} icon={"+"} iconColor={"#2563EB"} name={"Add Room"}></SideBarBottomButton> */}
+            <section className="min-h-0 h-full grid content-end min-w-0">
+                <SideBarBottomButton folded={folded} onClick={() => onAddRoomClick()} icon={"+"} iconColor={"#2563EB"} name={"Add Room"}></SideBarBottomButton>
             </section>
         </section>
     );
