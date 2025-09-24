@@ -16,7 +16,7 @@ const LabelInput = ({ label, placeholder, value, onChange, className, inputType 
             <input
                 id="input"
                 type={inputType}
-                className="px-3 py-2 border-3 border-input-border rounded-md focus:outline-none focus:border-3 focus:border-primary placeholder:text-input-placeholder"
+                className="text-caption px-3 py-2 border-3 border-input-border rounded-md focus:outline-none focus:border-3 focus:border-primary placeholder:text-input-placeholder"
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}

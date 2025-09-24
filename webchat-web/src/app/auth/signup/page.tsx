@@ -12,7 +12,7 @@ export default function SignUpPage() {
     const router = useRouter();
 
     return (
-        <div className="flex flex-col px-md gap-md h-full min-h-0 items-center justify-center">
+        <div className="flex flex-col px-md gap-md h-full min-h-0 items-center justify-center md:max-w-4/6">
             <div className="w-full flex-1 flex flex-col items-center justify-center gap-sm">
                 <div className="text-h1">Let's Get Started</div>
                 <div className="text-caption">Please sign up for a new account.</div>

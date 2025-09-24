@@ -14,7 +14,7 @@ export default function SignInPage() {
     const router = useRouter();
 
     return (
-        <div className="flex flex-col px-md gap-md h-full min-h-0 items-center justify-center">
+        <div className="flex flex-col px-md gap-md h-full min-h-0 items-center justify-center md:max-w-4/6">
             <div className="w-full flex-1 flex flex-col items-center justify-center gap-sm">
                 <div className="text-h1">Welcome Back!</div>
                 <div className="text-caption">Please sign in to your account.</div>
