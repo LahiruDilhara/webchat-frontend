@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 export function useLoginViewModel() {
     const [username, setUsername] = useState("");
@@ -17,6 +18,10 @@ export function useLoginViewModel() {
 
     const updateUsername = (value: string) => setUsername(value);
     const updatePassword = (value: string) => setPassword(value);
+
+    useEffect(()=>{
+        toast.error(error);
+    },[error])
 
     const mutation = useMutation({
         mutationFn: AuthService.login,
@@ -36,6 +41,7 @@ export function useLoginViewModel() {
     const submit = () => {
         const loginModel = new LoginModel(username, password);
         const error = loginModel.validate();
+        console.log(error)
         if (error) {
             setError(error);
             return;

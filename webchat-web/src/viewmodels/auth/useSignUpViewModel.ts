@@ -4,6 +4,7 @@ import AuthService from "@/services/AuthService";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export function useSignUpViewModel() {
     const [username, setUsername] = useState("");
@@ -14,6 +15,9 @@ export function useSignUpViewModel() {
     const updateUsername = (value: string) => setUsername(value);
     const updatePassword = (value: string) => setPassword(value);
 
+    useEffect(()=>{
+        toast.error(error);
+    },[error])
 
     const mutation = useMutation({
         mutationFn: AuthService.signUp,
