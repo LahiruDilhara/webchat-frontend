@@ -19,9 +19,11 @@ export function useLoginViewModel() {
     const updateUsername = (value: string) => setUsername(value);
     const updatePassword = (value: string) => setPassword(value);
 
-    useEffect(()=>{
-        toast.error(error);
-    },[error])
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+    }, [error])
 
     const mutation = useMutation({
         mutationFn: AuthService.login,
@@ -39,9 +41,9 @@ export function useLoginViewModel() {
     })
 
     const submit = () => {
+        setError(null);
         const loginModel = new LoginModel(username, password);
         const error = loginModel.validate();
-        console.log(error)
         if (error) {
             setError(error);
             return;

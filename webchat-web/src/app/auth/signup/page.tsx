@@ -1,35 +1,32 @@
 "use client";
+import IconButton from "@/components/primitive/IconButtonButton";
+import IconOutlinedButton from "@/components/primitive/IconOutlinedButton";
+import LabelInput from "@/components/primitive/LabelInput";
 import { useSignUpViewModel } from "@/viewmodels/auth/useSignUpViewModel";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { LogIn, UserRoundPlus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ClipLoader } from "react-spinners";
 
-const SignUpPage = () => {
-    const { username, updateUsername, password, updatePassword, error, isLoading, submit } = useSignUpViewModel();
+export default function SignUpPage() {
+    const { username, updateUsername, password, updatePassword, isLoading, submit } = useSignUpViewModel();
+    const router = useRouter();
 
-    useEffect(() => {
-        if (error) {
-            toast.error(error);
-        }
-    }, [error]);
     return (
-        <div className="w-screen h-screen flex justify-center items-center">
-            <div className="bg-surface p-8 rounded-lg shadow-md text-on-surface flex flex-col gap-8 items-center">
-                <h1 className="text-2xl font-bold">SignUp</h1>
-                <form className="flex flex-col gap-7" onSubmit={e => { e.preventDefault(); submit() }}>
-                    <div className="flex flex-col gap-2">
-                        <label htmlFor="username" className="text-input-label">Username</label>
-                        <input className="bg-input px-4 py-1 rounded-md text-on-input placeholder:text-xs" value={username} type="text" id="username" name="username" placeholder="username" required onChange={e => updateUsername(e.target.value)} />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <label className="text-input-label" htmlFor="password">Password</label>
-                        <input className="bg-input px-4 py-1 rounded-md text-on-input placeholder:text-xs" value={password} type="password" id="password" name="password" placeholder="password" required onChange={e => updatePassword(e.target.value)} />
-                    </div>
-                    <button className="bg-primary rounded-md px-8 py-1 hover:bg-primary-hover shadow-2xl shadow-shadow-primary cursor-grab" type="submit">{isLoading ? "Loading..." : "SignUp"}</button>
-                    {error && <div className="text-red-500">{error}</div>}
-                </form>
+        <div className="flex flex-col px-md gap-md h-full min-h-0 items-center justify-center">
+            <div className="w-full flex-1 flex flex-col items-center justify-center gap-sm">
+                <div className="text-h1">Let's Get Started</div>
+                <div className="text-caption">Please sign up for a new account.</div>
             </div>
+            <form className="flex-2 w-full flex flex-col gap-4xl" onSubmit={e => { e.preventDefault(); }}>
+                <div className="flex flex-col gap-xl">
+                    <LabelInput label="Username" placeholder="username" value={username} onChange={(e) => { updateUsername(e.target.value) }} inputType="text"></LabelInput>
+                    <LabelInput label="Password" placeholder="password" value={password} onChange={(e) => { updatePassword(e.target.value) }} inputType="password"></LabelInput>
+                </div>
+                <div className="flex flex-row w-full justify-between gap-xl">
+                    <IconOutlinedButton icon={<LogIn />} label="Sign In" onClick={() => { router.replace("/auth/signin") }} className="flex-1 text-nowrap"></IconOutlinedButton>
+                    <IconButton icon={isLoading ? <ClipLoader size={24} /> : <UserRoundPlus />} label="Sign Up" onClick={submit} className="flex-1 text-nowrap"></IconButton>
+                </div>
+            </form>
         </div>
     );
 }
-
-export default SignUpPage;

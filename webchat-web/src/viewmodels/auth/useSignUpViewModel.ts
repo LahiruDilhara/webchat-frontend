@@ -15,14 +15,19 @@ export function useSignUpViewModel() {
     const updateUsername = (value: string) => setUsername(value);
     const updatePassword = (value: string) => setPassword(value);
 
-    useEffect(()=>{
-        toast.error(error);
-    },[error])
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+    }, [error])
 
     const mutation = useMutation({
         mutationFn: AuthService.signUp,
         onSuccess: (data) => {
-            router.replace("/auth/login");
+            setError(null);
+            setUsername("");
+            setPassword("");
+            router.replace("/auth/signin");
         },
         onError: (error) => {
             setError(error.message);
