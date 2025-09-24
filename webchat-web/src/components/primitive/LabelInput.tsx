@@ -3,18 +3,20 @@ type LabelInputProps = {
     placeholder?: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    className?: string;
+    inputType?: string;
 }
 
-const LabelInput = ({ label, placeholder, value, onChange }: LabelInputProps) => {
+const LabelInput = ({ label, placeholder, value, onChange, className, inputType }: LabelInputProps) => {
     return (
-        <div className="flex flex-col gap-1">
-            <label htmlFor="input" className="text-sm font-medium text-on-background/70">
+        <div className={`flex flex-col gap-sm ${className}`}>
+            <label htmlFor="input" className="text-caption text-input-label">
                 {label}
             </label>
             <input
                 id="input"
-                type="text"
-                className="px-3 py-2 border border-on-background/30 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                type={inputType}
+                className="px-3 py-2 border-3 border-input-border rounded-md focus:outline-none focus:border-3 focus:border-primary placeholder:text-input-placeholder"
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
