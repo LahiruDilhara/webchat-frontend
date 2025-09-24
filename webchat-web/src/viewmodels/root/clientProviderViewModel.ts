@@ -14,11 +14,20 @@ export function useClientProviderViewModel() {
             document.documentElement.setAttribute("data-theme", "dark");
             const token = localStorage.getItem("token");
             if (token != null) {
-                const value = jwtDecode(token);
-                if (value.sub != null) {
-                    store.dispatch(setLoggedIn({ username: value.sub as string }));
-                    router.replace("/home")
+                try {
+                    const value = jwtDecode(token);
+                    if (value.sub != null) {
+                        store.dispatch(setLoggedIn({ username: value.sub as string }));
+                        router.replace("/home")
+                    }
                 }
+                catch (e) {
+                    localStorage.removeItem("token");
+                    if (pathname === "/home") {
+                        router.replace("/")
+                    }
+                }
+
             }
             else {
                 if (pathname === "/home") {
