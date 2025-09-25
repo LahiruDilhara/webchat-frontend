@@ -21,6 +21,34 @@ const SmHomePage = () => {
                     <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
                     <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
                 </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
+                <div className="flex flex-col justify-center items-center text-center">
+                    <div className="shrink-0 size-2xl bg-amber-200 rounded-full"></div>
+                    <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
+                </div>
             </div>
             <div className="flex flex-col min-h-0">
                 <h1 className="text-h3 pb-sm">Rooms</h1>
