@@ -35,6 +35,11 @@
   --color-info: #2196f3;
   --color-disabled: #555555;
 
+  --color-card-bg: #1a1a1a;
+  --color-card-border: #333333;
+  --color-card-hover: #2a2a2a;
+  --color-on-card: #ffffff;
+
   --text-input-label: 0.85rem;
 
   /* Font Families */
@@ -208,6 +213,11 @@
     --color-header: #1a1a1a;
     --color-on-header: #ffffff;
 
+    --color-card-bg: #171717;
+    --color-card-border: #222266;
+    --color-card-hover: #23234a;
+    --color-on-card: #e0e0e0;
+
     --color-link: #5b7cfa;
     --color-link-hover: #7a92fa;
   }
@@ -243,6 +253,11 @@
 
     --color-header: #f1f1f1;
     --color-on-header: #111111;
+
+    --color-card-bg: #f9f9f9;
+    --color-card-border: #e0e0e0;
+    --color-card-hover: #ededff;
+    --color-on-card: #222222;
 
     --color-link: #1a0dab;
     --color-link-hover: #4a32d1;
