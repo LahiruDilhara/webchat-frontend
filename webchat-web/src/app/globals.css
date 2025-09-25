@@ -113,6 +113,24 @@
   --rounded-lg: 1.5rem; /* 24px */
   --rounded-xl: 2rem; /* 32px */
   --rounded-full: 9999px;
+
+  /* Height */
+  --height-xs: 1rem; /* 16px */
+  --height-sm: 2rem; /* 32px */
+  --height-md: 3rem; /* 48px */
+  --height-lg: 4rem; /* 64px */
+  --height-xl: 5rem; /* 80px */
+  --height-2xl: 6rem; /* 96px */
+  --height-3xl: 8rem; /* 128px */
+
+  /* Width */
+  --width-xs: 1rem; /* 16px */
+  --width-sm: 2rem; /* 32px */
+  --width-md: 3rem; /* 48px */
+  --width-lg: 4rem; /* 64px */
+  --width-xl: 5rem; /* 80px */
+  --width-2xl: 6rem; /* 96px */
+  --width-3xl: 8rem; /* 128px */
 }
 
 @layer base {
@@ -170,7 +188,7 @@
     --color-primary: #3a3aff;
     --color-on-primary: #ffffff;
     --color-primary-hover: #2a2a9f;
-    --color-shadow-primary: #050563;
+    --color-shadow-primary: #0c0c7a;
 
     --color-message-incoming: #202020;
     --color-on-message-incoming: #f0f0f0;
