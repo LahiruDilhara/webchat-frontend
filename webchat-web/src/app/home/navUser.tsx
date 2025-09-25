@@ -7,9 +7,9 @@ const NavUser = () => {
     const username = useSelector((state: RootState) => state.auth.username);
 
     return (
-        <div className="flex flex-row items-center gap-xs">
-            <h1 className={`${getColorForString(username)} rounded-full size-lg text-caption text-center flex items-center justify-center`}>{username.charAt(0)}</h1>
+        <div className="flex flex-row items-center gap-sm">
             <h1 className="text-caption">{username}</h1>
+            <h1 className={`${getColorForString(username)} rounded-full size-lg text-caption text-center flex items-center justify-center`}>{username.charAt(0)}</h1>
         </div>
     );
 }
