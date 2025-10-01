@@ -1,3 +1,4 @@
+import { capitalizeFirstLetter } from "@/utils/TextUtil";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
@@ -15,7 +16,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setLoggedIn(state, action: PayloadAction<{ username: string }>) {
-            state.username = action.payload.username;
+            state.username = capitalizeFirstLetter(action.payload.username);
             state.loggedIn = true;
         },
         setLoggedOut(state) {
