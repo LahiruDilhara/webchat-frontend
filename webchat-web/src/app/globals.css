@@ -101,6 +101,15 @@
   --padding-3xl: 4rem; /* 64px */
   --padding-4xl: 6rem; /* 96px */
 
+  /* Padding Respect to Height */
+  --padding-h-xs: 1rem; /* 16px */
+  --padding-h-sm: 2rem; /* 32px */
+  --padding-h-md: 3rem; /* 48px */
+  --padding-h-lg: 4rem; /* 64px */
+  --padding-h-xl: 5rem; /* 80px */
+  --padding-h-2xl: 6rem; /* 96px */
+  --padding-h-3xl: 8rem; /* 128px */
+
   /* Margin */
   --margin-xs: 0.25rem; /* 4px */
   --margin-sm: 0.5rem; /* 8px */

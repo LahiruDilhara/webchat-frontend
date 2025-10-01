@@ -1,7 +1,6 @@
 import { RootState } from "@/app/store";
 import { setLoggedIn, setLoggedOut } from "@/slices/auth/AuthSlice";
 import { getTokenUser } from "@/utils/jwtUtil";
-import { jwtDecode, JwtPayload } from "jwt-decode";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
