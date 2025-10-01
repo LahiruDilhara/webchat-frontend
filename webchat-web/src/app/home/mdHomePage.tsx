@@ -5,7 +5,7 @@ import { useState } from "react";
 const MdHomePage = () => {
     const [folded, setFolded] = useState(false);
     return (
-        <div className="w-full h-full grid grid-rows-[1fr_15fr] py-md">
+        <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
             <div className="flex flex-row min-h-fit items-center min-w-0 w-full">
                 <div className="flex flex-row min-h-fit items-center gap-md w-full">
                     <div className="cursor-pointer" onClick={() => setFolded(!folded)}>

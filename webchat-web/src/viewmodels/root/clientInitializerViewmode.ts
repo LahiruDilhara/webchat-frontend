@@ -38,17 +38,20 @@ export function useClientInitializerViewModel() {
 
 
     useEffect(() => {
+        if(!ready) return; // wait until the initialization is done to redirect the user
         if (isUserLoggedIn) {
             if (windowPathName.startsWith("/auth")) {
+                console.log("redirecting to /home");
                 router.replace("/home");
             }
         }
         else {
             if (windowPathName.startsWith("/home")) {
+                console.log("redirecting to /");
                 router.replace("/");
             }
         }
-    }, [windowPathName, router,isUserLoggedIn])
+    }, [windowPathName, router,isUserLoggedIn, ready])
 
     return { ready }
 }

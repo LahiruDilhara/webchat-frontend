@@ -28,21 +28,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-dvh`}
       >
         <ClientProvider>
           <ClientInitializer >
-            <div className="flex flex-col min-h-screen">
-              <div className="fixed top-0 left-0 w-full z-50">
-                <nav className="h-md flex flex-row items-center px-sm justify-between shadow-md shadow-shadow-primary/70 bg-primary">
-                  <h1 className="text-xl font-extrabold"><span className="text-blue-600">W</span>eb<span className="text-purple-600">C</span>hat</h1>
-                  <NavUser />
-                </nav>
-              </div>
-              <main className="flex-1 pt-h-md">
-                {children}
-              </main>
-            </div>
+            <nav className="h-1/19 w-full flex flex-row items-center px-sm justify-between shadow-md shadow-shadow-primary/70 bg-primary">
+              <h1 className="text-xl font-extrabold"><span className="text-blue-600">W</span>eb<span className="text-purple-600">C</span>hat</h1>
+              <NavUser />
+            </nav>
+            <main className="h-18/19">
+              {children}
+            </main>
           </ClientInitializer>
         </ClientProvider>
       </body>
