@@ -1,3 +1,4 @@
+import PageRoutes from "@/app/pageRoutes";
 import AuthMapper from "@/mapper/AuthMapper";
 import SignUpModel from "@/models/auth/SignUpModel";
 import AuthService from "@/services/AuthService";
@@ -27,7 +28,7 @@ export function useSignUpViewModel() {
             setError(null);
             setUsername("");
             setPassword("");
-            router.replace("/auth/signin");
+            router.replace(PageRoutes.SIGN_IN);
         },
         onError: (error) => {
             setError(error.message);

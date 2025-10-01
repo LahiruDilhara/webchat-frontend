@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import PageRoutes from "@/app/pageRoutes";
 
 export function useLoginViewModel() {
     const [username, setUsername] = useState("");
@@ -33,7 +34,7 @@ export function useLoginViewModel() {
             reduxDispatcher(setLoggedIn({ username: username }));
             setUsername("");
             setPassword("");
-            router.replace("/home");
+            router.replace(PageRoutes.HOME);
         },
         onError: (error) => {
             setError(error.message);

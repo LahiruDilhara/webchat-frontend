@@ -35,6 +35,11 @@
   --color-info: #2196f3;
   --color-disabled: #555555;
 
+  --color-nav-item-bg: #2a2a2a;
+  --color-nav-item-hover: #3a3a3a;
+  --color-nav-item-active: #3131cc;
+  --color-on-nav-item: #ffffff;
+
   --color-card-bg: #1a1a1a;
   --color-card-border: #333333;
   --color-card-hover: #2a2a2a;
@@ -109,6 +114,7 @@
   --padding-h-xl: 5rem; /* 80px */
   --padding-h-2xl: 6rem; /* 96px */
   --padding-h-3xl: 8rem; /* 128px */
+  --padding-h-4xl: 12rem; /* 192px */
 
   /* Margin */
   --margin-xs: 0.25rem; /* 4px */
@@ -137,6 +143,7 @@
   --height-xl: 5rem; /* 80px */
   --height-2xl: 6rem; /* 96px */
   --height-3xl: 8rem; /* 128px */
+  --height-4xl: 12rem; /* 192px */
 
   /* Width */
   --width-xs: 1rem; /* 16px */
@@ -146,6 +153,7 @@
   --width-xl: 5rem; /* 80px */
   --width-2xl: 6rem; /* 96px */
   --width-3xl: 8rem; /* 128px */
+  --width-4xl: 12rem; /* 192px */
 }
 
 @layer base {
@@ -229,6 +237,11 @@
     --color-on-card: #e0e0e0;
     --color-card-item: #272727;
 
+    --color-nav-item-bg: #2a2a2a;
+    --color-nav-item-hover: #3a3a3a;
+    --color-nav-item-active: #3131cc;
+    --color-on-nav-item: #ffffff;
+
     --color-link: #5b7cfa;
     --color-link-hover: #7a92fa;
   }
@@ -270,6 +283,11 @@
     --color-card-hover: #ededff;
     --color-on-card: #222222;
     --color-card-item: #e0e0e0;
+
+    --color-nav-item-bg: #e0e0e0;
+    --color-nav-item-hover: #d0d0d0;
+    --color-nav-item-active: #3a3aff;
+    --color-on-nav-item: #111111;
 
     --color-link: #1a0dab;
     --color-link-hover: #4a32d1;

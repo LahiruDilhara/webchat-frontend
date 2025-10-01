@@ -1,4 +1,5 @@
 "use client";
+import PageRoutes from "@/app/pageRoutes";
 import IconButton from "@/components/primitive/IconButtonButton";
 import IconOutlinedButton from "@/components/primitive/IconOutlinedButton";
 import LabelInput from "@/components/primitive/LabelInput";
@@ -27,7 +28,7 @@ export default function SignUpPage() {
                     <LabelInput label="Password" placeholder="password" value={password} onChange={(e) => { updatePassword(e.target.value) }} inputType="password"></LabelInput>
                 </div>
                 <div className="flex flex-row w-full justify-between gap-xl">
-                    <IconOutlinedButton icon={<LogIn />} label="Sign In" onClick={() => { router.replace("/auth/signin") }} className="flex-1 text-nowrap"></IconOutlinedButton>
+                    <IconOutlinedButton icon={<LogIn />} label="Sign In" onClick={() => { router.replace(PageRoutes.SIGN_IN) }} className="flex-1 text-nowrap"></IconOutlinedButton>
                     <IconButton icon={isLoading ? <ClipLoader size={24} /> : <UserRoundPlus />} label="Sign Up" onClick={submit} className="flex-1 text-nowrap"></IconButton>
                 </div>
             </form>

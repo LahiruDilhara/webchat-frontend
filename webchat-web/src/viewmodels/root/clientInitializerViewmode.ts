@@ -1,3 +1,4 @@
+import PageRoutes from "@/app/pageRoutes";
 import { RootState } from "@/app/store";
 import { setLoggedIn, setLoggedOut } from "@/slices/auth/AuthSlice";
 import { getTokenUser } from "@/utils/jwtUtil";
@@ -42,13 +43,13 @@ export function useClientInitializerViewModel() {
         if (isUserLoggedIn) {
             if (windowPathName.startsWith("/auth")) {
                 console.log("redirecting to /home");
-                router.replace("/home");
+                router.replace(PageRoutes.HOME);
             }
         }
         else {
             if (windowPathName.startsWith("/home")) {
                 console.log("redirecting to /");
-                router.replace("/");
+                router.replace(PageRoutes.ROOT);
             }
         }
     }, [windowPathName, router,isUserLoggedIn, ready])
