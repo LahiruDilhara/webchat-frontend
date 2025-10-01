@@ -12,7 +12,7 @@ const NavBar = () => {
     return (
         <div className="h-full w-full flex flex-row items-center justify-between shadow-md shadow-shadow-primary/70 bg-primary">
             <h1 className="cursor-pointer text-xl px-sm font-extrabold" onClick={() => router.replace(PageRoutes.ROOT)}><span className="text-blue-600">W</span>eb<span className="text-purple-600">C</span>hat</h1>
-            <div className="h-full flex flex-row gap-sm items-center pr-sm">
+            <div className="h-full flex flex-row gap-sm items-center">
                 {!loggedIn && (
                     <>
                         <NavItem label={"Sign in"} onClick={() => router.push(PageRoutes.SIGN_IN)} />
