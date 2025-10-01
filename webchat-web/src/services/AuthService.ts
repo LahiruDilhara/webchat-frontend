@@ -7,7 +7,6 @@ export default class AuthService {
 
     static async login(loginDto: LoginDto): Promise<TokenDto> {
         const response = await API.post<{ token: string }>("/auth/login", loginDto);
-        console.log(response.data)
         if (response.data.token === null || response.data.token === undefined) {
             throw new Error("Invalid credentials");
         }

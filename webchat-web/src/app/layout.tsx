@@ -4,7 +4,6 @@ import "./globals.css" ;
 import ClientProvider from "./clientProvider";
 import ClientInitializer from "./clientInitializer";
 import NavUser from "./components/navUser";
-import NavBarLeft from "./components/navBarLeft";
 import NavBar from "./components/navBar";
 
 const geistSans = Geist({
