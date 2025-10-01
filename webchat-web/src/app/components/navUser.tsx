@@ -7,6 +7,7 @@ import ProfileDropdown from "./profileDropdown";
 
 const NavUser = () => {
     const username = useSelector((state: RootState) => state.auth.username);
+    const loggedIn = useSelector((state: RootState) => state.auth.loggedIn);
     const [profile, setProfile] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +25,7 @@ const NavUser = () => {
     }, [])
 
     return (
-        <div className="flex flex-row items-center gap-sm cursor-pointer relative" onClick={() => setProfile(!profile)} ref={menuRef}>
+        <div className="flex flex-row items-center gap-sm cursor-pointer relative h-full" onClick={() => setProfile(!profile)} ref={menuRef}>
             <h1 className="text-caption">{username}</h1>
             <h1 className={`${getColorForString(username)} rounded-full size-lg text-caption text-center flex items-center justify-center`}>{username.charAt(0)}</h1>
             {profile && <ProfileDropdown />}
