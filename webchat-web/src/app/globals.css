@@ -39,6 +39,7 @@
   --color-card-border: #333333;
   --color-card-hover: #2a2a2a;
   --color-on-card: #ffffff;
+  --color-card-item: #2a2a2a;
 
   --text-input-label: 0.85rem;
 
@@ -217,6 +218,7 @@
     --color-card-border: #222266;
     --color-card-hover: #23234a;
     --color-on-card: #e0e0e0;
+    --color-card-item: #272727;
 
     --color-link: #5b7cfa;
     --color-link-hover: #7a92fa;
@@ -258,6 +260,7 @@
     --color-card-border: #e0e0e0;
     --color-card-hover: #ededff;
     --color-on-card: #222222;
+    --color-card-item: #e0e0e0;
 
     --color-link: #1a0dab;
     --color-link-hover: #4a32d1;

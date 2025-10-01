@@ -1,5 +1,5 @@
 import TokenDto from "@/dto/auth/TokenDto";
-import { setLoggedIn } from "@/features/auth/AuthSlice";
+import { setLoggedIn } from "@/slices/auth/AuthSlice";
 import AuthMapper from "@/mapper/AuthMapper";
 import LoginModel from "@/models/auth/LoginModel";
 import AuthService from "@/services/AuthService";

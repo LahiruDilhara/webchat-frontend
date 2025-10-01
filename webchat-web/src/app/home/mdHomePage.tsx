@@ -14,6 +14,11 @@ const MdHomePage = () => {
                     <h1 className="text-h2">Chat</h1>
                     <div className=" shrink-0 flex-1 overflow-auto">
                         <div className="w-full flex items-center gap-lg">
+                            <div className="flex flex-row justify-center items-center text-center p-sm rounded-2xl">
+                                <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer">
+                                    <Plus size={16}></Plus>
+                                </div>
+                            </div>
                             <div className="flex flex-row justify-center items-center text-center bg-gray-800 p-sm rounded-2xl">
                                 <div className="shrink-0 size-lg bg-amber-200 rounded-full"></div>
                                 <h1 className="text-caption text-nowrap truncate w-15">room 1</h1>
