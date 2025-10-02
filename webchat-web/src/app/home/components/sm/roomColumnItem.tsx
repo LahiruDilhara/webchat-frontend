@@ -5,18 +5,17 @@ type SmallRoomColumnItemProps = {
     name: string;
     caption: string;
     date: string;
-    key?: string | number;
     onRoomClick: (roomId: string) => void;
     id: string;
     activeRoomId: string | null
     count: number;
 }
 
-const SmallRoomColumnItem = ({ name, caption, date, key, onRoomClick, id, activeRoomId, count }: SmallRoomColumnItemProps) => {
+const SmallRoomColumnItem = ({ name, caption, date, onRoomClick, id, activeRoomId, count }: SmallRoomColumnItemProps) => {
     const createdDate = new Date(date);
     console.log(date)
     return (
-        <div className={`w-full shrink-0 flex flex-row gap-md min-h-0 cursor-pointer hover:brightness-75 ${activeRoomId === id ? "brightness-75" : ""}`} key={key} onClick={() => onRoomClick(id)}>
+        <div className={`w-full shrink-0 flex flex-row gap-md min-h-0 cursor-pointer hover:brightness-75 ${activeRoomId === id ? "brightness-75" : ""}`} onClick={() => onRoomClick(id)}>
             <div className={`shrink-0 size-2xl ${getColorForString(name)} rounded-full flex justify-center items-center`}>{name.charAt(0).toUpperCase()}</div>
             <div className="w-full flex flex-row justify-between">
                 <div>

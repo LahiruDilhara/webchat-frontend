@@ -1,3 +1,5 @@
+import { store } from "@/app/store";
+import { setLoggedOut } from "@/slices/auth/AuthSlice";
 import axios from "axios";
 
 const API = axios.create({
@@ -34,6 +36,14 @@ API.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response) {
+            const status = error.response.status;
+            if (status === 401) {
+                localStorage.removeItem("token");
+                store.dispatch(setLoggedOut())
+                return Promise.reject({
+                    message: "Session expired, please login again",
+                });
+            }
             return Promise.reject({
                 message: error.response.data?.error || "Unknown error"
             });
@@ -43,5 +53,6 @@ API.interceptors.response.use(
         })
     }
 )
+
 
 export default API;
