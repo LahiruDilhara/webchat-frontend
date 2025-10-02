@@ -12,7 +12,7 @@ const TitleLoadingPage = ({title}:TitleLoadingPageProps) => {
                 <CircleLoader color="#4d4dff" size={150} />
             </div>
             <div className="flex-1 items-center flex flex-col gap-4">
-                <h1>{title}</h1>
+                <h1 className="text-body">{title}</h1>
             </div>
         </div>
     );
