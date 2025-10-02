@@ -5,8 +5,6 @@ import SmHomePage from "./components/sm/smHomePage";
 import MdHomePage from "./components/md/mdHomePage";
 import useHomePageViewModel from "@/viewmodels/home/useHomePageViewModel";
 import TitleLoadingPage from "@/components/loadingPages/TitleLoadingPage";
-import { RootState } from "../store";
-import { useSelector } from "react-redux";
 
 const HomePage = () => {
     const { loading, activeRoomId, recentRooms, rooms, searchText, setSearchText, setActiveRoomId } = useHomePageViewModel();

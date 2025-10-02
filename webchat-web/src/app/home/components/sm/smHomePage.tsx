@@ -38,7 +38,7 @@ const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
             <div className="flex flex-col min-h-0">
                 <h1 className="text-h3 pb-sm">Rooms</h1>
                 <div className="flex flex-col gap-lg overflow-y-scroll min-h-0">
-                    {rooms.map(room => <SmallRoomColumnItem activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
+                    {rooms.map(room => <SmallRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
                 </div>
             </div>
         </div>

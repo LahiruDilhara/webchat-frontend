@@ -9,9 +9,10 @@ type SmallRoomColumnItemProps = {
     onRoomClick: (roomId: string) => void;
     id: string;
     activeRoomId: string | null
+    count: number;
 }
 
-const SmallRoomColumnItem = ({ name, caption, date, key, onRoomClick, id, activeRoomId }: SmallRoomColumnItemProps) => {
+const SmallRoomColumnItem = ({ name, caption, date, key, onRoomClick, id, activeRoomId, count }: SmallRoomColumnItemProps) => {
     const createdDate = new Date(date);
     console.log(date)
     return (
@@ -22,7 +23,10 @@ const SmallRoomColumnItem = ({ name, caption, date, key, onRoomClick, id, active
                     <h1 className="text-body">{name}</h1>
                     <h1 className="text-caption">{caption}</h1>
                 </div>
-                <h1 className="text-caption">{format(createdDate, "yyyy/MM/dd")}</h1>
+                <div className=" flex flex-col items-end gap-sm">
+                    <h1 className="text-caption">{format(createdDate, "yyyy/MM/dd")}</h1>
+                    <h1 className={`text-caption bg-accent rounded-full flex min-w-0 max-w-fit text-end p-0.5 ${isNaN(count) ? "hidden" : ""}`}>{isNaN(count) ? 0 : count}</h1>
+                </div>
             </div>
         </div>
     );

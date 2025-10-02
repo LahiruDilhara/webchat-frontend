@@ -45,7 +45,11 @@ export default function useHomePageViewModel() {
         }
         else {
             const lowerText = text.toLowerCase();
-            const filteredRooms = allRooms.filter(room => room.name.toLowerCase().includes(lowerText));
+            const textLetters = lowerText.split("");
+            const filteredRooms = allRooms.filter(room => {
+                const roomNameLetters = room.name.toLowerCase().split("");
+                return textLetters.every(letter => roomNameLetters.includes(letter));
+            });
             setSearchedRooms(filteredRooms);
         }
     }

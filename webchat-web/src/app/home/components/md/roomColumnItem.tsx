@@ -8,14 +8,18 @@ type Props = {
     onRoomClick: (roomId: string) => void;
     id: string;
     activeRoomId: string | null;
+    count: number;
 }
 
-const MdRoomColumnItem = ({ caption, date, name, onRoomClick, id, activeRoomId }: Props) => {
+const MdRoomColumnItem = ({ caption, date, name, onRoomClick, id, activeRoomId, count }: Props) => {
     return (
         <div className={`w-full shrink-0 flex flex-row gap-md min-h-0 bg-card-bg p-sm rounded-lg cursor-pointer hover:brightness-75 ${activeRoomId === id ? "brightness-75" : ""}`} onClick={() => onRoomClick(id)}>
             <div className={`shrink-0 size-2xl ${getColorForString(name)} rounded-full`}></div>
             <div className="w-full flex flex-col justify-between">
-                <h1 className="text-body">{name}</h1>
+                <div className="flex flex-row justify-between w-full">
+                    <h1 className="text-body">{name}</h1>
+                    <h1 className={`text-caption bg-accent rounded-full h-fit p-0.5 ${isNaN(count) ? "hidden" : ""}`}>{isNaN(count) ? 0 : count}</h1>
+                </div>
                 <div className="flex flex-row justify-between w-full">
                     <h1 className="text-caption hidden lg:block">{caption}</h1>
                     <h1 className="text-caption">{format(new Date(date), "yyyy/MM/dd")}</h1>

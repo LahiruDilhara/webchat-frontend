@@ -40,6 +40,9 @@
   --color-nav-item-active: #3131cc;
   --color-on-nav-item: #ffffff;
 
+  --color-accent: #ff4081;
+  --color-on-accent: #ffffff;
+
   --color-card-bg: #1a1a1a;
   --color-card-border: #333333;
   --color-card-hover: #2a2a2a;
@@ -242,6 +245,9 @@
     --color-nav-item-active: #3131cc;
     --color-on-nav-item: #ffffff;
 
+    --color-accent: #ff4081;
+    --color-on-accent: #ffffff;
+
     --color-link: #5b7cfa;
     --color-link-hover: #7a92fa;
   }
@@ -288,6 +294,9 @@
     --color-nav-item-hover: #d0d0d0;
     --color-nav-item-active: #3a3aff;
     --color-on-nav-item: #111111;
+
+    --color-accent: #ff4081;
+    --color-on-accent: #ffffff;
 
     --color-link: #1a0dab;
     --color-link-hover: #4a32d1;
