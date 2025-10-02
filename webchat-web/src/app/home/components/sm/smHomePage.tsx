@@ -12,9 +12,10 @@ type SmHomePageProps = {
     searchText: string
     setSearchText: (text: string) => void
     onRoomClick: (roomId: string) => void
+    activeRoomId: string | null
 }
 
-const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick }: SmHomePageProps) => {
+const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId }: SmHomePageProps) => {
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_auto_7fr] gap-md py-md">
@@ -37,7 +38,7 @@ const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
             <div className="flex flex-col min-h-0">
                 <h1 className="text-h3 pb-sm">Rooms</h1>
                 <div className="flex flex-col gap-lg overflow-y-scroll min-h-0">
-                    {rooms.map(room => <SmallRoomColumnItem id={room.id} onRoomClick={onRoomClick} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
+                    {rooms.map(room => <SmallRoomColumnItem activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
                 </div>
             </div>
         </div>

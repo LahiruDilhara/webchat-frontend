@@ -11,9 +11,10 @@ type props = {
     searchText: string
     setSearchText: (text: string) => void
     onRoomClick: (roomId: string) => void
+    activeRoomId: string | null
 }
 
-const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick }: props) => {
+const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId }: props) => {
     const [folded, setFolded] = useState(false);
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
@@ -46,7 +47,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                         </div>
                         <div className="flex flex-col gap-lg overflow-y-scroll ">
                             {
-                                rooms.map((room) => <MdRoomColumnItem id={room.id} onRoomClick={onRoomClick} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
+                                rooms.map((room) => <MdRoomColumnItem activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
                             }
 
                         </div>

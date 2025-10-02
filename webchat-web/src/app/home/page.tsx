@@ -13,7 +13,7 @@ const HomePage = () => {
     const { breakpoint } = useBreakpoint();
 
     if (loading) return <TitleLoadingPage title="Home Page is loading...." />
-    return breakpoint === "xs" ? <SmHomePage onRoomClick={setActiveRoomId} rooms={rooms} recentRooms={recentRooms} searchText={searchText} setSearchText={setSearchText} /> : <MdHomePage onRoomClick={setActiveRoomId} rooms={rooms} recentRooms={recentRooms} searchText={searchText} setSearchText={setSearchText} />;
+    return breakpoint === "xs" ? <SmHomePage activeRoomId={activeRoomId} onRoomClick={setActiveRoomId} rooms={rooms} recentRooms={recentRooms} searchText={searchText} setSearchText={setSearchText} /> : <MdHomePage activeRoomId={activeRoomId} onRoomClick={setActiveRoomId} rooms={rooms} recentRooms={recentRooms} searchText={searchText} setSearchText={setSearchText} />;
 }
 
 export default HomePage;
