@@ -10,7 +10,7 @@ const NavBar = () => {
     const router = useRouter();
     const loggedIn = useSelector((state: RootState) => state.auth.loggedIn);
     return (
-        <div className="h-full w-full flex flex-row items-center justify-between shadow-md shadow-shadow-primary/70 bg-primary">
+        <div className="h-full w-full flex flex-row items-center justify-between shadow-md shadow-shadow-primary/70 bg-primary z-10">
             <h1 className="cursor-pointer text-xl px-sm font-extrabold" onClick={() => router.replace(PageRoutes.ROOT)}><span className="text-blue-600">W</span>eb<span className="text-purple-600">C</span>hat</h1>
             <div className="h-full flex flex-row gap-sm items-center">
                 {!loggedIn && (

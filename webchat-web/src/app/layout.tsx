@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <ClientProvider>
           <ClientInitializer >
-            <nav className="h-1/19">
+            <nav className="h-1/19 z-10">
               <NavBar />
             </nav>
             <main className="h-18/19">

@@ -1,5 +1,5 @@
 "use client";
-import TitleLoadingPage from "@/components/features/TitleLoadingPage";
+import TitleLoadingPage from "@/components/loadingPages/TitleLoadingPage";
 import { useClientInitializerViewModel } from "@/viewmodels/root/clientInitializerViewmode";
 
 const ClientInitializer = ({ children }: { children: React.ReactNode }) => {
