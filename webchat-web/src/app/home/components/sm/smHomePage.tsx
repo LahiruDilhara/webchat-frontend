@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import SmallRoomRowItem from "./roomRowItem";
 import SmallRoomColumnItem from "./roomColumnItem";
 import RoomDetailsResponseDTO from "@/dto/room/RoomDetailsResponseDTO";
+import RoomChat from "../roomChat/RoomChat";
 
 type SmHomePageProps = {
     rooms: RoomDetailsResponseDTO[]
@@ -14,9 +15,14 @@ type SmHomePageProps = {
     onRoomClick: (roomId: string) => void
     activeRoomId: string | null
     onRoomAddClick: () => void
+    setActiveRoomId: (roomId: string | null) => void
 }
 
-const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick }: SmHomePageProps) => {
+const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick, setActiveRoomId }: SmHomePageProps) => {
+
+    if (activeRoomId !== null) return (
+        <RoomChat onExitRoom={() => setActiveRoomId(null)} roomId={activeRoomId} />
+    );
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_auto_7fr] gap-md py-md">

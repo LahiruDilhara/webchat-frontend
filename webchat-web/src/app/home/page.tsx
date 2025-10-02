@@ -9,7 +9,7 @@ import AddRoomOverlay from "./components/addRoom/AddRoomOverlay";
 import { useState } from "react";
 
 const HomePage = () => {
-    const { loading, activeRoomId, recentRooms, rooms, searchText, setSearchText, setActiveRoomId } = useHomePageViewModel();
+    const { loading, activeRoomId, recentRooms, rooms, searchText, setSearchText, setActiveRoomId, onRoomClick } = useHomePageViewModel();
     const { breakpoint } = useBreakpoint();
     const [addRoom, setAddRoom] = useState(false);
 
@@ -20,20 +20,22 @@ const HomePage = () => {
                 <SmHomePage
                     onRoomAddClick={() => setAddRoom(true)}
                     activeRoomId={activeRoomId}
-                    onRoomClick={setActiveRoomId}
+                    onRoomClick={onRoomClick}
                     rooms={rooms}
                     recentRooms={recentRooms}
                     searchText={searchText}
                     setSearchText={setSearchText}
+                    setActiveRoomId={setActiveRoomId}
                 /> :
                 <MdHomePage
                     onRoomAddClick={() => setAddRoom(true)}
                     activeRoomId={activeRoomId}
-                    onRoomClick={setActiveRoomId}
+                    onRoomClick={onRoomClick}
                     rooms={rooms}
                     recentRooms={recentRooms}
                     searchText={searchText}
                     setSearchText={setSearchText}
+                    setActiveRoomId={setActiveRoomId}
                 />}
             {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} />}
         </div>

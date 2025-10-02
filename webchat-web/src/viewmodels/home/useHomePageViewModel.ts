@@ -77,5 +77,14 @@ export default function useHomePageViewModel() {
 
     const loading = fetchUserRooms.isLoading;
 
-    return { loading, searchText, setSearchText: onSearchTextChange, rooms: searchedRooms, activeRoomId, setActiveRoomId: onRoomClick, recentRooms };
+    return {
+        loading,
+        searchText,
+        setSearchText: onSearchTextChange,
+        rooms: searchedRooms,
+        activeRoomId,
+        setActiveRoomId,
+        recentRooms,
+        onRoomClick
+    };
 }

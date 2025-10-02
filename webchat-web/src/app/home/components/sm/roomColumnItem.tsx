@@ -1,4 +1,5 @@
 import getColorForString from "@/utils/ColorUtil";
+import { capitalizeFirstLetter } from "@/utils/TextUtil";
 import { format } from "date-fns";
 
 type SmallRoomColumnItemProps = {
@@ -19,7 +20,7 @@ const SmallRoomColumnItem = ({ name, caption, date, onRoomClick, id, activeRoomI
             <div className={`shrink-0 size-2xl ${getColorForString(name)} rounded-full flex justify-center items-center`}>{name.charAt(0).toUpperCase()}</div>
             <div className="w-full flex flex-row justify-between">
                 <div>
-                    <h1 className="text-body">{name}</h1>
+                    <h1 className="text-body">{capitalizeFirstLetter(name)}</h1>
                     <h1 className="text-caption">{caption}</h1>
                 </div>
                 <div className=" flex flex-col items-end gap-sm">

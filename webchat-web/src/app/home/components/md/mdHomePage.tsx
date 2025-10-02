@@ -4,6 +4,8 @@ import { useState } from "react";
 import MdRoomRowItem from "./roomRowItem";
 import RoomDetailsResponseDTO from "@/dto/room/RoomDetailsResponseDTO";
 import MdRoomColumnItem from "./roomColumnItem";
+import RoomChat from "../roomChat/RoomChat";
+import Image from "next/image";
 
 type props = {
     rooms: RoomDetailsResponseDTO[],
@@ -13,10 +15,12 @@ type props = {
     onRoomClick: (roomId: string) => void
     activeRoomId: string | null
     onRoomAddClick: () => void
+    setActiveRoomId: (roomId: string | null) => void
 }
 
-const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick }: props) => {
+const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick, setActiveRoomId }: props) => {
     const [folded, setFolded] = useState(false);
+
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
             <div className="flex flex-row min-h-fit items-center min-w-0 w-full">
@@ -54,7 +58,18 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                         </div>
                     </div>
                 )}
-                <div className="w-full h-full rounded-lg bg-card-bg"></div>
+                <div className="w-full h-full min-h-0 rounded-lg bg-card-bg">
+                    {activeRoomId !== null && <RoomChat onExitRoom={() => setActiveRoomId(null)} roomId={activeRoomId} />}
+                    {activeRoomId === null &&
+                        <div className="w-full h-full flex justify-center items-center text-center flex-col gap-lg">
+                            <Image src="/images/chatBlue.svg" alt={"logo"} width={200} height={200} />
+                            <div className="flex flex-col gap-sm">
+                                <h1 className="text-h3">No converstation selected</h1>
+                                <h1>Select a room to start chatting</h1>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     );
