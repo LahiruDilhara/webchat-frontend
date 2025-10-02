@@ -13,9 +13,10 @@ type SmHomePageProps = {
     setSearchText: (text: string) => void
     onRoomClick: (roomId: string) => void
     activeRoomId: string | null
+    onRoomAddClick: () => void
 }
 
-const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId }: SmHomePageProps) => {
+const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick }: SmHomePageProps) => {
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_auto_7fr] gap-md py-md">
@@ -27,7 +28,7 @@ const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
             </div>
             <div className="w-full flex min-h-fit flex-row gap-md overflow-x-auto">
                 <div className="flex flex-col justify-center items-center text-center  cursor-pointer">
-                    <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full">
+                    <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full" onClick={onRoomAddClick}>
                         <Plus size={16}></Plus>
                     </div>
                 </div>

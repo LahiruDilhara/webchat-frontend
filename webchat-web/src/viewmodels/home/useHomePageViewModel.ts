@@ -8,6 +8,7 @@ import { addOrReplaceMultiUserRoom } from "@/slices/room/MultiUserRoomSlice";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function useHomePageViewModel() {
 
@@ -25,6 +26,12 @@ export default function useHomePageViewModel() {
         queryFn: RoomService.getUserJoinedRooms,
         retry: 2
     });
+
+    useEffect(() => {
+        if (fetchUserRooms.error) {
+            toast.error(fetchUserRooms.error.message)
+        }
+    }, [fetchUserRooms.error])
 
     useEffect(() => {
         if (!fetchUserRooms.data) return;

@@ -12,9 +12,10 @@ type props = {
     setSearchText: (text: string) => void
     onRoomClick: (roomId: string) => void
     activeRoomId: string | null
+    onRoomAddClick: () => void
 }
 
-const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId }: props) => {
+const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick }: props) => {
     const [folded, setFolded] = useState(false);
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
@@ -27,7 +28,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     <div className=" shrink-0 flex-1 overflow-auto">
                         <div className="w-full flex items-center gap-lg">
                             <div className="flex flex-row justify-center items-center text-center p-sm rounded-2xl">
-                                <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer">
+                                <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={onRoomAddClick}>
                                     <Plus size={16}></Plus>
                                 </div>
                             </div>
