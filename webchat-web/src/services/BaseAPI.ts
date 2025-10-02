@@ -41,7 +41,7 @@ API.interceptors.response.use(
                 localStorage.removeItem("token");
                 store.dispatch(setLoggedOut())
                 return Promise.reject({
-                    message: "Session expired, please login again",
+                    message: error.response.data?.error || "Session expired, please login again",
                 });
             }
             return Promise.reject({
