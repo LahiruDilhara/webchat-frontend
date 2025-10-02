@@ -19,7 +19,7 @@ export default class RoomService {
     }
 
     static async getUserJoinedRooms(): Promise<RoomDetailsResponseDTO[]> {
-        const response = await API.get<RoomDetailsResponseDTO[]>("/rooms");
+        const response = await API.get<RoomDetailsResponseDTO[]>("/rooms/");
         return response.data;
     }
 

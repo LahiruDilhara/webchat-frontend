@@ -1,11 +1,11 @@
 import UserResponseDto from "../user/UserResponseDto";
 
 export default interface RoomDetailsResponseDTO {
-    id: number;
+    id: string;
     name: string;
-    createdAt: Date;
+    createdAt: string;
     createdBy: string;
-    unreadMessageCount: number;
+    unreadMessageCount: string;
     type: string;
     roomMembers: UserResponseDto[];
 }

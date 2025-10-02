@@ -1,5 +1,5 @@
 export default interface UserResponseDto{
-    id: number;
+    id: string;
     username: string;
-    lastSeen: Date;
+    lastSeen: string;
 }
