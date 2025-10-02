@@ -38,7 +38,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     </div>
                 </div>
             </div>
-            <div className={`grid gap-lg pt-lg ${folded ? "grid-cols-1" : "grid-cols-[2fr_7fr]"} h-full overflow-hidden`}>
+            <div className={`grid gap-lg pt-lg ${folded ? "grid-cols-1" : "grid-cols-[2fr_8fr]"} h-full overflow-hidden`}>
                 {!folded && (
                     <div className="flex flex-col min-h-0 min-w-0 gap-md">
                         <h1 className="text-body">Rooms</h1>
