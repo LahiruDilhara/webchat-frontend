@@ -1,11 +1,13 @@
 import { RootState } from "@/app/store";
 import SearchInput from "@/components/primitive/SearchInput";
-import { Plus } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useSelector } from "react-redux";
 import SmallRoomRowItem from "./roomRowItem";
 import SmallRoomColumnItem from "./roomColumnItem";
 import RoomDetailsResponseDTO from "@/dto/room/RoomDetailsResponseDTO";
 import RoomChat from "../roomChat/RoomChat";
+import { useState } from "react";
+import useClickOutside from "@/hooks/useClickOutside";
 
 type SmHomePageProps = {
     rooms: RoomDetailsResponseDTO[]
@@ -19,18 +21,32 @@ type SmHomePageProps = {
 }
 
 const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick, setActiveRoomId }: SmHomePageProps) => {
+    const [searchEnabled, setSearchEnabled] = useState(false);
+    const { ref } = useClickOutside<HTMLDivElement>(() => {
+        setSearchEnabled(false);
+        setSearchText("");
+    });
 
     if (activeRoomId !== null) return (
         <RoomChat onExitRoom={() => setActiveRoomId(null)} roomId={activeRoomId} />
     );
 
     return (
-        <div className="w-full h-full grid grid-rows-[1fr_auto_7fr] gap-md py-md">
-            <div className="flex flex-col gap-sm">
-                <h1 className="text-h2">Chat</h1>
-                <div className="w-full flex items-center justify-center">
-                    <SearchInput placeholder="Search..." value={searchText} onChange={setSearchText} className=" w-full" />
-                </div>
+        <div className="w-full h-full grid grid-rows-[1fr_auto_16fr] gap-md py-md ">
+            <div className="flex items-center justify-between flex-row gap-sm">
+                {!searchEnabled && (
+                    <>
+                        <h1 className="text-h2">Chat</h1>
+                        <div className="p-sm cursor-pointer" onClick={() => setSearchEnabled(true)}><Search /></div>
+                    </>
+                )}
+                {searchEnabled && (
+                    <div className="w-full flex items-center justify-center" ref={ref}>
+                        <SearchInput placeholder="Search..." value={searchText} onChange={setSearchText} className=" w-full" />
+                    </div>
+                )
+
+                }
             </div>
             <div className="w-full flex min-h-fit flex-row gap-md overflow-x-auto">
                 <div className="flex flex-col justify-center items-center text-center  cursor-pointer">
