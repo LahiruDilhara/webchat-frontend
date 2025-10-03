@@ -24,18 +24,21 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
             <div className="flex flex-row min-h-fit items-center min-w-0 w-full">
-                <div className="flex flex-row min-h-fit items-center gap-md w-full">
-                    <div className="cursor-pointer" onClick={() => setFolded(!folded)}>
-                        <Menu />
+                <div className={`grid ${folded ? "grid-cols-[1fr_8fr]": "grid-cols-[2fr_8fr]"} min-h-fit gap-md w-full`}>
+                    <div className="flex flex-row items-center gap-md">
+                        <div className="cursor-pointer" onClick={() => setFolded(!folded)}>
+                            <Menu />
+                        </div>
+                        <h1 className="text-h2">Chat</h1>
                     </div>
-                    <h1 className="text-h2">Chat</h1>
-                    <div className=" shrink-0 flex-1 overflow-auto">
+                    <div className=" shrink-0 flex-1 overflow-auto self-start">
                         <div className="w-full flex items-center gap-lg">
                             <div className="flex flex-row justify-center items-center text-center p-sm rounded-2xl">
                                 <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={onRoomAddClick}>
                                     <Plus size={16}></Plus>
                                 </div>
                             </div>
+                            {recentRooms.length === 0 && <div className="text-body text-input-placeholder">No Recent rooms yet ....</div>}
                             {
                                 recentRooms.map((room) => <MdRoomRowItem id={room.id} name={room.name} key={room.id} onRoomClick={onRoomClick} />)
                             }
