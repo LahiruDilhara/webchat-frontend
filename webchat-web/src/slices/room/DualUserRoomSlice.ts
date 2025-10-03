@@ -16,14 +16,15 @@ const dualUserRoomSlice = createSlice({
         addOrReplaceDualUserRoom(state, action: { payload: DualUserRoomDetailsResponseDTO }) {
             state.dualUserRooms = addOrReplaceDualUserRoomDetailsResponseDTOToList(state.dualUserRooms, action.payload);
         },
-        removeDualUserRoom(state, action: { payload: number }) {
+        removeDualUserRoom(state, action: { payload: string }) {
             state.dualUserRooms = state.dualUserRooms.filter(room => room.id !== action.payload);
-        }
+        },
+        resetDualUserRooms: () => initialState,
     }
 });
 
 
-export const { addOrReplaceDualUserRoom, removeDualUserRoom } = dualUserRoomSlice.actions;
+export const { addOrReplaceDualUserRoom, removeDualUserRoom, resetDualUserRooms } = dualUserRoomSlice.actions;
 export default dualUserRoomSlice.reducer;
 
 function addOrReplaceDualUserRoomDetailsResponseDTOToList(list: DualUserRoomDetailsResponseDTO[], room: DualUserRoomDetailsResponseDTO): DualUserRoomDetailsResponseDTO[] {

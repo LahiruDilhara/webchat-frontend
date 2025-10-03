@@ -1,4 +1,5 @@
 import { RootState } from "@/app/store";
+import QueryKeys from "@/core/QueryKeys";
 import DualUserRoomDetailsResponseDTO from "@/dto/room/DualUserRoomDetailsResponseDTO";
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import useLimitStack from "@/hooks/useLimitStack";
@@ -22,7 +23,7 @@ export default function useHomePageViewModel() {
     const [searchedRooms, setSearchedRooms] = useState<(MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO)[]>(allRooms);
 
     const fetchUserRooms = useQuery({
-        queryKey: ['userRooms'],
+        queryKey: [QueryKeys.USER_ROOMS],
         queryFn: RoomService.getUserJoinedRooms,
         retry: 2
     });
@@ -35,6 +36,7 @@ export default function useHomePageViewModel() {
 
     useEffect(() => {
         if (!fetchUserRooms.data) return;
+        console.log("Fetched user rooms", fetchUserRooms.data);
         fetchUserRooms.data.forEach(room => {
             if (room.type === "DualUserRoom") {
                 reduxDispatcher(addOrReplaceDualUserRoom(room as DualUserRoomDetailsResponseDTO));
