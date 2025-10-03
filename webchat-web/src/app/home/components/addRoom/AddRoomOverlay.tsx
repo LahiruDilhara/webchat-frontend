@@ -18,7 +18,7 @@ const AddRoomOverlay = ({ onClose }: props) => {
                 <div className="opacity-100 flex justify-center items-center h-full w-full md:w-2/5 md:h-3/5" onClick={(e) => e.stopPropagation()}>
                     <div className="h-full w-full bg-card-bg grid grid-rows-[1fr_20fr] p-lg gap-sm rounded-xl">
                         <div className="w-full flex items-center justify-between px-md py-sm bg-background rounded-xl">
-                            {dualUser ? <div className="text-body">Add Dual User Room</div> : <div className="text-body">Add Multi User Room</div>}
+                            {dualUser ? <div className="text-body text-center flex-1">Add Dual User Room</div> : <div className="text-body text-center flex-1">Add Multi User Room</div>}
                             <div className="cursor-pointer hover:brightness-75" onClick={onClose}>
                                 <X size={32} />
                             </div>
