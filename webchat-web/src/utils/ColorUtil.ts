@@ -27,3 +27,33 @@ export default function getColorForString(str: string): string {
     const index = firstChar % colors.length;
     return colors[index];
 }
+
+export function getOutlineColorForString(str: string): string {
+    const colors = [
+        'outline-red-500',
+        'outline-green-500',
+        'outline-blue-500',
+        'outline-yellow-500',
+        'outline-purple-500',
+        'outline-pink-500',
+        'outline-indigo-500',
+        'outline-teal-500',
+        'outline-orange-500',
+        'outline-cyan-500',
+        'outline-lime-500',
+        'outline-emerald-500',
+        'outline-fuchsia-500',
+        'outline-rose-500',
+        'outline-violet-500',
+        'outline-sky-500',
+        'outline-amber-500',
+        'outline-slate-500',
+        'outline-gray-500',
+        'outline-zinc-500',
+        'outline-neutral-500',
+        'outline-stone-500',
+    ];
+    const firstChar = str.charCodeAt(0);
+    const index = firstChar % colors.length;
+    return colors[index];
+}

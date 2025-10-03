@@ -32,7 +32,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     <div className=" shrink-0 flex-1 overflow-auto">
                         <div className="w-full flex items-center gap-lg">
                             <div className="flex flex-row justify-center items-center text-center p-sm rounded-2xl">
-                                <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={onRoomAddClick}>
+                                <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={onRoomAddClick}>
                                     <Plus size={16}></Plus>
                                 </div>
                             </div>

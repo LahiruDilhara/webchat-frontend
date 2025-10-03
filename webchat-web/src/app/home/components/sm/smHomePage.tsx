@@ -32,7 +32,7 @@ const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
     );
 
     return (
-        <div className="w-full h-full grid grid-rows-[1fr_auto_16fr] gap-md py-md ">
+        <div className="w-full h-full grid grid-rows-[1fr_2fr_19fr] gap-md py-md ">
             <div className="flex items-center justify-between flex-row gap-sm">
                 {!searchEnabled && (
                     <>
@@ -48,9 +48,9 @@ const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
 
                 }
             </div>
-            <div className="w-full flex min-h-fit flex-row gap-md overflow-x-auto">
+            <div className="w-full flex min-w-0 px-sm min-h-fit flex-row gap-md overflow-x-auto">
                 <div className="flex flex-col justify-center items-center text-center  cursor-pointer">
-                    <div className="shrink-0 size-2xl flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full" onClick={onRoomAddClick}>
+                    <div className="shrink-0 size-2xl outline-2 outline-offset-2 stroke-3 outline-dashed outline-primary-hover flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full" onClick={onRoomAddClick}>
                         <Plus size={16}></Plus>
                     </div>
                 </div>

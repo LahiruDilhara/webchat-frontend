@@ -17,8 +17,9 @@ const AddRoomOverlay = ({ onClose }: props) => {
             <div className="fixed inset-0 z-100 flex justify-center items-center h-screen w-screen" onClick={onClose}>
                 <div className="opacity-100 flex justify-center items-center h-full w-full md:w-2/5 md:h-3/5" onClick={(e) => e.stopPropagation()}>
                     <div className="h-full w-full bg-card-bg grid grid-rows-[1fr_20fr] p-lg gap-sm rounded-xl">
-                        <div className="w-full flex items-center justify-end bg-background rounded-xl">
-                            <div className="p-sm cursor-pointer hover:brightness-75" onClick={onClose}>
+                        <div className="w-full flex items-center justify-between px-md py-sm bg-background rounded-xl">
+                            {dualUser ? <div className="text-body">Add Dual User Room</div> : <div className="text-body">Add Multi User Room</div>}
+                            <div className="cursor-pointer hover:brightness-75" onClick={onClose}>
                                 <X size={32} />
                             </div>
                         </div>
@@ -31,7 +32,6 @@ const AddRoomOverlay = ({ onClose }: props) => {
                                 {
                                     dualUser && (
                                         <>
-                                            <h1 className="text-center text-h3">Add Dual User Room</h1>
                                             <div className="py-lg flex flex-col gap-xl">
                                                 <div className="flex flex-col gap-lg">
                                                     <LabelInput label="Enter Room Name" placeholder="Room Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -45,7 +45,6 @@ const AddRoomOverlay = ({ onClose }: props) => {
                                 {
                                     !dualUser && (
                                         <>
-                                            <h1 className="text-center text-h3">Add Multi User Room</h1>
                                             <div className="py-lg flex flex-col gap-xl">
                                                 <div className="flex flex-col gap-lg">
                                                     <LabelInput label="Enter Room Name" placeholder="Room Name" inputType="text" value={name} onChange={(e) => setName(e.target.value)} />
