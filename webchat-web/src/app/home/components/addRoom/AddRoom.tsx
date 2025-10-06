@@ -3,14 +3,22 @@ import LabelInput from "@/components/primitive/LabelInput";
 import LabelToggler from "@/components/primitive/LabelToggler";
 import useAddRoomViewModel from "@/viewmodels/home/useAddRoomViewModel";
 import { BadgePlus } from "lucide-react";
+import { useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
 type props = {
     onSubmit?: () => void;
+    onDualUser?: (value: boolean) => void;
 }
 
-const AddRoom = ({onSubmit}: props) => {
-    const {dualUser,isClosed,isPrivate,loading,name,nextUserName,setDualUser,setIsClosed,setIsPrivate,setName,setNextUserName,submit} = useAddRoomViewModel(onSubmit);
+const AddRoom = ({ onSubmit, onDualUser }: props) => {
+    const { dualUser, isClosed, isPrivate, loading, name, nextUserName, setDualUser, setIsClosed, setIsPrivate, setName, setNextUserName, submit } = useAddRoomViewModel(onSubmit);
+    useEffect(() => {
+        if (onDualUser) {
+            onDualUser(dualUser)
+        }
+    }, [dualUser])
+    
     return (
         <main className="bg-background p-md md:rounded-xl">
             <div className="flex justify-between gap-md text-center">

@@ -87,7 +87,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     }
                 </div>
             </div>
-            {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} />}
+            {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} className="md:w-2/5 md:h-3/5" />}
         </div>
     );
 }
