@@ -6,6 +6,7 @@ import { AddMultiUserRoomDTO } from '../dto/room/AddMultiUserRoomDTO';
 import MultiUserRoomDetailsResponseDTO from '../dto/room/MultiUserRoomDetailsResponseDTO';
 import UpdateMultiUserRoomDTO from "@/dto/room/UpdateMultiUserRoomDTO";
 import UserResponseDto from "@/dto/user/UserResponseDto";
+import MultiUserRoomResponseDTO from "@/dto/room/MultiUserRoomResponseDTO";
 
 export default class RoomService {
     static async createDualUserRoom(addDualUserRoomDTO: AddDualUserRoomDTO): Promise<DualUserRoomDetailsResponseDTO> {
@@ -34,6 +35,19 @@ export default class RoomService {
 
     static async getRoomUsers(roomId: number): Promise<UserResponseDto[]> {
         const response = await API.get<UserResponseDto[]>(`/rooms/${roomId}/users`);
+        return response.data;
+    }
+
+    static async getPublicRooms(roomName:string = "",page:number = 0,size:number = 0): Promise<MultiUserRoomResponseDTO[]>{
+        const sort = "name,asc";
+        const response = await API.get<MultiUserRoomResponseDTO[]>("/rooms/public",{
+            params:{
+                sort,
+                page,
+                size,
+                roomName
+            }
+        });
         return response.data;
     }
 }
