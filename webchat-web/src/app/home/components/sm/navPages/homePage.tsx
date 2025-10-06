@@ -24,7 +24,7 @@ const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, 
         });
 
     return (
-        <div className="w-full h-full grid grid-rows-[1fr_2fr_19fr] gap-md py-sm min-h-0">
+        <div className="w-full h-full grid grid-rows-[1fr_3fr_19fr] gap-md py-sm min-h-0">
             <div className="flex items-center justify-between flex-row gap-sm">
                 {!searchEnabled && (
                     <>
