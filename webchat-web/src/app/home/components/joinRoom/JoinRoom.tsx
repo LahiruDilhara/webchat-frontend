@@ -1,9 +1,11 @@
 import useJoinRoomViewModel from "@/viewmodels/home/useJoinRoomViewModel";
 import { Search } from "lucide-react";
 import FoldableRoomItem from "./FoldableRoomItem";
+import { CircleLoader } from "react-spinners";
 
 const JoinRoom = () => {
     const { hasMore, isFetching, isLoading, onNextPage, onJoin, page, rooms, searchText, setSearchText } = useJoinRoomViewModel();
+
     return (
         <main className="bg-background h-full py-md md:rounded-xl flex gap-md flex-col">
             <div className="w-full flex flex-row items-center gap-sm bg-input-bg px-md rounded-2xl">
@@ -11,8 +13,11 @@ const JoinRoom = () => {
                 <Search />
             </div>
             <div className="h-full flex-1 flex flex-col gap-md overflow-y-auto">
-                {rooms.map((room) => <FoldableRoomItem key={room.id} closed={room.closed.toString()} createdAt={room.createdAt} name={room.name} onJoin={() => { onJoin(room.id) }} roomId={room.id} memeberCount={room.memberCount} />)}
-                {hasMore && <h1 className="text-body text-input-placeholder cursor-pointer" onClick={onNextPage}>Load more ....</h1>}
+                {isLoading && <div className="h-full flex items-center justify-center"><CircleLoader color="#4d4dff" size={100} /></div>}
+                {!isLoading && <>
+                    {rooms.map((room) => <FoldableRoomItem key={room.id} closed={room.closed.toString()} createdAt={room.createdAt} name={room.name} onJoin={() => { onJoin(room.id) }} roomId={room.id} memeberCount={room.memberCount} />)}
+                    {isFetching ? <h1 className="text-body text-input-placeholder">Loading ....</h1> : hasMore && <h1 className="text-body text-input-placeholder cursor-pointer" onClick={onNextPage}>Load more ....</h1>}
+                </>}
             </div>
         </main>
     );
