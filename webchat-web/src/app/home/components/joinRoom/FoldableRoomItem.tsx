@@ -51,7 +51,7 @@ const FoldableRoomItem = ({ name, roomId, closed, createdAt, onJoin, memeberCoun
                             <div className="w-full bg-card-bg text-button p-sm rounded-2xl flex flex-col gap-md">
                                 <div className="w-full flex flex-col gap-sm">
                                     <div className="w-full flex flex-row justify-between">
-                                        <h1>closed</h1>
+                                        <h1>Room is Closed</h1>
                                         <h1>{closed}</h1>
                                     </div>
                                     <div className="w-full flex flex-row justify-between">
@@ -60,7 +60,7 @@ const FoldableRoomItem = ({ name, roomId, closed, createdAt, onJoin, memeberCoun
                                     </div>
                                 </div>
                                 <div>
-                                    <button className="w-full bg-primary text-on-primary p-sm rounded-xl cursor-pointer" onClick={(e) => { e.stopPropagation(); onJoin(roomId); }}>Join</button>
+                                    <button className="w-full bg-primary hover:brightness-75 text-on-primary p-sm rounded-xl cursor-pointer" onClick={(e) => { e.stopPropagation(); onJoin(roomId); }}>Join</button>
                                 </div>
                             </div>
                         }

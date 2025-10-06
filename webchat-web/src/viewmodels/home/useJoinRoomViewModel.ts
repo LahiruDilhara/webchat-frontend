@@ -1,9 +1,12 @@
 import QueryKeys from "@/core/QueryKeys";
+import { resetRoomsReduxData } from "@/core/ResetStore";
 import MultiUserRoomResponseDTO from "@/dto/room/MultiUserRoomResponseDTO";
 import useDebounce from "@/hooks/useDebounce";
+import { queryClient } from "@/lib/QueryClient";
 import RoomService from "@/services/RoomService";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function useJoinRoomViewModel() {
     const [searchText, setSearchText] = useState<string>("");
@@ -26,14 +29,38 @@ export default function useJoinRoomViewModel() {
         if (!searchRooms.data) return;
         if (page === 0) {
             console.log("setting rooms")
-            setHasMore(searchRooms.data.length === pageSize);
             setRooms(() => searchRooms.data);
         }
         else {
-            setHasMore(searchRooms.data.length === pageSize);
             setRooms(prev => [...prev, ...searchRooms.data]);
         }
     }, [page, searchRooms.data])
+
+    const joinToRoom = useMutation({
+        mutationFn: RoomService.joinToRoom,
+        onSuccess: () => {
+            toast.success("Joined to room successfully");
+            setPage(0);
+            setRooms([]);
+            queryClient.invalidateQueries({
+                predicate: (query) => query.queryKey[0] === QueryKeys.PUBLIC_ROOMS
+            });
+            queryClient.invalidateQueries({
+                predicate: (query) => query.queryKey[0] === QueryKeys.USER_ROOMS
+            });
+        },
+        onError: (error) => {
+            toast.error(error.message);
+        }
+    })
+
+    useEffect(() => {
+        if (!searchRooms.data) {
+            setHasMore(false);
+            return;
+        }
+        setHasMore(searchRooms.data.length === pageSize);
+    }, [searchRooms.data])
 
     const onNextPage = () => {
         if (hasMore) {
@@ -44,18 +71,21 @@ export default function useJoinRoomViewModel() {
     useEffect(() => {
         setPage(0);
         setRooms(searchRooms.data || [])
-        setHasMore(true);
     }, [deboundedSearchText])
+
+    const onJoin = (roomId: string) => {
+        joinToRoom.mutate(roomId);
+    }
 
 
     return {
         searchText,
         setSearchText,
         page,
-        setPage,
         onNextPage,
         rooms,
         hasMore,
+        onJoin,
         isLoading: searchRooms.isLoading && page === 0,
         isFetching: searchRooms.isFetching && page > 0,
     }

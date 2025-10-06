@@ -50,4 +50,8 @@ export default class RoomService {
         });
         return response.data;
     }
+
+    static async joinToRoom(roomId:string):Promise<void>{
+        await API.post(`/rooms/${roomId}/join`);
+    }
 }
