@@ -6,6 +6,7 @@ import RoomDetailsResponseDTO from "@/dto/room/RoomDetailsResponseDTO";
 import MdRoomColumnItem from "./roomColumnItem";
 import RoomChat from "../roomChat/RoomChat";
 import Image from "next/image";
+import IconOutlinedButton from "@/components/primitive/IconOutlinedButton";
 
 type props = {
     rooms: RoomDetailsResponseDTO[],
@@ -49,7 +50,10 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
             <div className={`grid gap-lg pt-sm ${folded ? "grid-cols-1" : "grid-cols-[2fr_8fr]"} h-full overflow-hidden`}>
                 {!folded && (
                     <div className="flex flex-col min-h-0 min-w-0 gap-md ">
-                        <h1 className="text-body">Rooms</h1>
+                        <div className="flex flex-row justify-between items-center">
+                            <h1 className="text-body">Rooms</h1>
+                            <div className="text-caption cursor-pointer hover:brightness-75 px-md py-xs rounded-2xl border-2 border-primary hover:bg-primary-hover">Join room</div>
+                        </div>
                         <div className="w-full flex items-center justify-center">
                             <SearchInput placeholder="Search..." value={searchText} onChange={setSearchText} className=" w-full" />
                         </div>
