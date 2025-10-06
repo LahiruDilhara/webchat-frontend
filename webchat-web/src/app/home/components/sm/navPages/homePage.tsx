@@ -5,6 +5,7 @@ import { Plus, Search } from "lucide-react"
 import { useState } from "react"
 import SmallRoomRowItem from "../roomRowItem"
 import SmallRoomColumnItem from "../roomColumnItem"
+import Image from "next/image"
 
 type SmHomePageProps = {
     rooms: RoomDetailsResponseDTO[]
@@ -52,8 +53,9 @@ const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, 
                     {
                         rooms.length === 0 &&
                         <div className="h-full text-input-placeholder text-center flex justify-center flex-col items-center p-lg rounded-lg gap-sm">
+                            <Image src="/images/chatBlue.svg" alt={"logo"} width={120} height={120} />
                             <div className="text-body">No rooms found</div>
-                            <div className="text-caption">Click on the + icon to create a room</div>
+                            <div className="text-caption">Create a new room to start the converstation</div>
                         </div>
                     }
                 </div>
