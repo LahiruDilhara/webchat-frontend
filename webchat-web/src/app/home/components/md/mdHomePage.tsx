@@ -8,6 +8,7 @@ import RoomChat from "../roomChat/RoomChat";
 import Image from "next/image";
 import IconOutlinedButton from "@/components/primitive/IconOutlinedButton";
 import AddRoomOverlay from "./AddRoomOverlay";
+import JoinRoomOverlay from "./JoinRoomOverlay";
 
 
 type props = {
@@ -23,6 +24,7 @@ type props = {
 const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, setActiveRoomId }: props) => {
     const [folded, setFolded] = useState(false);
     const [addRoom, setAddRoom] = useState(false);
+    const [joinRoom, setJoinRoom] = useState(false);
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
@@ -37,7 +39,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     <div className=" shrink-0 flex-1 overflow-auto self-start">
                         <div className="w-full flex items-center gap-lg">
                             <div className="flex flex-row justify-cente gap-lg r items-center text-center p-sm rounded-2xl">
-                                <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={()=>setAddRoom(true)}>
+                                <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={() => setAddRoom(true)}>
                                     <Plus size={16}></Plus>
                                 </div>
                             </div>
@@ -54,7 +56,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     <div className="flex flex-col min-h-0 min-w-0 gap-md ">
                         <div className="flex flex-row justify-between items-center">
                             <h1 className="text-body">Rooms</h1>
-                            <div className="text-caption cursor-pointer hover:brightness-75 px-md py-xs rounded-2xl border-2 border-primary hover:bg-primary-hover">Join room</div>
+                            <div className="text-caption cursor-pointer hover:brightness-75 px-md py-xs rounded-2xl border-2 border-primary hover:bg-primary-hover" onClick={() => setJoinRoom(true)}>Join room</div>
                         </div>
                         <div className="w-full flex items-center justify-center">
                             <SearchInput placeholder="Search..." value={searchText} onChange={setSearchText} className=" w-full" />
@@ -88,6 +90,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                 </div>
             </div>
             {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} className="md:w-2/5 md:h-3/5" />}
+            {joinRoom && <JoinRoomOverlay onClose={() => setJoinRoom(false)} className="md:w-2/5 md:h-3/5" />}
         </div>
     );
 }

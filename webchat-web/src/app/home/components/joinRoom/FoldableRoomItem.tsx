@@ -50,11 +50,11 @@ const FoldableRoomItem = ({ name, roomId, closed, createdAt, onJoin, memeberCoun
                         {!folded &&
                             <div className="w-full bg-card-bg text-button p-sm rounded-2xl flex flex-col gap-md">
                                 <div className="w-full flex flex-col gap-sm">
-                                    <div className="w-full flex flex-row justify-between">
+                                    <div className="w-full flex flex-row justify-between text-caption">
                                         <h1>Room is Closed</h1>
                                         <h1>{closed}</h1>
                                     </div>
-                                    <div className="w-full flex flex-row justify-between">
+                                    <div className="w-full flex flex-row justify-between text-caption">
                                         <h1>Room Created</h1>
                                         <h1>{format(new Date(createdAt), "yyyy/MM/dd")}</h1>
                                     </div>
