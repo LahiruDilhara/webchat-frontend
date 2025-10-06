@@ -7,6 +7,8 @@ import MdRoomColumnItem from "./roomColumnItem";
 import RoomChat from "../roomChat/RoomChat";
 import Image from "next/image";
 import IconOutlinedButton from "@/components/primitive/IconOutlinedButton";
+import AddRoomOverlay from "./AddRoomOverlay";
+
 
 type props = {
     rooms: RoomDetailsResponseDTO[],
@@ -15,12 +17,12 @@ type props = {
     setSearchText: (text: string) => void
     onRoomClick: (roomId: string) => void
     activeRoomId: string | null
-    onRoomAddClick: () => void
     setActiveRoomId: (roomId: string | null) => void
 }
 
-const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick, setActiveRoomId }: props) => {
+const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, setActiveRoomId }: props) => {
     const [folded, setFolded] = useState(false);
+    const [addRoom, setAddRoom] = useState(false);
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
@@ -35,7 +37,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     <div className=" shrink-0 flex-1 overflow-auto self-start">
                         <div className="w-full flex items-center gap-lg">
                             <div className="flex flex-row justify-cente gap-lg r items-center text-center p-sm rounded-2xl">
-                                <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={onRoomAddClick}>
+                                <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={()=>setAddRoom(true)}>
                                     <Plus size={16}></Plus>
                                 </div>
                             </div>
@@ -85,6 +87,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     }
                 </div>
             </div>
+            {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} />}
         </div>
     );
 }

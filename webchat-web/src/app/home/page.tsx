@@ -5,7 +5,6 @@ import SmHomePage from "./components/sm/smHomePage";
 import MdHomePage from "./components/md/mdHomePage";
 import useHomePageViewModel from "@/viewmodels/home/useHomePageViewModel";
 import TitleLoadingPage from "@/components/loadingPages/TitleLoadingPage";
-import AddRoomOverlay from "./components/addRoom/AddRoomOverlay";
 import { useState } from "react";
 
 const HomePage = () => {
@@ -18,7 +17,6 @@ const HomePage = () => {
         <div className="w-full h-full">
             {breakpoint === "xs" ?
                 <SmHomePage
-                    onRoomAddClick={() => setAddRoom(true)}
                     activeRoomId={activeRoomId}
                     onRoomClick={onRoomClick}
                     rooms={rooms}
@@ -28,7 +26,6 @@ const HomePage = () => {
                     setActiveRoomId={setActiveRoomId}
                 /> :
                 <MdHomePage
-                    onRoomAddClick={() => setAddRoom(true)}
                     activeRoomId={activeRoomId}
                     onRoomClick={onRoomClick}
                     rooms={rooms}
@@ -37,7 +34,6 @@ const HomePage = () => {
                     setSearchText={setSearchText}
                     setActiveRoomId={setActiveRoomId}
                 />}
-            {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} />}
         </div>
 
     );

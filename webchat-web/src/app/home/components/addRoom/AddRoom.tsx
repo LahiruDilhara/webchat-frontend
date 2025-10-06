@@ -6,7 +6,7 @@ import { BadgePlus } from "lucide-react";
 import { ClipLoader } from "react-spinners";
 
 type props = {
-    onSubmit: () => void;
+    onSubmit?: () => void;
 }
 
 const AddRoom = ({onSubmit}: props) => {

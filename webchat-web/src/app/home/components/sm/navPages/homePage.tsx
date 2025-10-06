@@ -13,11 +13,9 @@ type SmHomePageProps = {
     setSearchText: (text: string) => void
     onRoomClick: (roomId: string) => void
     activeRoomId: string | null
-    onRoomAddClick: () => void
-    setActiveRoomId: (roomId: string | null) => void
 }
 
-const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, onRoomAddClick, setActiveRoomId }: SmHomePageProps) => {
+const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId }: SmHomePageProps) => {
     const [searchEnabled, setSearchEnabled] = useState(false);
     const { ref } = useClickOutside<HTMLDivElement>(() => {
             setSearchEnabled(false);
@@ -42,11 +40,6 @@ const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, 
                 }
             </div>
             <div className="w-full flex min-w-0 px-sm min-h-fit flex-row gap-md overflow-x-auto">
-                <div className="flex flex-col justify-center items-center text-center  cursor-pointer">
-                    <div className="shrink-0 size-2xl outline-2 outline-offset-2 stroke-3 outline-dashed outline-primary-hover flex justify-center items-center border-2 border-primary hover:bg-primary rounded-full" onClick={onRoomAddClick}>
-                        <Plus size={16}></Plus>
-                    </div>
-                </div>
                 {
                     recentRooms.map(room => <SmallRoomRowItem id={room.id} onRoomClick={onRoomClick} roomName={room.name} key={room.id} />)
                 }

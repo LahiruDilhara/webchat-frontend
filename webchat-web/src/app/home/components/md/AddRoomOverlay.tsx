@@ -1,7 +1,7 @@
 import Overlay from "@/components/primitive/Overlay";
 import useAddRoomOverlayViewmodel from "@/viewmodels/home/useAddRoomOverlayViewmodel";
 import { X } from "lucide-react";
-import AddRoom from "./AddRoom";
+import AddRoom from "../addRoom/AddRoom";
 
 type props = {
     onClose: () => void;
