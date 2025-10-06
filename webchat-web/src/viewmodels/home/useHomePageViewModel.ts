@@ -25,7 +25,8 @@ export default function useHomePageViewModel() {
     const fetchUserRooms = useQuery({
         queryKey: [QueryKeys.USER_ROOMS],
         queryFn: RoomService.getUserJoinedRooms,
-        retry: 2
+        retry: 2,
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 
     useEffect(() => {

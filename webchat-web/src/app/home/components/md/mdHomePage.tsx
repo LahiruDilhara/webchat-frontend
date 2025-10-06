@@ -24,7 +24,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
             <div className="flex flex-row min-h-fit items-center min-w-0 w-full">
-                <div className={`grid ${folded ? "grid-cols-[1fr_8fr]": "grid-cols-[2fr_8fr]"} min-h-fit gap-md w-full`}>
+                <div className={`grid ${folded ? "grid-cols-[1fr_8fr]" : "grid-cols-[2fr_8fr]"} min-h-fit gap-md w-full`}>
                     <div className="flex flex-row items-center gap-md">
                         <div className="cursor-pointer" onClick={() => setFolded(!folded)}>
                             <Menu />
@@ -33,7 +33,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     </div>
                     <div className=" shrink-0 flex-1 overflow-auto self-start">
                         <div className="w-full flex items-center gap-lg">
-                            <div className="flex flex-row justify-center items-center text-center p-sm rounded-2xl">
+                            <div className="flex flex-row justify-cente gap-lg r items-center text-center p-sm rounded-2xl">
                                 <div className="shrink-0 size-2xl flex justify-center outline-2 outline-offset-2 outline-primary-hover items-center border-2 border-primary hover:bg-primary rounded-full cursor-pointer" onClick={onRoomAddClick}>
                                     <Plus size={16}></Plus>
                                 </div>
@@ -48,14 +48,21 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
             </div>
             <div className={`grid gap-lg pt-sm ${folded ? "grid-cols-1" : "grid-cols-[2fr_8fr]"} h-full overflow-hidden`}>
                 {!folded && (
-                    <div className="flex flex-col min-h-0 min-w-0 gap-md">
+                    <div className="flex flex-col min-h-0 min-w-0 gap-md ">
                         <h1 className="text-body">Rooms</h1>
                         <div className="w-full flex items-center justify-center">
                             <SearchInput placeholder="Search..." value={searchText} onChange={setSearchText} className=" w-full" />
                         </div>
-                        <div className="flex flex-col gap-lg overflow-y-scroll ">
+                        <div className="flex-1 flex flex-col gap-md overflow-y-scroll">
                             {
                                 rooms.map((room) => <MdRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
+                            }
+                            {
+                                rooms.length === 0 &&
+                                <div className="h-full text-input-placeholder text-center flex justify-center flex-col items-center p-lg rounded-lg gap-sm">
+                                    <div className="text-body">No rooms found</div>
+                                    <div className="text-caption">Click on the + icon to create a room</div>
+                                </div>
                             }
 
                         </div>
