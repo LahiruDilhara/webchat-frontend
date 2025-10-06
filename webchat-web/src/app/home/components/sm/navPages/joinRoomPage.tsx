@@ -1,7 +1,11 @@
+import JoinRoom from "../../joinRoom/JoinRoom";
+
 const JoinRoomPage = () => {
     return (
-        <div>Join room</div>
+        <div>
+            <JoinRoom />
+        </div>
     );
 }
- 
+
 export default JoinRoomPage;
