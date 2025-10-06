@@ -21,6 +21,7 @@ export default function useAddRoomViewModel(onSubmit?: () => void) {
                 onSubmit();
             }
             reduxDispatcher(addOrReplaceDualUserRoom(data))
+            toast.success("Dual user room created successfully");
         },
         onError: (error) => {
             toast.error(error.message);
@@ -34,6 +35,7 @@ export default function useAddRoomViewModel(onSubmit?: () => void) {
                 onSubmit();
             }
             reduxDispatcher(addOrReplaceMultiUserRoom(data))
+            toast.success("Multi user room created successfully");
         },
         onError: (error) => {
             toast.error(error.message);
