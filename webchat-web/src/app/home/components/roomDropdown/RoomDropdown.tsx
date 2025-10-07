@@ -21,7 +21,7 @@ const RoomDropdown = ({ currentUserIsOwner, onButtonClick }: props) => {
                         <BadgePlus />
                         <div>Add new User</div>
                     </div>
-                    <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("deleteRoom"); }}>
+                    <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("deleteUser"); }}>
                             <UserRoundMinus />
                         <div>Remove User</div>
                     </div>

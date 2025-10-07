@@ -1,4 +1,5 @@
 import { RootState } from "@/app/store";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -6,6 +7,7 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
     const dualUserRooms = useSelector((state: RootState) => state.dualUserRoom.dualUserRooms);
     const multiUserRooms = useSelector((state: RootState) => state.multiUserRoom.multiUserRooms);
     const allRooms = [...dualUserRooms, ...multiUserRooms];
+    const [overlayName, setOverlayName] = useState<string | null>(null);
     const room = allRooms.find(r => r.id === roomId) || null;
 
     if (room === null) {
@@ -14,11 +16,39 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
     }
 
     const onMenuClick = (action: string) => {
-        console.log(action)
+        setOverlayName(action);
     }
+
+    const removeMenu = () => {
+        setOverlayName(null);
+    }
+
+    const onLeave = () => {
+        console.log("leaving")
+    }
+
+    const onRoomDelete = () => {
+
+    }
+
+    const onUserAdd = (username: string) => {
+
+    }
+
+    const onUserRemove = (username: string) => {
+
+    }
+
+
 
     return {
         room,
-        onMenuClick
+        onMenuClick,
+        removeMenu,
+        overlayName,
+        onLeave,
+        onRoomDelete,
+        onUserAdd,
+        onUserRemove
     };
 }

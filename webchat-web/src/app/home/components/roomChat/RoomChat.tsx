@@ -5,6 +5,10 @@ import { ArrowLeft, Ellipsis, SendHorizonal } from "lucide-react";
 import { useState } from "react";
 import RoomDropdown from "../roomDropdown/RoomDropdown";
 import useClickOutside from "@/hooks/useClickOutside";
+import LeaveRoomOverlay from "./LeaveRoomOverlay";
+import AddUserRoomOverlay from "./AddUserRoomOverlay";
+import RemoveUserRoomOverlay from "./RemoveUserRoomOverlay";
+import DeleteRoomOverlay from "./DeleteRoomOverlay";
 
 type RoomChatProps = {
     onExitRoom: () => void,
@@ -13,7 +17,7 @@ type RoomChatProps = {
 
 const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
 
-    const { room, onMenuClick } = useRoomChatViewModel(roomId, onExitRoom);
+    const { room, onMenuClick, removeMenu, overlayName, onLeave, onRoomDelete, onUserAdd, onUserRemove } = useRoomChatViewModel(roomId, onExitRoom);
     const [roomDropdown, setRoomDropdown] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(() => setRoomDropdown(false))
 
@@ -243,6 +247,10 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
                     </div>
                 </div>
             </div>
+            {overlayName === "addUser" && <LeaveRoomOverlay onAction={onLeave} onClose={() => removeMenu()} />}
+            {/* {overlayName === "addUser" && <AddUserRoomOverlay onClose={() => removeMenu()} />} */}
+            {overlayName === "deleteUser" && <RemoveUserRoomOverlay onClose={() => removeMenu()} />}
+            {overlayName === "deleteRoom" && <DeleteRoomOverlay onClose={() => removeMenu()} />}
         </div>
     );
 }
