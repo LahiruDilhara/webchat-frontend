@@ -1,4 +1,4 @@
-import { BadgePlus, LogOut, Trash, Trash2, UserRoundMinus } from "lucide-react";
+import { ArrowBigUp, BadgePlus, LogOut, Trash, Trash2, UserRoundMinus } from "lucide-react";
 import React from "react";
 
 type props = {
@@ -19,6 +19,10 @@ const RoomDropdown = ({ currentUserIsOwner, onButtonClick, type }: props) => {
                     <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("deleteUser"); }}>
                         <UserRoundMinus />
                         <div>Remove User</div>
+                    </div>
+                    <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("updateRoom"); }}>
+                        <ArrowBigUp />
+                        <div>Update Room</div>
                     </div>
                 </>
             }

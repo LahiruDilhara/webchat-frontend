@@ -41,6 +41,7 @@ export default function useHomePageViewModel() {
             addItem(room);
         }
     }
+    
 
     return {
         loading: isLoading,

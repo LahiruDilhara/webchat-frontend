@@ -1,6 +1,7 @@
 import { RootState } from "@/app/store";
 import QueryKeys from "@/core/QueryKeys";
-import resetQueryCaches from "@/core/ResetQueryCaches";
+import resetQueryCaches, { resetRoomUsersCache } from "@/core/ResetQueryCaches";
+import UpdateMultiUserRoomDTO from "@/dto/room/UpdateMultiUserRoomDTO";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
 import { queryClient } from "@/lib/QueryClient";
 import RoomService from "@/services/RoomService";
@@ -29,9 +30,9 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         }
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(rooms)
-    },[rooms])
+    }, [rooms])
 
     const deleteMutation = useMutation({
         mutationFn: RoomService.deleteUserRoom,
@@ -66,6 +67,18 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         },
         onError: (e) => {
             toast.error(e.message);
+        }
+    })
+
+    const updateRoom = useMutation({
+        mutationFn: (data: { roomId: string, updateDTO: UpdateMultiUserRoomDTO }) => RoomService.updateMultiUserRoom(data.updateDTO, data.roomId),
+        onSuccess: () => {
+            toast.success("The room updated");
+            resetRoomUsersCache()
+            onExitRoom()
+        },
+        onError: (e) => {
+            toast.error(e.message)
         }
     })
 
@@ -106,6 +119,16 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         }
     }
 
+    const onRoomUpdate = (isPrivate: boolean, closed: boolean) => {
+        if (room) {
+            const updateDTO: UpdateMultiUserRoomDTO = {
+                isPrivate,
+                closed
+            }
+            updateRoom.mutate({ roomId: room.id, updateDTO });
+        }
+    }
+
 
 
     return {
@@ -117,6 +140,7 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         onRoomDelete,
         onUserAdd,
         onUserRemove,
+        onRoomUpdate,
         isOwner,
         roomMembers
     };

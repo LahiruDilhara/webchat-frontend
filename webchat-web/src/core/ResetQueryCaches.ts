@@ -9,3 +9,9 @@ export default function resetQueryCaches() {
         predicate: (query) => query.queryKey[0] === QueryKeys.PUBLIC_ROOMS
     });
 }
+
+export function resetRoomUsersCache() {
+    queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === QueryKeys.USER_ROOMS
+    });
+}

@@ -28,7 +28,7 @@ export default class RoomService {
         await API.delete(`/rooms/${roomId}`);
     }
 
-    static async updateMultiUserRoom(updateMultiUserRoomDTO: UpdateMultiUserRoomDTO, roomId: number): Promise<MultiUserRoomDetailsResponseDTO> {
+    static async updateMultiUserRoom(updateMultiUserRoomDTO: UpdateMultiUserRoomDTO, roomId: string): Promise<MultiUserRoomDetailsResponseDTO> {
         const response = await API.patch<MultiUserRoomDetailsResponseDTO>(`/rooms/multiUser/${roomId}`, updateMultiUserRoomDTO);
         return response.data;
     }

@@ -9,6 +9,9 @@ import LeaveRoomOverlay from "./LeaveRoomOverlay";
 import RemoveUserRoomOverlay from "./RemoveUserRoomOverlay";
 import DeleteRoomOverlay from "./DeleteRoomOverlay";
 import AddUserRoomOverlay from "./AddUserRoomOverlay";
+import UpdateRoomOverlay from "./UpdateRoomOverlay";
+import MultiUserRoomResponseDTO from "@/dto/room/MultiUserRoomResponseDTO";
+import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 
 type RoomChatProps = {
     onExitRoom: () => void,
@@ -17,7 +20,7 @@ type RoomChatProps = {
 
 const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
 
-    const { room, roomMembers, isOwner, onMenuClick, removeMenu, overlayName, onLeave, onRoomDelete, onUserAdd, onUserRemove } = useRoomChatViewModel(roomId, onExitRoom);
+    const { room, roomMembers, isOwner, onMenuClick, removeMenu, overlayName, onLeave, onRoomDelete, onUserAdd, onUserRemove, onRoomUpdate } = useRoomChatViewModel(roomId, onExitRoom);
     const [roomDropdown, setRoomDropdown] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(() => setRoomDropdown(false))
 
@@ -251,6 +254,7 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
             {overlayName === "addUser" && <AddUserRoomOverlay onClose={() => removeMenu()} onAction={onUserAdd} />}
             {overlayName === "deleteUser" && <RemoveUserRoomOverlay onClose={() => removeMenu()} onAction={onUserRemove} roomUsers={roomMembers} />}
             {overlayName === "deleteRoom" && <DeleteRoomOverlay onClose={() => removeMenu()} onAction={onRoomDelete} />}
+            {overlayName === "updateRoom" && <UpdateRoomOverlay room={room as MultiUserRoomDetailsResponseDTO} onClose={() => removeMenu()} onAction={onRoomUpdate} />}
         </div>
     );
 }

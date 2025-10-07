@@ -23,12 +23,12 @@ export function useClientInitializerViewModel() {
             }
             else {
                 const user = getTokenUser(token);
-                if(user == null){
+                if (user == null) {
                     localStorage.removeItem("token");
                     reduxDispatcher(setLoggedOut());
                 }
-                else{
-                    reduxDispatcher(setLoggedIn({username:user}))
+                else {
+                    reduxDispatcher(setLoggedIn({ username: user }))
                 }
             }
             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -39,7 +39,7 @@ export function useClientInitializerViewModel() {
 
 
     useEffect(() => {
-        if(!ready) return; // wait until the initialization is done to redirect the user
+        if (!ready) return; // wait until the initialization is done to redirect the user
         if (isUserLoggedIn) {
             if (windowPathName.startsWith("/auth")) {
                 console.log("redirecting to /home");
@@ -52,7 +52,9 @@ export function useClientInitializerViewModel() {
                 router.replace(PageRoutes.ROOT);
             }
         }
-    }, [windowPathName, router,isUserLoggedIn, ready])
+    }, [windowPathName, router, isUserLoggedIn, ready])
+
+    
 
     return { ready }
 }
