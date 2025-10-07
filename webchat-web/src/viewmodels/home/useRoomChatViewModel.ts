@@ -13,7 +13,12 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         onExitRoom();
     }
 
+    const onMenuClick = (action: string) => {
+        console.log(action)
+    }
+
     return {
-        room
+        room,
+        onMenuClick
     };
 }

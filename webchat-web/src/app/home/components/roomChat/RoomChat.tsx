@@ -13,12 +13,12 @@ type RoomChatProps = {
 
 const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
 
-    const { room } = useRoomChatViewModel(roomId, onExitRoom);
+    const { room, onMenuClick } = useRoomChatViewModel(roomId, onExitRoom);
     const [roomDropdown, setRoomDropdown] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(() => setRoomDropdown(false))
 
     return (
-        <div className="h-full w-full grid grid-rows-[1fr_16fr] gap-md py-sm md:py-0 md:bg-background overflow-hidden">
+        <div className="h-full w-full grid grid-rows-[1fr_16fr] gap-md py-sm md:py-0 sm:bg-background overflow-hidden">
             <div className="flex items-center gap-md sm:bg-card-bg h-full sm:px-md sm:py-sm sm:rounded-2xl">
                 <div className="w-fit h-full flex items-center cursor-pointer hover:brightness-75" onClick={onExitRoom}>
                     <ArrowLeft />
@@ -34,7 +34,7 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
                             <div className="p-sm cursor-pointer relative" onClick={() => setRoomDropdown(!roomDropdown)}>
                                 <Ellipsis />
                                 <div ref={ref}>
-                                    {roomDropdown && <RoomDropdown roomId="asdf" currentUserIsOwner={true} onButtonClick={() => setRoomDropdown(false)} />}
+                                    {roomDropdown && <RoomDropdown currentUserIsOwner={true} onButtonClick={(action) => { setRoomDropdown(false); onMenuClick(action); }} />}
                                 </div>
                             </div>
                         </div>
