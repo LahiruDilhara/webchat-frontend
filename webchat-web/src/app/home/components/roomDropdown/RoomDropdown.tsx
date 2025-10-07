@@ -1,4 +1,4 @@
-import { BadgePlus, LogOut, UserRoundMinus } from "lucide-react";
+import { BadgePlus, LogOut, Trash, Trash2, UserRoundMinus } from "lucide-react";
 import React from "react";
 
 type props = {
@@ -27,7 +27,7 @@ const RoomDropdown = ({ currentUserIsOwner, onButtonClick }: props) => {
                     </div>
                     <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("deleteRoom"); }}>
                         <div className="text-error">
-                            <BadgePlus />
+                            <Trash2 />
                         </div>
                         <div>Delete Room</div>
                     </div>
