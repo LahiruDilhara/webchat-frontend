@@ -1,4 +1,5 @@
 import { RootState } from "@/app/store";
+import resetQueryCaches from "@/core/ResetQueryCaches";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
 import RoomService from "@/services/RoomService";
 import { useMutation } from "@tanstack/react-query";
@@ -18,10 +19,11 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         mutationFn: RoomService.leaveFromRoom,
         onSuccess: () => {
             toast.success("You have left the room");
+            resetQueryCaches();
             onExitRoom();
         },
-        onError: () => {
-            toast.error("Failed to leave the room");
+        onError: (e) => {
+            toast.error(e.message);
         }
     })
 
@@ -29,10 +31,11 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         mutationFn: RoomService.deleteUserRoom,
         onSuccess: () => {
             toast.success("Room deleted successfully");
+            resetQueryCaches();
             onExitRoom();
         },
-        onError: () => {
-            toast.error("Failed to delete the room");
+        onError: (e) => {
+            toast.error(e.message);
         }
     })
 
@@ -40,10 +43,11 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         mutationFn: (data: { username: string, roomId: string }) => RoomService.addUserToRoom(data.username, data.roomId),
         onSuccess: () => {
             toast.success("User added to the room");
+            resetQueryCaches();
             onExitRoom();
         },
-        onError: () => {
-            toast.error("Failed to add user to the room");
+        onError: (e) => {
+            toast.error(e.message);
         }
     })
 
@@ -51,10 +55,11 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         mutationFn: (data: { username: string, roomId: string }) => RoomService.removeUserFromRoom(data.username, data.roomId),
         onSuccess: () => {
             toast.success("User removed from the room");
+            resetQueryCaches();
             onExitRoom();
         },
-        onError: () => {
-            toast.error("Failed to remove user from the room");
+        onError: (e) => {
+            toast.error(e.message);
         }
     })
 

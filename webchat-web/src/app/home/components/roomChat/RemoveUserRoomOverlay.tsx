@@ -17,20 +17,22 @@ const RemoveUserRoomOverlay = ({ onClose, onAction, roomUsers }: props) => {
     return (
         <Overlay onClick={onClose} onClose={onClose} label="Delete Room" className="w-4/5 h-4/8 md:w-2/5">
             <div className="bg-background p-md rounded-xl h-full w-full flex flex-col gap-md items-center justify-center overflow-hidden">
-                {roomUsers.map((user) =>
-                    <div className={`w-full gap-sm flex flex-col cursor-pointer hover:brightness-75 ${user.username === username && "brightness-75 hover:brightness-50"}`} onClick={() => setUsername(user.username === username ? null : user.username)} key={user.id}>
-                        <div className="flex h-full flex-row items-center  gap-lg bg-card-bg p-sm rounded-2xl">
-                            {user.username === username ? <div className={`shrink-0 size-xl bg-success rounded-full flex items-center justify-center text-h3`}><Check size={20} /></div> : <div className={`shrink-0 size-xl ${getColorForString(user.username)} rounded-full flex items-center justify-center text-h3`}>{user.username.charAt(0).toUpperCase()}</div>}
-                            <div className="text-button text-center">{user.username}</div>
+                <div className="h-full w-full overflow-auto flex flex-col gap-sm">
+                    {roomUsers.map((user) =>
+                        <div className={`w-full cursor-pointer hover:brightness-75 ${user.username === username && "brightness-75 hover:brightness-50"}`} onClick={() => setUsername(user.username === username ? null : user.username)} key={user.id}>
+                            <div className="flex h-full flex-row items-center  gap-lg bg-card-bg p-sm rounded-2xl">
+                                {user.username === username ? <div className={`shrink-0 size-xl bg-success rounded-full flex items-center justify-center text-h3`}><Check size={20} /></div> : <div className={`shrink-0 size-xl ${getColorForString(user.username)} rounded-full flex items-center justify-center text-h3`}>{user.username.charAt(0).toUpperCase()}</div>}
+                                <div className="text-button text-center">{user.username}</div>
+                            </div>
                         </div>
-                    </div>
-                )}
-                {roomUsers.length === 0 &&
-                    <div className="text-button text-center h-full w-full flex flex-col items-center justify-center gap-md">
-                        <Image src={"/images/search.svg"} alt="search icon" width={60} height={60}/>
-                        <div className="text-caption">No users to remove</div>
-                    </div>
-                }
+                    )}
+                    {roomUsers.length === 0 &&
+                        <div className="text-button text-center h-full w-full flex flex-col items-center justify-center gap-md">
+                            <Image src={"/images/search.svg"} alt="search icon" width={60} height={60} />
+                            <div className="text-caption">No users to remove</div>
+                        </div>
+                    }
+                </div>
                 <IconButton icon={<Trash2 />} label="Delete Room" className="w-full" onClick={() => { onClose(); username !== null && onAction(username) }} />
             </div>
         </Overlay>

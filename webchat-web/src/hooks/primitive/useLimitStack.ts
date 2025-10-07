@@ -19,5 +19,9 @@ export default function useLimitStack<T>(limit: number) {
         setStack(() => newStack);
     }
 
-    return { stack, addItem };
+    const resetStack = () => {
+        setStack([]);
+    }
+
+    return { stack, addItem, resetStack };
 }

@@ -10,10 +10,10 @@ import { useEffect, useState } from "react";
 
 export default function useHomePageViewModel() {
 
-    const { stack: recentRooms, addItem } = useLimitStack<MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO>(10);
+    const { stack: recentRooms, addItem, resetStack } = useLimitStack<MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO>(10);
     const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const [searchText, setSearchText] = useState<string>("");
-    const { dualUserRooms, isLoading, multiUserRooms, rooms } = useUserJoinedRoomsQuery();
+    const { rooms } = useUserJoinedRoomsQuery();
     const [searchedRooms, setSearchedRooms] = useState<(MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO)[]>(rooms);
 
 
@@ -44,6 +44,8 @@ export default function useHomePageViewModel() {
         if (rooms.length === 0) return;
         setSearchedRooms(rooms);
         setSearchText("");
+        resetStack();
+
     }, [rooms]);
 
 

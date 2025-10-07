@@ -10,12 +10,6 @@ type props = {
 const RoomDropdown = ({ currentUserIsOwner, onButtonClick, type }: props) => {
     return (
         <div className="bg-card-bg text-nowrap absolute top-full right-0 p-md flex flex-col gap-sm w-fit rounded-2xl" onClick={(e) => e.stopPropagation()}>
-            {!currentUserIsOwner && type === "MultiUserRoom" &&
-                <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("leave"); }}>
-                    <LogOut />
-                    <div>Leave room</div>
-                </div>
-            }
             {currentUserIsOwner && type === "MultiUserRoom" &&
                 <>
                     <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("addUser"); }}>
@@ -28,6 +22,10 @@ const RoomDropdown = ({ currentUserIsOwner, onButtonClick, type }: props) => {
                     </div>
                 </>
             }
+            <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("leave"); }}>
+                <LogOut />
+                <div>Leave room</div>
+            </div>
             {currentUserIsOwner &&
                 <>
                     <div className="bg-card-item p-sm text-caption flex flex-row items-center gap-sm cursor-pointer hover:brightness-75 rounded-md" onClick={() => { onButtonClick("deleteRoom"); }}>

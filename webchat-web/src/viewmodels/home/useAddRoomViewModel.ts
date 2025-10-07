@@ -1,3 +1,4 @@
+import resetQueryCaches from "@/core/ResetQueryCaches";
 import RoomService from "@/services/RoomService";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -10,7 +11,6 @@ export default function useAddRoomViewModel(onSubmit?: () => void) {
     const [isClosed, setIsClosed] = useState(false);
     const [name, setName] = useState("");
     const [nextUserName, setNextUserName] = useState("");
-    const reduxDispatcher = useDispatch();
 
     const addDualUserMutation = useMutation({
         mutationFn: RoomService.createDualUserRoom,
@@ -19,6 +19,7 @@ export default function useAddRoomViewModel(onSubmit?: () => void) {
                 onSubmit();
             }
             toast.success("Dual user room created successfully");
+            resetQueryCaches();
         },
         onError: (error) => {
             toast.error(error.message);
@@ -32,6 +33,7 @@ export default function useAddRoomViewModel(onSubmit?: () => void) {
                 onSubmit();
             }
             toast.success("Multi user room created successfully");
+            resetQueryCaches();
         },
         onError: (error) => {
             toast.error(error.message);
