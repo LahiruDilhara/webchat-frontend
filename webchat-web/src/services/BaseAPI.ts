@@ -1,7 +1,3 @@
-import { store } from "@/app/store";
-import { setLoggedOut } from "@/slices/auth/AuthSlice";
-import { resetDualUserRooms } from "@/slices/room/DualUserRoomSlice";
-import { resetMultiUserRooms } from "@/slices/room/MultiUserRoomSlice";
 import axios from "axios";
 import { resetAllReduxData } from "../core/ResetStore";
 import resetQueryCaches from "@/core/ResetQueryCaches";

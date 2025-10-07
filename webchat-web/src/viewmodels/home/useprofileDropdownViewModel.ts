@@ -7,7 +7,6 @@ export function useProfileDropdownViewModel() {
     const logOut = () => {
         if (localStorage.getItem("token")) {
             localStorage.removeItem("token");
-            console.log("removing redux data")
             resetAllReduxData();
             resetQueryCaches();
         }

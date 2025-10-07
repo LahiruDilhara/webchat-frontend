@@ -1,5 +1,4 @@
 import QueryKeys from "@/core/QueryKeys";
-import { resetRoomsReduxData } from "@/core/ResetStore";
 import MultiUserRoomResponseDTO from "@/dto/room/MultiUserRoomResponseDTO";
 import useDebounce from "@/hooks/primitive/useDebounce";
 import { queryClient } from "@/lib/QueryClient";

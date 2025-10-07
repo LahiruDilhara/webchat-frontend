@@ -3,7 +3,10 @@ import { QueryCache } from "@tanstack/react-query";
 import QueryKeys from "./QueryKeys";
 
 export default function resetQueryCaches() {
-    QueryKeys.getKeys().forEach(key => {
-        queryClient.removeQueries();
-    })
+    queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === QueryKeys.USER_ROOMS
+    });
+    queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === QueryKeys.PUBLIC_ROOMS
+    });
 }
