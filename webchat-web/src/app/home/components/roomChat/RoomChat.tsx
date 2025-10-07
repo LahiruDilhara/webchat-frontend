@@ -2,6 +2,8 @@ import getColorForString from "@/utils/ColorUtil";
 import { capitalizeFirstLetter } from "@/utils/TextUtil";
 import useRoomChatViewModel from "@/viewmodels/home/useRoomChatViewModel";
 import { ArrowLeft, Ellipsis, SendHorizonal } from "lucide-react";
+import { useState } from "react";
+import RoomDropdown from "../roomDropdown/RoomDropdown";
 
 type RoomChatProps = {
     onExitRoom: () => void,
@@ -11,10 +13,11 @@ type RoomChatProps = {
 const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
 
     const { room } = useRoomChatViewModel(roomId, onExitRoom);
+    const [roomDropdown, setRoomDropdown] = useState(false);
 
     return (
         <div className="h-full w-full grid grid-rows-[1fr_16fr] gap-md py-sm md:py-0 md:bg-background overflow-hidden">
-            <div className="flex items-center gap-md md:bg-card-bg h-full md:px-md md:py-sm md:rounded-2xl">
+            <div className="flex items-center gap-md md:bg-card-bg h-full md:px-md md:py-sm md:rounded-2xl relative">
                 <div className="w-fit h-full flex items-center cursor-pointer hover:brightness-75" onClick={onExitRoom}>
                     <ArrowLeft />
                 </div>
@@ -26,12 +29,13 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
                             <div className="text-caption">members {room?.roomMembers.length}</div>
                         </div>
                         <div>
-                            <div className="p-sm cursor-pointer">
+                            <div className="p-sm cursor-pointer" onClick={() => setRoomDropdown(!roomDropdown)}>
                                 <Ellipsis />
                             </div>
                         </div>
                     </div>
                 </div>
+                {roomDropdown && <RoomDropdown />}
             </div>
             <div className="bg-card-bg rounded-xl flex flex-col min-h-0 flex-1 md:px-4xl">
                 <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto px-sm">

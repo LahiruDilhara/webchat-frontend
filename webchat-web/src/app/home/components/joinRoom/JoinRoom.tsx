@@ -2,6 +2,7 @@ import useJoinRoomViewModel from "@/viewmodels/home/useJoinRoomViewModel";
 import { Search } from "lucide-react";
 import FoldableRoomItem from "./FoldableRoomItem";
 import { CircleLoader } from "react-spinners";
+import Image from "next/image";
 
 const JoinRoom = () => {
     const { hasMore, isFetching, isLoading, onNextPage, onJoin, page, rooms, searchText, setSearchText } = useJoinRoomViewModel();
@@ -17,6 +18,12 @@ const JoinRoom = () => {
                 {!isLoading && <>
                     {rooms.map((room) => <FoldableRoomItem key={room.id} closed={room.closed.toString()} createdAt={room.createdAt} name={room.name} onJoin={() => { onJoin(room.id) }} roomId={room.id} memeberCount={room.memberCount} />)}
                     {isFetching ? <h1 className="text-body text-input-placeholder">Loading ....</h1> : hasMore && <h1 className="text-body text-input-placeholder cursor-pointer" onClick={onNextPage}>Load more ....</h1>}
+                    {rooms.length === 0 &&
+                        <div className="h-full w-full flex flex-col justify-center items-center gap-sm">
+                            <Image src="/images/search.svg" alt="search image" width={100} height={100} />
+                            <h1 className="text-caption">No Rooms available</h1>
+                        </div>
+                    }
                 </>}
             </div>
         </main>
