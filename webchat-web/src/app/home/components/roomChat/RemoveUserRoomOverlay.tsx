@@ -3,6 +3,7 @@ import Overlay from "@/components/primitive/Overlay";
 import UserResponseDto from "@/dto/user/UserResponseDto";
 import getColorForString from "@/utils/ColorUtil";
 import { Check, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 type props = {
@@ -19,11 +20,17 @@ const RemoveUserRoomOverlay = ({ onClose, onAction, roomUsers }: props) => {
                 {roomUsers.map((user) =>
                     <div className={`w-full gap-sm flex flex-col cursor-pointer hover:brightness-75 ${user.username === username && "brightness-75 hover:brightness-50"}`} onClick={() => setUsername(user.username === username ? null : user.username)} key={user.id}>
                         <div className="flex h-full flex-row items-center  gap-lg bg-card-bg p-sm rounded-2xl">
-                            {user.username === username ? <div className={`shrink-0 size-xl bg-success rounded-full flex items-center justify-center text-h3`}><Check size={20}/></div> : <div className={`shrink-0 size-xl ${getColorForString(user.username)} rounded-full flex items-center justify-center text-h3`}>{user.username.charAt(0).toUpperCase()}</div>}
+                            {user.username === username ? <div className={`shrink-0 size-xl bg-success rounded-full flex items-center justify-center text-h3`}><Check size={20} /></div> : <div className={`shrink-0 size-xl ${getColorForString(user.username)} rounded-full flex items-center justify-center text-h3`}>{user.username.charAt(0).toUpperCase()}</div>}
                             <div className="text-button text-center">{user.username}</div>
                         </div>
                     </div>
                 )}
+                {roomUsers.length === 0 &&
+                    <div className="text-button text-center h-full w-full flex flex-col items-center justify-center gap-md">
+                        <Image src={"/images/search.svg"} alt="search icon" width={60} height={60}/>
+                        <div className="text-caption">No users to remove</div>
+                    </div>
+                }
                 <IconButton icon={<Trash2 />} label="Delete Room" className="w-full" onClick={() => { onClose(); username !== null && onAction(username) }} />
             </div>
         </Overlay>
