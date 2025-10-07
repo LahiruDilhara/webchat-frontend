@@ -1,6 +1,8 @@
 import { RootState } from "@/app/store";
+import QueryKeys from "@/core/QueryKeys";
 import resetQueryCaches from "@/core/ResetQueryCaches";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
+import { queryClient } from "@/lib/QueryClient";
 import RoomService from "@/services/RoomService";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -26,6 +28,10 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
             toast.error(e.message);
         }
     })
+
+    useEffect(()=>{
+        console.log(rooms)
+    },[rooms])
 
     const deleteMutation = useMutation({
         mutationFn: RoomService.deleteUserRoom,

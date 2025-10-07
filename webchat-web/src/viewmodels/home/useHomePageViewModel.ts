@@ -1,11 +1,7 @@
-import { RootState } from "@/app/store";
-import QueryKeys from "@/core/QueryKeys";
 import DualUserRoomDetailsResponseDTO from "@/dto/room/DualUserRoomDetailsResponseDTO";
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import useLimitStack from "@/hooks/primitive/useLimitStack";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
-import RoomService from "@/services/RoomService";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 export default function useHomePageViewModel() {
@@ -13,16 +9,8 @@ export default function useHomePageViewModel() {
     const { stack: recentRooms, addItem, resetStack } = useLimitStack<MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO>(10);
     const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const [searchText, setSearchText] = useState<string>("");
-    const { rooms } = useUserJoinedRoomsQuery();
+    const { rooms, isLoading } = useUserJoinedRoomsQuery();
     const [searchedRooms, setSearchedRooms] = useState<(MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO)[]>(rooms);
-
-
-    const fetchUserRooms = useQuery({
-        queryKey: [QueryKeys.USER_ROOMS],
-        queryFn: RoomService.getUserJoinedRooms,
-        retry: 2,
-        staleTime: 5 * 60 * 1000, // 5 minutes
-    });
 
     const onSearchTextChange = (text: string) => {
         setSearchText(text);
@@ -41,13 +29,10 @@ export default function useHomePageViewModel() {
     }
 
     useEffect(() => {
-        if (rooms.length === 0) return;
         setSearchedRooms(rooms);
         setSearchText("");
         resetStack();
-
     }, [rooms]);
-
 
     const onRoomClick = (roomId: string) => {
         setActiveRoomId(roomId);
@@ -57,10 +42,8 @@ export default function useHomePageViewModel() {
         }
     }
 
-    const loading = fetchUserRooms.isLoading;
-
     return {
-        loading,
+        loading: isLoading,
         searchText,
         setSearchText: onSearchTextChange,
         rooms: searchedRooms,

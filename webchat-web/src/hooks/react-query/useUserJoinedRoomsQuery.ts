@@ -27,6 +27,11 @@ export default function useUserJoinedRoomsQuery() {
 
     const rooms = fetchRooms.data;
 
+    useEffect(() => {
+        console.log("from useUserJoinedRoomsQuery")
+        console.log(rooms)
+    }, [rooms])
+
     return {
         dualUserRooms: dualUserRooms || [],
         multiUserRooms: multiUserRooms || [],
