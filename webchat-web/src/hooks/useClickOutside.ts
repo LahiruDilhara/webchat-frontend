@@ -18,7 +18,5 @@ export default function useClickOutside<T extends HTMLElement>(onOutSideClick: (
     }, [onOutSideClick])
 
 
-    return {
-        ref
-    }
+    return ref
 }
