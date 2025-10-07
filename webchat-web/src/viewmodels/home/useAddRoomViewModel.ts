@@ -1,6 +1,4 @@
 import RoomService from "@/services/RoomService";
-import { addOrReplaceDualUserRoom } from "@/slices/room/DualUserRoomSlice";
-import { addOrReplaceMultiUserRoom } from "@/slices/room/MultiUserRoomSlice";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
