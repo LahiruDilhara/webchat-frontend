@@ -20,7 +20,7 @@ const AddRoom = ({ onSubmit, onDualUser }: props) => {
     }, [dualUser])
     
     return (
-        <main className="bg-background p-md md:rounded-xl h-full w-full">
+        <main className="bg-background p-md sm:rounded-xl  h-full w-full">
             <div className="flex justify-between gap-md text-center">
                 <div className={`bg-card-bg text-button rounded-lg p-sm w-full hover:brightness-75 cursor-pointer ${!dualUser ? "" : "brightness-50"}`} onClick={() => setDualUser(false)}>Multi User Room</div>
                 <div className={`bg-card-bg text-button rounded-lg p-sm w-full hover:brightness-75 cursor-pointer ${!dualUser ? "brightness-50" : ""}`} onClick={() => setDualUser(true)}>Dual User Room</div>

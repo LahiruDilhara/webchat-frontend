@@ -89,8 +89,8 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     }
                 </div>
             </div>
-            {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} className="md:w-2/5 md:h-3/5" />}
-            {joinRoom && <JoinRoomOverlay onClose={() => setJoinRoom(false)} className="md:w-2/5 md:h-3/5" />}
+            {addRoom && <AddRoomOverlay onClose={() => setAddRoom(false)} className="md:w-2/5 md:h-3/5 sm:w-3/5 sm:h-3/5" />}
+            {joinRoom && <JoinRoomOverlay onClose={() => setJoinRoom(false)} className="md:w-2/5 md:h-3/5 sm:w-3/5 sm:h-3/5" />}
         </div>
     );
 }

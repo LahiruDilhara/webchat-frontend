@@ -8,7 +8,7 @@ const JoinRoom = () => {
     const { hasMore, isFetching, isLoading, onNextPage, onJoin, page, rooms, searchText, setSearchText } = useJoinRoomViewModel();
 
     return (
-        <main className="bg-background h-full w-full py-md md:rounded-xl flex gap-md lg:p-md flex-col overflow-hidden">
+        <main className="bg-background h-full w-full py-md md:rounded-xl flex gap-md sm:p-md flex-col overflow-hidden">
             <div className="w-full flex flex-row items-center gap-sm bg-input-bg px-md rounded-2xl">
                 <input value={searchText} onChange={(e) => setSearchText(e.target.value)} className="w-full py-md rounded-2xl text-button placeholder:text-input-placeholder focus:border-none focus:outline-none" placeholder="Search the room name"></input>
                 <Search />
