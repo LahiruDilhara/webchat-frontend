@@ -24,7 +24,7 @@ export default class RoomService {
         return response.data;
     }
 
-    static async deleteUserRoom(roomId: number): Promise<void> {
+    static async deleteUserRoom(roomId: string): Promise<void> {
         await API.delete(`/rooms/${roomId}`);
     }
 
@@ -38,10 +38,10 @@ export default class RoomService {
         return response.data;
     }
 
-    static async getPublicRooms(roomName:string = "",page:number = 0,size:number = 0): Promise<MultiUserRoomResponseDTO[]>{
+    static async getPublicRooms(roomName: string = "", page: number = 0, size: number = 0): Promise<MultiUserRoomResponseDTO[]> {
         const sort = "name,asc";
-        const response = await API.get<MultiUserRoomResponseDTO[]>("/rooms/public",{
-            params:{
+        const response = await API.get<MultiUserRoomResponseDTO[]>("/rooms/public", {
+            params: {
                 sort,
                 page,
                 size,
@@ -51,7 +51,19 @@ export default class RoomService {
         return response.data;
     }
 
-    static async joinToRoom(roomId:string):Promise<void>{
+    static async joinToRoom(roomId: string): Promise<void> {
         await API.post(`/rooms/${roomId}/join`);
+    }
+
+    static async addUserToRoom(username: string, roomId: string): Promise<void> {
+        await API.post(`/rooms/${roomId}/add/${username}`);
+    }
+
+    static async removeUserFromRoom(username: string, roomId: string): Promise<void> {
+        await API.delete(`/rooms/${roomId}/remove/${username}`);
+    }
+
+    static async leaveFromRoom(roomId: string): Promise<void> {
+        await API.post(`/rooms/${roomId}/leave`);
     }
 }
