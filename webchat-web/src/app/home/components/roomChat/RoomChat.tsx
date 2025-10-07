@@ -8,6 +8,7 @@ import useClickOutside from "@/hooks/primitive/useClickOutside";
 import LeaveRoomOverlay from "./LeaveRoomOverlay";
 import RemoveUserRoomOverlay from "./RemoveUserRoomOverlay";
 import DeleteRoomOverlay from "./DeleteRoomOverlay";
+import AddUserRoomOverlay from "./AddUserRoomOverlay";
 
 type RoomChatProps = {
     onExitRoom: () => void,
@@ -16,7 +17,7 @@ type RoomChatProps = {
 
 const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
 
-    const { room, isOwner, onMenuClick, removeMenu, overlayName, onLeave, onRoomDelete, onUserAdd, onUserRemove } = useRoomChatViewModel(roomId, onExitRoom);
+    const { room, roomMembers, isOwner, onMenuClick, removeMenu, overlayName, onLeave, onRoomDelete, onUserAdd, onUserRemove } = useRoomChatViewModel(roomId, onExitRoom);
     const [roomDropdown, setRoomDropdown] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(() => setRoomDropdown(false))
 
@@ -37,7 +38,7 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
                             <div className="p-sm cursor-pointer relative" onClick={() => setRoomDropdown(!roomDropdown)}>
                                 <Ellipsis />
                                 <div ref={ref}>
-                                    {roomDropdown && <RoomDropdown currentUserIsOwner={isOwner} onButtonClick={(action) => { setRoomDropdown(false); onMenuClick(action); }} />}
+                                    {roomDropdown && room?.type && <RoomDropdown type={room?.type} currentUserIsOwner={isOwner} onButtonClick={(action) => { setRoomDropdown(false); onMenuClick(action); }} />}
                                 </div>
                             </div>
                         </div>
@@ -246,9 +247,9 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
                     </div>
                 </div>
             </div>
-            {overlayName === "addUser" && <LeaveRoomOverlay onAction={onLeave} onClose={() => removeMenu()} />}
-            {/* {overlayName === "addUser" && <AddUserRoomOverlay onClose={() => removeMenu()} />} */}
-            {overlayName === "deleteUser" && <RemoveUserRoomOverlay onClose={() => removeMenu()} />}
+            {overlayName === "leave" && <LeaveRoomOverlay onAction={onLeave} onClose={() => removeMenu()} />}
+            {overlayName === "addUser" && <AddUserRoomOverlay onClose={() => removeMenu()} onAction={onUserAdd} />}
+            {overlayName === "deleteUser" && <RemoveUserRoomOverlay onClose={() => removeMenu()} onAction={onUserRemove} roomUsers={roomMembers} />}
             {overlayName === "deleteRoom" && <DeleteRoomOverlay onClose={() => removeMenu()} onAction={onRoomDelete} />}
         </div>
     );

@@ -41,9 +41,10 @@ export default function useHomePageViewModel() {
     }
 
     useEffect(() => {
+        if (rooms.length === 0) return;
         setSearchedRooms(rooms);
         setSearchText("");
-    }, [dualUserRooms, multiUserRooms]);
+    }, [rooms]);
 
 
     const onRoomClick = (roomId: string) => {
