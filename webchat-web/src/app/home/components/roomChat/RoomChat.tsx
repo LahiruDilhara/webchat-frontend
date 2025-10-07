@@ -4,7 +4,7 @@ import useRoomChatViewModel from "@/viewmodels/home/useRoomChatViewModel";
 import { ArrowLeft, Ellipsis, SendHorizonal } from "lucide-react";
 import { useState } from "react";
 import RoomDropdown from "../roomDropdown/RoomDropdown";
-import useClickOutside from "@/hooks/useClickOutside";
+import useClickOutside from "@/hooks/primitive/useClickOutside";
 import LeaveRoomOverlay from "./LeaveRoomOverlay";
 import RemoveUserRoomOverlay from "./RemoveUserRoomOverlay";
 import DeleteRoomOverlay from "./DeleteRoomOverlay";

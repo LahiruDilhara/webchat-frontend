@@ -1,6 +1,6 @@
 "use client";
 
-import useBreakpoint, { Breakpoint } from "@/hooks/useBreakpoint";
+import useBreakpoint, { Breakpoint } from "@/hooks/primitive/useBreakpoint";
 import SmHomePage from "./components/sm/smHomePage";
 import MdHomePage from "./components/md/mdHomePage";
 import useHomePageViewModel from "@/viewmodels/home/useHomePageViewModel";

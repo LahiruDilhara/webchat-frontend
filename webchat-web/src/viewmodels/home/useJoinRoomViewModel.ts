@@ -1,7 +1,7 @@
 import QueryKeys from "@/core/QueryKeys";
 import { resetRoomsReduxData } from "@/core/ResetStore";
 import MultiUserRoomResponseDTO from "@/dto/room/MultiUserRoomResponseDTO";
-import useDebounce from "@/hooks/useDebounce";
+import useDebounce from "@/hooks/primitive/useDebounce";
 import { queryClient } from "@/lib/QueryClient";
 import RoomService from "@/services/RoomService";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -23,12 +23,8 @@ export default function useJoinRoomViewModel() {
     })
 
     useEffect(() => {
-        console.log(`searched rooms ${searchRooms.data?.length}`);
-        console.log(`current page ${page}`);
-        console.log(`current rooms ${rooms.length}`);
         if (!searchRooms.data) return;
         if (page === 0) {
-            console.log("setting rooms")
             setRooms(() => searchRooms.data);
         }
         else {

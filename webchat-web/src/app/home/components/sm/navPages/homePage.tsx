@@ -1,6 +1,6 @@
 import SearchInput from "@/components/primitive/SearchInput"
 import RoomDetailsResponseDTO from "@/dto/room/RoomDetailsResponseDTO"
-import useClickOutside from "@/hooks/useClickOutside"
+import useClickOutside from "@/hooks/primitive/useClickOutside"
 import { Plus, Search } from "lucide-react"
 import { useState } from "react"
 import SmallRoomRowItem from "../roomRowItem"

@@ -1,15 +1,14 @@
 import { RootState } from "@/app/store";
-import { useEffect, useState } from "react";
+import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function useRoomChatViewModel(roomId: string, onExitRoom: () => void) {
-    const dualUserRooms = useSelector((state: RootState) => state.dualUserRoom.dualUserRooms);
-    const multiUserRooms = useSelector((state: RootState) => state.multiUserRoom.multiUserRooms);
     const currentUsername = useSelector((state: RootState) => state.auth.username);
-    const allRooms = [...dualUserRooms, ...multiUserRooms];
+    const {rooms} = useUserJoinedRoomsQuery();
     const [overlayName, setOverlayName] = useState<string | null>(null);
-    const room = allRooms.find(r => r.id === roomId) || null;
+    const room = rooms.find(r => r.id === roomId) || null;
     const isOwner = room?.createdBy.toLowerCase() === currentUsername.toLowerCase();
 
     if (room === null) {
