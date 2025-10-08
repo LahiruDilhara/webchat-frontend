@@ -3,7 +3,7 @@ import DualUserRoomDetailsResponseDTO from "@/dto/room/DualUserRoomDetailsRespon
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import RoomService from "@/services/RoomService";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function useUserJoinedRoomsQuery() {
@@ -14,9 +14,10 @@ export default function useUserJoinedRoomsQuery() {
         staleTime: 5 * 60 * 1000, // 5 minutes
     });
 
-    const [rooms, setRooms] = useState<(MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO)[]>(fetchRooms.data || []);
-    const [dualUserRooms, setDualUserRoomsState] = useState<DualUserRoomDetailsResponseDTO[]>([]);
-    const [multiUserRooms, setMultiUserRoomsState] = useState<MultiUserRoomDetailsResponseDTO[]>([]);
+    const rooms = useMemo(() => fetchRooms.data || [], [fetchRooms.data]);
+    const dualUserRooms = useMemo(() => rooms.filter(room => room.type === "DualUserRoom") as DualUserRoomDetailsResponseDTO[], [rooms]);
+    const multiUserRooms = useMemo(() => rooms.filter(room => room.type === "MultiUserRoom") as MultiUserRoomDetailsResponseDTO[], [rooms]);
+
 
     const isLoading = fetchRooms.isLoading;
 
@@ -25,13 +26,6 @@ export default function useUserJoinedRoomsQuery() {
             toast.error(fetchRooms.error.message)
         }
     }, [fetchRooms.error])
-
-
-    useEffect(() => {
-        setRooms(fetchRooms.data || []);
-        setDualUserRoomsState(fetchRooms.data?.filter(room => room.type === "DualUserRoom") as DualUserRoomDetailsResponseDTO[] || []);
-        setMultiUserRoomsState(fetchRooms.data?.filter(room => room.type === "MultiUserRoom") as MultiUserRoomDetailsResponseDTO[] || []);
-    }, [fetchRooms.data])
 
     return {
         dualUserRooms: dualUserRooms || [],

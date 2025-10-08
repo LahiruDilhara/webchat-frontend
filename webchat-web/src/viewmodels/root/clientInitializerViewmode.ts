@@ -3,7 +3,7 @@ import { RootState } from "@/app/store";
 import { setLoggedIn, setLoggedOut } from "@/slices/auth/AuthSlice";
 import { getTokenUser } from "@/utils/jwtUtil";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export function useClientInitializerViewModel() {
@@ -14,7 +14,7 @@ export function useClientInitializerViewModel() {
     const reduxDispatcher = useDispatch();
 
     // initialize the application state
-    useEffect(() => {
+    useLayoutEffect(() => {
         const fn = async () => {
             document.documentElement.setAttribute("data-theme", "dark");
             const token = localStorage.getItem("token");
@@ -38,7 +38,7 @@ export function useClientInitializerViewModel() {
     }, [])
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!ready) return; // wait until the initialization is done to redirect the user
         if (isUserLoggedIn) {
             if (windowPathName.startsWith("/auth")) {
@@ -54,7 +54,7 @@ export function useClientInitializerViewModel() {
         }
     }, [windowPathName, router, isUserLoggedIn, ready])
 
-    
+
 
     return { ready }
 }
