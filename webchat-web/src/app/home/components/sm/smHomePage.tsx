@@ -11,22 +11,21 @@ type SmHomePageProps = {
     recentRooms: RoomDetailsResponseDTO[]
     searchText: string
     setSearchText: (text: string) => void
-    onRoomClick: (roomId: string) => void
+    onRoomJoin: (roomId: string) => void
     activeRoomId: string | null
-    setActiveRoomId: (roomId: string | null) => void
+    onRoomLeave: () => void
 }
 
-const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, setActiveRoomId }: SmHomePageProps) => {
+const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, activeRoomId, onRoomLeave }: SmHomePageProps) => {
     const { activeNavId, navItems } = useSmHomePageViewModel();
-    1
     if (activeRoomId !== null) return (
-        <RoomChat onExitRoom={() => setActiveRoomId(null)} roomId={activeRoomId} />
+        <RoomChat onExitRoom={onRoomLeave} roomId={activeRoomId} />
     );
 
     return (
         <div className="w-full h-full grid grid-rows-[24fr_0.5fr] gap-md py-sm">
             {
-                activeNavId === 0 && <HomePage activeRoomId={activeRoomId} onRoomClick={onRoomClick} recentRooms={recentRooms} rooms={rooms} searchText={searchText} setSearchText={setSearchText} />
+                activeNavId === 0 && <HomePage activeRoomId={activeRoomId} onRoomJoin={onRoomJoin} recentRooms={recentRooms} rooms={rooms} searchText={searchText} setSearchText={setSearchText} />
             }
             {
                 activeNavId === 1 && <JoinRoomPage />

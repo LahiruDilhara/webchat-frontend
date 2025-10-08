@@ -5,37 +5,37 @@ export default function useWebSocket(urlString: string, onMessage: (data: any) =
     const [connected, setConnected] = useState<boolean>(false);
     const [sessionError, setSessionError] = useState<string | null>(null);
 
-    // Attemps is a state because in reattempt need to show the messages
-    const [attempts, setAttempts] = useState<number>(0);
-
     // no need to re-render the component when socket changes. that's why useRef
     const socketRef = useRef<WebSocket | null>(null);
+    const attemptsRef = useRef(0);
 
     useEffect(() => {
         let retryTimeout: NodeJS.Timeout | null = null;
 
         const connect = () => {
+            if (socketRef.current) return; // guard already connected
+            console.log("called")
             const socket = new WebSocket(urlString);
             socketRef.current = socket;
 
             socket.onopen = () => {
                 setConnected(true);
                 setConnectionError(null);
-                setAttempts(0);
+                attemptsRef.current = 0;
             }
 
             socket.onclose = (event) => {
                 setConnected(false);
                 if (event.code === 1000 || event.code === 1001) {
+                    socketRef.current = null;
                     return;
                 }
-                if (attempts < retryCount) {
+                if (attemptsRef.current < retryCount) {
+                    socketRef.current = null;
                     retryTimeout = setTimeout(() => {
-                        setAttempts((prev) => {
-                            console.log(`Reconnecting... Attempt ${prev + 1}`);
-                            connect();
-                            return prev + 1;
-                        })
+                        console.log(`Reconnecting... Attempt ${attemptsRef.current + 1}`);
+                        connect();
+                        attemptsRef.current += 1;
                     }, retryInterval);
                     return;
                 }
@@ -51,7 +51,8 @@ export default function useWebSocket(urlString: string, onMessage: (data: any) =
                 else {
                     setConnectionError("Unexpected error happened");
                 }
-                setAttempts(0);
+                attemptsRef.current = 0;
+                socketRef.current = null;
             }
 
             socket.onerror = (event) => {

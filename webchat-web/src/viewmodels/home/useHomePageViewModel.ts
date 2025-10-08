@@ -9,10 +9,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-export default function useHomePageViewModel() {
+export default function useHomePageViewModel(activeRoomId: string | null) {
 
     const { stack: recentRooms, addItem, setStackDirectly } = useLimitStack<MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO>(10);
-    const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const [searchText, setSearchText] = useState<string>("");
     const { rooms, isLoading } = useUserJoinedRoomsQuery();
     const [searchedRooms, setSearchedRooms] = useState<(MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO)[]>(rooms);
@@ -39,18 +38,17 @@ export default function useHomePageViewModel() {
         const prevStack = prevStackRef.current;
         const newStack = prevStack.filter(r => rooms.some(nr => nr.id === r.id));
         setStackDirectly(newStack);
-        setActiveRoomId(null);
         setSearchedRooms(rooms);
         setSearchText("");
     }, [rooms]);
 
-    const onRoomClick = (roomId: string) => {
-        setActiveRoomId(roomId);
-        const room = rooms.find(r => r.id === roomId);
+    useEffect(() => {
+        if (!activeRoomId) return;
+        const room = rooms.find(r => r.id === activeRoomId);
         if (room) {
             addItem(room);
         }
-    }
+    }, [activeRoomId])
 
 
     return {
@@ -58,9 +56,6 @@ export default function useHomePageViewModel() {
         searchText,
         setSearchText: onSearchTextChange,
         rooms: searchedRooms,
-        activeRoomId,
-        setActiveRoomId,
         recentRooms,
-        onRoomClick
     };
 }

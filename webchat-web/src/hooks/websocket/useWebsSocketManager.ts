@@ -1,7 +1,7 @@
 import { buildWebSocketUrl } from "@/utils/UrlUtil";
 import useWebSocket from "./useWebSocket";
 import BaseResponseMessageDTO from "@/dto/websocket/responses/BaseResponseMessageDTO";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import MessageResponseTypes from "@/dto/websocket/responses/MessageResponseTypes";
 import ClientErrorMessageResponseDTO from "@/dto/websocket/responses/ClientErrorMessageResponseDTO";
 import BaseMessageDTO from "@/dto/websocket/requests/BaseMessageDTO";
@@ -64,10 +64,6 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
             console.warn("Received message without type:", data);
             return;
         }
-        if (!data.uuid) {
-            console.warn("Received message without UUID:", data);
-            return;
-        }
         const message = data as BaseResponseMessageDTO;
         onNewMessage(message);
     }
@@ -84,8 +80,10 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
         }
     }, [])
 
+    const url = useMemo(() => buildWebSocketUrl(token), [token]);
 
-    const { connected, connectionError, sendMessage: onMessageSent, sessionError } = useWebSocket(buildWebSocketUrl(token), onWebSocketMessage);
+
+    const { connected, connectionError, sendMessage: onMessageSent, sessionError } = useWebSocket(url, onWebSocketMessage);
 
 
     const sendMessage = (message: BaseMessageDTO, options: SendMessageOptions = {}) => {

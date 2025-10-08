@@ -12,16 +12,16 @@ type SmHomePageProps = {
     recentRooms: RoomDetailsResponseDTO[]
     searchText: string
     setSearchText: (text: string) => void
-    onRoomClick: (roomId: string) => void
+    onRoomJoin: (roomId: string) => void
     activeRoomId: string | null
 }
 
-const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId }: SmHomePageProps) => {
+const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, activeRoomId }: SmHomePageProps) => {
     const [searchEnabled, setSearchEnabled] = useState(false);
-    const { ref } = useClickOutside<HTMLDivElement>(() => {
-            setSearchEnabled(false);
-            setSearchText("");
-        });
+    const ref = useClickOutside<HTMLDivElement>(() => {
+        setSearchEnabled(false);
+        setSearchText("");
+    });
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_3fr_19fr] gap-md py-sm min-h-0">
@@ -42,14 +42,14 @@ const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, 
             </div>
             <div className="w-full flex min-w-0 px-sm min-h-fit flex-row gap-md overflow-x-auto">
                 {
-                    recentRooms.map(room => <SmallRoomRowItem id={room.id} onRoomClick={onRoomClick} roomName={room.name} key={room.id} />)
+                    recentRooms.map(room => <SmallRoomRowItem id={room.id} onRoomClick={onRoomJoin} roomName={room.name} key={room.id} />)
                 }
                 {recentRooms.length === 0 && <div className="text-body flex items-center text-input-placeholder">No Recent rooms yet ....</div>}
             </div>
             <div className="flex flex-col min-h-0 ">
                 <h1 className="text-h3 pb-sm">Rooms</h1>
                 <div className="flex flex-1 flex-col gap-lg overflow-y-scroll min-h-0">
-                    {rooms.map(room => <SmallRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
+                    {rooms.map(room => <SmallRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
                     {
                         rooms.length === 0 &&
                         <div className="h-full text-input-placeholder text-center flex justify-center flex-col items-center p-lg rounded-lg gap-sm">

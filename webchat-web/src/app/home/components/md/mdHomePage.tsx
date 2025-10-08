@@ -16,12 +16,12 @@ type props = {
     recentRooms: RoomDetailsResponseDTO[]
     searchText: string
     setSearchText: (text: string) => void
-    onRoomClick: (roomId: string) => void
+    onRoomJoin: (roomId: string) => void
+    onRoomLeave: () => void
     activeRoomId: string | null
-    setActiveRoomId: (roomId: string | null) => void
 }
 
-const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick, activeRoomId, setActiveRoomId }: props) => {
+const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, onRoomLeave, activeRoomId }: props) => {
     const [folded, setFolded] = useState(false);
     const [addRoom, setAddRoom] = useState(false);
     const [joinRoom, setJoinRoom] = useState(false);
@@ -45,7 +45,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                             </div>
                             {recentRooms.length === 0 && <div className="text-body text-input-placeholder">No Recent rooms yet ....</div>}
                             {
-                                recentRooms.map((room) => <MdRoomRowItem id={room.id} name={room.name} key={room.id} onRoomClick={onRoomClick} />)
+                                recentRooms.map((room) => <MdRoomRowItem id={room.id} name={room.name} key={room.id} onRoomClick={onRoomJoin} />)
                             }
                         </div>
                     </div>
@@ -63,7 +63,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                         </div>
                         <div className="flex-1 flex flex-col gap-md overflow-y-scroll">
                             {
-                                rooms.map((room) => <MdRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomClick} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
+                                rooms.map((room) => <MdRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
                             }
                             {
                                 rooms.length === 0 &&
@@ -77,7 +77,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomClick
                     </div>
                 )}
                 <div className="w-full h-full min-h-0 rounded-lg bg-card-bg">
-                    {activeRoomId !== null && <RoomChat onExitRoom={() => setActiveRoomId(null)} roomId={activeRoomId} />}
+                    {activeRoomId !== null && <RoomChat onExitRoom={onRoomLeave} roomId={activeRoomId} />}
                     {activeRoomId === null &&
                         <div className="w-full h-full flex justify-center items-center text-center flex-col gap-lg">
                             <Image src="/images/chatBlue.svg" alt={"logo"} width={200} height={200} />

@@ -30,10 +30,6 @@ export default function useRoomChatViewModel(roomId: string, onExitRoom: () => v
         }
     })
 
-    useEffect(() => {
-        console.log(rooms)
-    }, [rooms])
-
     const deleteMutation = useMutation({
         mutationFn: RoomService.deleteUserRoom,
         onSuccess: () => {

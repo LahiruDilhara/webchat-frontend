@@ -1,11 +1,9 @@
 import { RootState } from "@/app/store";
 import JoinRoomMessageDTO from "@/dto/websocket/requests/JoinRoomMessageDTO";
 import LeaveRoomMessageDTO from "@/dto/websocket/requests/LeaveRoomMessageDTO";
-import useWebSocket from "@/hooks/websocket/useWebSocket";
 import useWebSocketManager from "@/hooks/websocket/useWebsSocketManager";
 import { generateUUID } from "@/utils/TextUtil";
-import { buildWebSocketUrl } from "@/utils/UrlUtil";
-import { useRef, useState } from "react";
+import {  useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -22,12 +20,7 @@ export default function useRoomMessageViewModel() {
             onError: (error) => {
                 toast.error(error);
                 setActiveRoomId(null);
-            },
-            onTimeout: () => {
-                toast.error("Join Room request timed out");
-                setActiveRoomId(null);
-            },
-            timeOutDuration: 10000
+            }
         })
     }
 
@@ -42,5 +35,6 @@ export default function useRoomMessageViewModel() {
     return {
         activeRoomId,
         onRoomJoin,
+        onRoomLeave,
     }
 }

@@ -5,12 +5,12 @@ import SmHomePage from "./components/sm/smHomePage";
 import MdHomePage from "./components/md/mdHomePage";
 import useHomePageViewModel from "@/viewmodels/home/useHomePageViewModel";
 import TitleLoadingPage from "@/components/loadingPages/TitleLoadingPage";
-import { useState } from "react";
+import useRoomMessageViewModel from "@/viewmodels/home/useRoomMessageViewMode";
 
 const HomePage = () => {
-    const { loading, activeRoomId, recentRooms, rooms, searchText, setSearchText, setActiveRoomId, onRoomClick } = useHomePageViewModel();
+    const { activeRoomId, onRoomJoin, onRoomLeave } = useRoomMessageViewModel();
+    const { loading, recentRooms, rooms, searchText, setSearchText } = useHomePageViewModel(activeRoomId);
     const { breakpoint } = useBreakpoint();
-    const [addRoom, setAddRoom] = useState(false);
 
     if (loading) return <TitleLoadingPage title="Home Page is loading...." />
     return (
@@ -18,21 +18,21 @@ const HomePage = () => {
             {breakpoint === "xs" ?
                 <SmHomePage
                     activeRoomId={activeRoomId}
-                    onRoomClick={onRoomClick}
                     rooms={rooms}
                     recentRooms={recentRooms}
                     searchText={searchText}
                     setSearchText={setSearchText}
-                    setActiveRoomId={setActiveRoomId}
+                    onRoomJoin={onRoomJoin}
+                    onRoomLeave={onRoomLeave}
                 /> :
                 <MdHomePage
                     activeRoomId={activeRoomId}
-                    onRoomClick={onRoomClick}
                     rooms={rooms}
                     recentRooms={recentRooms}
                     searchText={searchText}
                     setSearchText={setSearchText}
-                    setActiveRoomId={setActiveRoomId}
+                    onRoomJoin={onRoomJoin}
+                    onRoomLeave={onRoomLeave}
                 />}
         </div>
 
