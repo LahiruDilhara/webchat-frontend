@@ -28,7 +28,7 @@ export function useClientInitializerViewModel() {
                     reduxDispatcher(setLoggedOut());
                 }
                 else {
-                    reduxDispatcher(setLoggedIn({ username: user }))
+                    reduxDispatcher(setLoggedIn({ username: user, token: token }))
                 }
             }
             await new Promise(resolve => setTimeout(resolve, 1000));

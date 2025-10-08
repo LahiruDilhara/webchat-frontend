@@ -31,7 +31,7 @@ export function useLoginViewModel() {
         onSuccess: (data: TokenDto) => {
             setError(null);
             localStorage.setItem("token", data.token);
-            reduxDispatcher(setLoggedIn({ username: username }));
+            reduxDispatcher(setLoggedIn({ username: username, token: data.token }));
             setUsername("");
             setPassword("");
             router.replace(PageRoutes.HOME);

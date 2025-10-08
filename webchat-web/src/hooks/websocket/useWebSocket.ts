@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useWebSocket(urlString: string, token: string, retryCount: number = 3, retryInterval: number = 1000) {
+export default function useWebSocket(urlString: string, onMessage: (data: any) => void, retryCount: number = 3, retryInterval: number = 1000) {
     const [connectionError, setConnectionError] = useState<string | null>(null);
     const [connected, setConnected] = useState<boolean>(false);
-    const [message, setMessages] = useState<any[]>([]);
     const [sessionError, setSessionError] = useState<string | null>(null);
 
     // Attemps is a state because in reattempt need to show the messages
@@ -16,8 +15,7 @@ export default function useWebSocket(urlString: string, token: string, retryCoun
         let retryTimeout: NodeJS.Timeout | null = null;
 
         const connect = () => {
-            const url = `${urlString}?Authorization=Bearer ${token}`;
-            const socket = new WebSocket(url);
+            const socket = new WebSocket(urlString);
             socketRef.current = socket;
 
             socket.onopen = () => {
@@ -63,13 +61,15 @@ export default function useWebSocket(urlString: string, token: string, retryCoun
             socket.onmessage = (event) => {
                 try {
                     const data = JSON.parse(event.data);
-                    setMessages(data);
+                    onMessage(data);
                 } catch (error) {
                     setSessionError("Failed to parse message data from server.");
                     console.error("Failed to parse message data:", error);
                 }
             }
         }
+
+        connect();
 
         return () => {
             if (retryTimeout) {
@@ -94,7 +94,6 @@ export default function useWebSocket(urlString: string, token: string, retryCoun
     return {
         connected,
         connectionError,
-        message,
         sessionError,
         sendMessage
     }

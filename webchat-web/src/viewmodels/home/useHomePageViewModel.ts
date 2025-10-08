@@ -1,12 +1,17 @@
+import { RootState } from "@/app/store";
 import DualUserRoomDetailsResponseDTO from "@/dto/room/DualUserRoomDetailsResponseDTO";
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import useLimitStack from "@/hooks/primitive/useLimitStack";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
+import useWebSocket from "@/hooks/websocket/useWebSocket";
+import { buildWebSocketUrl } from "@/utils/UrlUtil";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function useHomePageViewModel() {
 
-    const { stack: recentRooms, addItem, resetStack, setStackDirectly } = useLimitStack<MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO>(10);
+    const { stack: recentRooms, addItem, setStackDirectly } = useLimitStack<MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO>(10);
     const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const [searchText, setSearchText] = useState<string>("");
     const { rooms, isLoading } = useUserJoinedRoomsQuery();
