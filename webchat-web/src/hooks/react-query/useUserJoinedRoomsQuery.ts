@@ -14,6 +14,11 @@ export default function useUserJoinedRoomsQuery() {
         staleTime: 5 * 60 * 1000, // 5 minutes
     });
 
+    // Don't use this. if the fetchRooms.data is undefined, it will return new empty array every time and cause unnecessary re-renders.
+    // if useEffect depends on rooms, it will cause infinite loop. this || returns new array.
+    // The userQuery returns same "undefined" but this || [] returns new array every time.
+    // const rooms = fetchRooms.data || [];
+
     const rooms = useMemo(() => fetchRooms.data || [], [fetchRooms.data]);
     const dualUserRooms = useMemo(() => rooms.filter(room => room.type === "DualUserRoom") as DualUserRoomDetailsResponseDTO[], [rooms]);
     const multiUserRooms = useMemo(() => rooms.filter(room => room.type === "MultiUserRoom") as MultiUserRoomDetailsResponseDTO[], [rooms]);
@@ -27,10 +32,11 @@ export default function useUserJoinedRoomsQuery() {
         }
     }, [fetchRooms.error])
 
+
     return {
         dualUserRooms: dualUserRooms || [],
         multiUserRooms: multiUserRooms || [],
-        rooms: rooms || [],
+        rooms: rooms,
         isLoading
     }
 }
