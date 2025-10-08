@@ -23,5 +23,9 @@ export default function useLimitStack<T>(limit: number) {
         setStack([]);
     }
 
-    return { stack, addItem, resetStack };
+    const setStackDirectly = (newStack: T[]) => {
+        setStack(newStack);
+    }
+
+    return { stack, addItem, resetStack, setStackDirectly };
 }
