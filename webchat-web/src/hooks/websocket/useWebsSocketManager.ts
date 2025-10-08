@@ -88,6 +88,10 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
 
 
     const sendMessage = (message: BaseMessageDTO, options: SendMessageOptions = {}) => {
+        if (!connected) {
+            console.warn("WebSocket is not connected. Cannot send message.");
+            return;
+        }
         const onError = options.onError || (() => { });
         const onSuccess = options.onSuccess || (() => { });
         const onTimeout = options.onTimeout || (() => { });
@@ -109,5 +113,12 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
             onTimeout,
             timeOutId
         });
+    };
+
+    return {
+        connected,
+        connectionError,
+        sessionError,
+        sendMessage
     };
 }
