@@ -19,6 +19,7 @@ interface SendMessageOptions {
     onSuccess?: (message: BaseResponseMessageDTO) => void;
     onTimeout?: () => void;
     timeOutDuration?: number;
+    sendOnly?: boolean;
 }
 
 export default function useWebSocketManager(token: string, onMessage: (data: BaseResponseMessageDTO) => void, queueSize: number = 50) {
@@ -106,6 +107,7 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
         }
 
         onMessageSent(message);
+        if (options.sendOnly) return;
         pushSentMessage({
             uuid: message.uuid,
             onError,
