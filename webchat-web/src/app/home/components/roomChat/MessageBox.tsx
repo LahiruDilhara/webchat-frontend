@@ -28,12 +28,12 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                         </div>
                     );
                     if (!m.owner) return (
-                        <div className="w-8/9 h-fit shrink-0 flex flex-row gap-sm" key={m.id}>
+                        <div className="w-fit h-fit shrink-0 flex flex-row gap-sm" key={m.id}>
                             <div className=" w-fit h-full">
                                 <div className="p-sm bg-amber-950 w-sm h-sm aspect-square rounded-full flex justify-center items-center">L</div>
                             </div>
-                            <div className="flex-1 h-fit flex flex-col gap-sm">
-                                <div className="flex-1 w-full px-sm flex flex-row justify-between">
+                            <div className="flex-1 min-w-0 shrink-0 h-fit flex flex-col gap-sm">
+                                <div className="flex-1 w-full px-sm flex flex-row justify-between gap-md">
                                     <div className="text-caption">lahiru</div>
                                     <div className="text-caption flex flex-row gap-sm">
                                         <div className="text-caption">{formatRelativeTime(m.time)}</div>

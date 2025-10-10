@@ -25,24 +25,13 @@ const messageSlice = createSlice({
     name: 'message',
     initialState,
     reducers: {
-        addOrUpdateMessage(state, action: PayloadAction<{ roomId: string, message: Message }>) {
+        addMessageIfIdNotExists(state, action: PayloadAction<{ roomId: string, message: Message }>) {
             const { roomId, message } = action.payload;
-
             if (!state.rooms[roomId]) {
                 state.rooms[roomId] = [];
             }
-
-            const msgIndex = state.rooms[roomId].findIndex(m => m.id === message.id);
-            if (msgIndex !== -1) {
-                state.rooms[roomId][msgIndex] = message;
-                return;
-            }
-
-            const prevMessageIndex = state.rooms[roomId].findIndex(m => m.time > message.time);
-            if (prevMessageIndex !== -1) {
-                state.rooms[roomId].splice(prevMessageIndex, 0, message);
-                return;
-            }
+            const exists = state.rooms[roomId].some(m => m.id === message.id);
+            if (exists) return;
             state.rooms[roomId].push(message);
         },
         addMessage(state, action: PayloadAction<{ roomId: string, message: Message }>) {
@@ -52,10 +41,10 @@ const messageSlice = createSlice({
             }
             state.rooms[roomId].push(message);
         },
-        updateMessageByUUID(state, action: PayloadAction<{ roomId: string, uuid: string, newMessage: Message }>) {
-            const { roomId, uuid, newMessage } = action.payload;
+        updateMessageByID(state, action: PayloadAction<{ roomId: string, messageId: string, newMessage: Message }>) {
+            const { roomId, messageId, newMessage } = action.payload;
             if (!state.rooms[roomId]) return;
-            const msgIndex = state.rooms[roomId].findIndex(m => m.uuid === uuid);
+            const msgIndex = state.rooms[roomId].findIndex(m => m.id === messageId);
             if (msgIndex === -1) return;
             state.rooms[roomId][msgIndex] = newMessage;
         },
@@ -77,7 +66,7 @@ const messageSlice = createSlice({
             if (msgIndex === -1) return;
             state.rooms[roomId].splice(msgIndex, 1);
         },
-        updateMessageFromUUID(state, action: PayloadAction<{ uuid: string, roomId: string, newMessage: Message }>) {
+        replaceMessageByUUID(state, action: PayloadAction<{ uuid: string, roomId: string, newMessage: Message }>) {
             const { uuid, roomId, newMessage } = action.payload;
             if (!state.rooms[roomId]) return;
             const msgIndex = state.rooms[roomId].findIndex(m => m.uuid === uuid);
@@ -87,5 +76,5 @@ const messageSlice = createSlice({
     },
 })
 
-export const { addOrUpdateMessage, clearMessages, removeMessage, removeMessageFromUUID, addMessage, updateMessageByUUID } = messageSlice.actions;
+export const { clearMessages, removeMessage, removeMessageFromUUID, addMessage, replaceMessageByUUID, addMessageIfIdNotExists, updateMessageByID } = messageSlice.actions;
 export default messageSlice.reducer;

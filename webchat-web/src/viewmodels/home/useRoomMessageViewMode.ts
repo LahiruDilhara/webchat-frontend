@@ -8,7 +8,7 @@ import MessageResponseTypes from "@/dto/websocket/responses/MessageResponseTypes
 import NewRoomUserResponseMessageDTO from "@/dto/websocket/responses/NewRoomUserResponseMessageDTO";
 import RoomUserLeftResponseMessageDTO from "@/dto/websocket/responses/RoomUserLeftResponseMessageDTO";
 import useWebSocketManager from "@/hooks/websocket/useWebsSocketManager";
-import { addMessage, addOrUpdateMessage, Message, removeMessageFromUUID, updateMessageByUUID } from "@/slices/message/MessageSlice";
+import { addMessage, addMessageIfIdNotExists, Message, removeMessageFromUUID, replaceMessageByUUID } from "@/slices/message/MessageSlice";
 import { generateUUID } from "@/utils/TextUtil";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,13 +45,11 @@ export default function useRoomMessageViewModel() {
         }
         else if (message.type === MessageResponseTypes.TEXT_MESSAGE) {
             const msg = message as TextMessageResponseDTO;
-            const createdTime = new Date(msg.createdAt);
-            const updatedTime = new Date(msg.editedAt);
             const owner = msg.senderUsername.toLowerCase() === currentUser.toLowerCase();
-            reduxDispatcher(addOrUpdateMessage({
+            reduxDispatcher(addMessageIfIdNotExists({
                 message: {
                     content: msg.content,
-                    edited: createdTime.getTime() !== updatedTime.getTime(),
+                    edited: msg.createdAt !== msg.editedAt,
                     id: msg.id,
                     owner: owner,
                     roomId: msg.roomId,
@@ -113,12 +111,10 @@ export default function useRoomMessageViewModel() {
             },
             onSuccess: (message) => {
                 const msg = message as TextMessageResponseDTO;
-                const createdTime = new Date(msg.createdAt);
-                const updatedTime = new Date(msg.editedAt);
                 const owner = msg.senderUsername.toLowerCase() === currentUser.toLowerCase();
                 const newMessage: Message = {
                     content: msg.content,
-                    edited: createdTime.getTime() !== updatedTime.getTime(),
+                    edited: msg.createdAt !== msg.editedAt,
                     id: msg.id,
                     owner: owner,
                     roomId: msg.roomId,
@@ -127,8 +123,7 @@ export default function useRoomMessageViewModel() {
                     type: msg.type,
                     uuid: msg.uuid,
                 }
-                console.log(newMessage);
-                reduxDispatcher(updateMessageByUUID({
+                reduxDispatcher(replaceMessageByUUID({
                     roomId,
                     uuid,
                     newMessage,
@@ -140,7 +135,6 @@ export default function useRoomMessageViewModel() {
                     roomId,
                     uuid
                 }))
-                console.log("message sending timed out")
             }
         });
     }
