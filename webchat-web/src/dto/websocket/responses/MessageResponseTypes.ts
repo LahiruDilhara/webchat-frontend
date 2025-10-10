@@ -5,4 +5,5 @@ export default class MessageResponseTypes {
     static readonly NEW_ROOM_USER = "NewRoomUser";
     static readonly ROOM_USER_LEFT = "RoomUserLeft"
     static readonly TYPING = "Typing";
+    static readonly TEXT_MESSAGE = "TextMessage";
 }

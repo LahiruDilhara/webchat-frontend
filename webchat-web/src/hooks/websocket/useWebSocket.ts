@@ -14,7 +14,6 @@ export default function useWebSocket(urlString: string, onMessage: (data: any) =
 
         const connect = () => {
             if (socketRef.current) return; // guard already connected
-            console.log("called")
             const socket = new WebSocket(urlString);
             socketRef.current = socket;
 

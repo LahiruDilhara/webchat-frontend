@@ -8,16 +8,16 @@ import BaseMessageDTO from "@/dto/websocket/requests/BaseMessageDTO";
 
 export interface SentMessage {
     uuid: string;
-    onError: (error: string) => void;
-    onSuccess: (message: BaseResponseMessageDTO) => void;
-    onTimeout: () => void;
+    onError: (error: string, uuid:string) => void;
+    onSuccess: (message: BaseResponseMessageDTO, uuid:string) => void;
+    onTimeout: (uuid:string) => void;
     timeOutId?: NodeJS.Timeout;
 }
 
 interface SendMessageOptions {
-    onError?: (error: string) => void;
-    onSuccess?: (message: BaseResponseMessageDTO) => void;
-    onTimeout?: () => void;
+    onError?: (error: string, uuid:string) => void;
+    onSuccess?: (message: BaseResponseMessageDTO,uuid:string) => void;
+    onTimeout?: (uuid:string) => void;
     timeOutDuration?: number;
     sendOnly?: boolean;
 }
@@ -32,7 +32,7 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
             const oldestKey = sentMessageQueue.current.keys().next().value;
             if (!oldestKey) return;
             const oldestMessage = sentMessageQueue.current.get(oldestKey);
-            oldestMessage?.onTimeout();
+            oldestMessage?.onTimeout(oldestKey);
             if (oldestMessage?.timeOutId) {
                 clearTimeout(oldestMessage.timeOutId);
             }
@@ -49,9 +49,9 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
 
         if (message.type === MessageResponseTypes.CLIENT_ERROR) {
             const errorMessage = message as ClientErrorMessageResponseDTO;
-            sentMessage.onError(errorMessage.error);
+            sentMessage.onError(errorMessage.error,errorMessage.uuid);
         } else {
-            sentMessage.onSuccess(message);
+            sentMessage.onSuccess(message,message.uuid);
         }
         if (sentMessage.timeOutId) {
             clearTimeout(sentMessage.timeOutId);
@@ -74,7 +74,7 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
                 if (msg.timeOutId) {
                     clearTimeout(msg.timeOutId);
                 }
-                msg.onTimeout();
+                msg.onTimeout(msg.uuid);
             });
             sentMessageQueue.current.clear();
         }
@@ -99,7 +99,7 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
             timeOutId = setTimeout(() => {
                 if (sentMessageQueue.current.has(message.uuid)) {
                     sentMessageQueue.current.delete(message.uuid);
-                    onTimeout();
+                    onTimeout(message.uuid);
                 }
             }, options.timeOutDuration);
         }

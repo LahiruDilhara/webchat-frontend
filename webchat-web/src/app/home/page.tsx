@@ -8,7 +8,7 @@ import TitleLoadingPage from "@/components/loadingPages/TitleLoadingPage";
 import useRoomMessageViewModel from "@/viewmodels/home/useRoomMessageViewMode";
 
 const HomePage = () => {
-    const { activeRoomId, onRoomJoin, onRoomLeave } = useRoomMessageViewModel();
+    const { activeRoomId, onRoomJoin, onRoomLeave,onSendTextMessage } = useRoomMessageViewModel();
     const { loading, recentRooms, rooms, searchText, setSearchText } = useHomePageViewModel(activeRoomId);
     const { breakpoint } = useBreakpoint();
 
@@ -33,6 +33,7 @@ const HomePage = () => {
                     setSearchText={setSearchText}
                     onRoomJoin={onRoomJoin}
                     onRoomLeave={onRoomLeave}
+                    onTextMessageSend={onSendTextMessage}
                 />}
         </div>
 

@@ -16,10 +16,11 @@ import MessageBox from "./MessageBox";
 
 type RoomChatProps = {
     onExitRoom: () => void,
-    roomId: string
+    roomId: string,
+    onTextMessageSend: (roomId: string, content: string) => void
 }
 
-const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
+const RoomChat = ({ onExitRoom, roomId,onTextMessageSend }: RoomChatProps) => {
 
     const { room, roomMembers, isOwner, onMenuClick, removeMenu, overlayName, onLeave, onRoomDelete, onUserAdd, onUserRemove, onRoomUpdate } = useRoomChatViewModel(roomId, onExitRoom);
     const [roomDropdown, setRoomDropdown] = useState(false);
@@ -49,7 +50,7 @@ const RoomChat = ({ onExitRoom, roomId }: RoomChatProps) => {
                     </div>
                 </div>
             </div>
-            <MessageBox roomId={roomId} />
+            <MessageBox onTextMessageSend={onTextMessageSend} roomId={roomId} />
             {overlayName === "leave" && <LeaveRoomOverlay onAction={onLeave} onClose={() => removeMenu()} />}
             {overlayName === "addUser" && <AddUserRoomOverlay onClose={() => removeMenu()} onAction={onUserAdd} />}
             {overlayName === "deleteUser" && <RemoveUserRoomOverlay onClose={() => removeMenu()} onAction={onUserRemove} roomUsers={roomMembers} />}

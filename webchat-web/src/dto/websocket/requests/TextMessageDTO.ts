@@ -11,5 +11,4 @@ export default class TextMessageDTO implements BaseMessageDTO {
         this.uuid = uuid;
         this.message = message;
     }
-
 }

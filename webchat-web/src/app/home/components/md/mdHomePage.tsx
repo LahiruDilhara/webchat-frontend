@@ -19,9 +19,10 @@ type props = {
     onRoomJoin: (roomId: string) => void
     onRoomLeave: () => void
     activeRoomId: string | null
+    onTextMessageSend: (roomId: string, content: string) => void
 }
 
-const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, onRoomLeave, activeRoomId }: props) => {
+const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, onRoomLeave, activeRoomId,onTextMessageSend }: props) => {
     const [folded, setFolded] = useState(false);
     const [addRoom, setAddRoom] = useState(false);
     const [joinRoom, setJoinRoom] = useState(false);
@@ -77,7 +78,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin,
                     </div>
                 )}
                 <div className="w-full h-full min-h-0 rounded-lg bg-card-bg">
-                    {activeRoomId !== null && <RoomChat onExitRoom={onRoomLeave} roomId={activeRoomId} />}
+                    {activeRoomId !== null && <RoomChat onTextMessageSend={onTextMessageSend}  onExitRoom={onRoomLeave} roomId={activeRoomId} />}
                     {activeRoomId === null &&
                         <div className="w-full h-full flex justify-center items-center text-center flex-col gap-lg">
                             <Image src="/images/chatBlue.svg" alt={"logo"} width={200} height={200} />
