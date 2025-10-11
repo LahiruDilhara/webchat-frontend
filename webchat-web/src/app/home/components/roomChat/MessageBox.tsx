@@ -3,15 +3,17 @@ import useMessageBoxViewModel from "@/viewmodels/home/useMessageBoxViewModel";
 import { SendHorizonal } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { ClipLoader } from "react-spinners";
 type props = {
     roomId: string
     onTextMessageSend: (roomId: string, content: string) => void
 }
 const MessageBox = ({ roomId, onTextMessageSend }: props) => {
-    const { message, messages, setMessage, containerRef, bottomRef, textAreaRef, handleTextAreaChange, handleScroll, handleKeyDown, handleTextMessageSend } = useMessageBoxViewModel(roomId, onTextMessageSend);
+    const { message, messages, containerRef, bottomRef, textAreaRef, messageLoading, prevMessageLoading, handleTextAreaChange, handleScroll, handleKeyDown, handleTextMessageSend } = useMessageBoxViewModel(roomId, onTextMessageSend);
     return (
         <div className="bg-card-bg rounded-xl flex flex-col min-h-0 flex-1 md:px-4xl sm:px-lg min-w-0">
             <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto overflow-x-hidden px-sm" ref={containerRef} onScroll={handleScroll}>
+                { prevMessageLoading && <div className="w-full flex justify-center items-center text-accent"><ClipLoader /></div> }
                 {messages.map(m => {
                     if (m.owner) return (
                         <div className="w-full  shrink-0 flex flex-row gap-sm self-end" key={m.id}>

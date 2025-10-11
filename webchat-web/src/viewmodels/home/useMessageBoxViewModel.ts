@@ -38,11 +38,11 @@ export default function useMessageBoxViewModel(roomId: string, onMessageSend: (r
         })
         setPrevMessageLoading(false);
         requestAnimationFrame(() => {
-        if (container) {
-            const newScrollHeight = container.scrollHeight;
-            container.scrollTop = newScrollHeight - oldScrollHeight + oldScrollTop;
-        }
-    });
+            if (container) {
+                const newScrollHeight = container.scrollHeight;
+                container.scrollTop = newScrollHeight - oldScrollHeight + oldScrollTop;
+            }
+        });
     }
 
     useEffect(() => {
@@ -119,13 +119,14 @@ export default function useMessageBoxViewModel(roomId: string, onMessageSend: (r
     return {
         messages,
         message: messageString,
-        setMessage: setMessageString,
         containerRef,
         bottomRef,
         handleScroll,
         handleKeyDown,
         handleTextMessageSend,
         textAreaRef,
-        handleTextAreaChange
+        handleTextAreaChange,
+        messageLoading,
+        prevMessageLoading,
     }
 }
