@@ -19,7 +19,7 @@ const MdRoomColumnItem = ({ caption, date, name, onRoomClick, id, activeRoomId, 
             <div className="w-full flex flex-col justify-between">
                 <div className="flex flex-row justify-between w-full">
                     <h1 className="text-body">{capitalizeFirstLetter(name)}</h1>
-                    <h1 className={`text-caption bg-accent rounded-full h-fit p-0.5 ${isNaN(count) ? "hidden" : ""}`}>{isNaN(count) ? 0 : count}</h1>
+                    <h1 className={`text-caption bg-accent rounded-full h-fit p-0.5 ${isNaN(count) || count === 0 ? "hidden" : ""}`}>{isNaN(count) ? 0 : count}</h1>
                 </div>
                 <div className="flex flex-row justify-between w-full">
                     <h1 className="text-caption hidden lg:block">{caption}</h1>

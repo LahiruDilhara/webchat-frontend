@@ -1,13 +1,8 @@
-import { RootState } from "@/app/store";
 import DualUserRoomDetailsResponseDTO from "@/dto/room/DualUserRoomDetailsResponseDTO";
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import useLimitStack from "@/hooks/primitive/useLimitStack";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
-import useWebSocket from "@/hooks/websocket/useWebSocket";
-import { buildWebSocketUrl } from "@/utils/UrlUtil";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 export default function useHomePageViewModel(activeRoomId: string | null) {
 
@@ -35,6 +30,7 @@ export default function useHomePageViewModel(activeRoomId: string | null) {
     const prevStackRef = useRef(recentRooms);
 
     useLayoutEffect(() => {
+        console.log(rooms);
         const prevStack = prevStackRef.current;
         const newStack = prevStack.filter(r => rooms.some(nr => nr.id === r.id));
         setStackDirectly(newStack);

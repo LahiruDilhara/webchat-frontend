@@ -5,7 +5,7 @@ export default interface RoomDetailsResponseDTO {
     name: string;
     createdAt: string;
     createdBy: string;
-    unreadMessageCount: string;
+    unreadMessagesCount: string;
     type: string;
     roomMembers: UserResponseDto[];
 }

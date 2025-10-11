@@ -1,6 +1,6 @@
 import SearchInput from "@/components/primitive/SearchInput";
 import { Menu, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MdRoomRowItem from "./roomRowItem";
 import RoomDetailsResponseDTO from "@/dto/room/RoomDetailsResponseDTO";
 import MdRoomColumnItem from "./roomColumnItem";
@@ -26,6 +26,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin,
     const [folded, setFolded] = useState(false);
     const [addRoom, setAddRoom] = useState(false);
     const [joinRoom, setJoinRoom] = useState(false);
+
 
     return (
         <div className="w-full h-full grid grid-rows-[1fr_15fr] py-sm">
@@ -64,7 +65,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin,
                         </div>
                         <div className="flex-1 flex flex-col gap-md overflow-y-scroll">
                             {
-                                rooms.map((room) => <MdRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
+                                rooms.map((room) => <MdRoomColumnItem count={parseInt(room.unreadMessagesCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
                             }
                             {
                                 rooms.length === 0 &&

@@ -102,6 +102,9 @@ const messageSlice = createSlice({
                 else state.rooms[roomId].splice(nextIndex, 0, newMessage);
             }
         },
+        resetMessages(state) {
+            state.rooms = {};
+        },
     },
 });
 
@@ -113,7 +116,8 @@ export const {
     replaceMessageByUUID,
     addMessageIfIdNotExists,
     updateMessageByID,
-    addOrReplaceMessage 
+    addOrReplaceMessage,
+    resetMessages
 } = messageSlice.actions;
 
 export default messageSlice.reducer;
