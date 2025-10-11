@@ -1,13 +1,14 @@
 import { formatRelativeTime } from "@/utils/TimeUtil";
 import useMessageBoxViewModel from "@/viewmodels/home/useMessageBoxViewModel";
 import { SendHorizonal } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 type props = {
     roomId: string
     onTextMessageSend: (roomId: string, content: string) => void
 }
 const MessageBox = ({ roomId, onTextMessageSend }: props) => {
-    const { message, messages, setMessage, containerRef,bottomRef,textAreaRef,handleTextAreaChange,handleScroll,handleKeyDown,handleTextMessageSend } = useMessageBoxViewModel(roomId, onTextMessageSend);
+    const { message, messages, setMessage, containerRef, bottomRef, textAreaRef, handleTextAreaChange, handleScroll, handleKeyDown, handleTextMessageSend } = useMessageBoxViewModel(roomId, onTextMessageSend);
     return (
         <div className="bg-card-bg rounded-xl flex flex-col min-h-0 flex-1 md:px-4xl sm:px-lg min-w-0">
             <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto overflow-x-hidden px-sm" ref={containerRef} onScroll={handleScroll}>
@@ -48,6 +49,11 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                     );
                     return <div></div>
                 })}
+                {messages.length === 0 && <div className="h-full w-full flex items-center justify-center flex-col gap-sm">
+                    <Image src="/images/notFound.svg" alt="no messages" width={100} height={100} className="mx-auto my-8" />
+                    <h1 className="text-body">No messages found</h1>
+                </div>
+                }
                 <div ref={bottomRef}></div>
             </div>
             <div className="min-h-0 h-fit w-full px-sm py-md gap-sm flex flex-row items-center justify-center">

@@ -1,6 +1,11 @@
 import { RootState } from "@/app/store";
+import TextMessageResponseDTO from "@/dto/message/TextMessageResponseDTO";
+import MessageResponseTypes from "@/dto/websocket/responses/MessageResponseTypes";
+import Messagemapper from "@/mapper/MessageMapper";
+import MessageService from "@/services/MessageService";
+import { addOrReplaceMessage, Message } from "@/slices/message/MessageSlice";
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function useMessageBoxViewModel(roomId: string, onMessageSend: (roomId: string, content: string) => void) {
     const [messageString, setMessageString] = useState("");
@@ -8,24 +13,76 @@ export default function useMessageBoxViewModel(roomId: string, onMessageSend: (r
     const bottomRef = useRef<HTMLDivElement>(null);
     const [isAtBottom, setIsAtBottom] = useState(true);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
+    const [messageLoading, setMessageLoading] = useState(false);
+    const [prevMessageLoading, setPrevMessageLoading] = useState(false);
+    const reduxDispatcher = useDispatch();
+    const currentUser = useSelector((state: RootState) => state.auth.username);
     const rooms = useSelector((state: RootState) => state.message.rooms)
+    const messages = rooms[roomId] || [];
 
-    const handleScroll = () => {
-        if (!containerRef.current) return;
-        const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-        const atBottom = scrollTop + clientHeight >= scrollHeight - 20;
-        setIsAtBottom(atBottom);
+    const fetchPreviousMessages = async () => {
+        if (!roomId || messageLoading || prevMessageLoading || messages.length === 0) return;
+        const firstMessage: Message = rooms[roomId][0];
+        setPrevMessageLoading(true);
+        const container = containerRef.current;
+        if (!container) return;
+        const oldScrollHeight = container.scrollHeight;
+        const oldScrollTop = container.scrollTop;
+
+        const prevMessages = await MessageService.getPrevious15Messages(roomId, firstMessage.id);
+        prevMessages.forEach(msg => {
+            reduxDispatcher(addOrReplaceMessage({
+                roomId: roomId,
+                message: Messagemapper.textMessageResponseDTOToMessage(msg as TextMessageResponseDTO, currentUser)
+            }))
+        })
+        setPrevMessageLoading(false);
+        requestAnimationFrame(() => {
+        if (container) {
+            const newScrollHeight = container.scrollHeight;
+            container.scrollTop = newScrollHeight - oldScrollHeight + oldScrollTop;
+        }
+    });
     }
+
+    useEffect(() => {
+        if (!roomId) return;
+        const queryLast10Messages = async () => {
+            setMessageLoading(true);
+            const messages = await MessageService.getRoomLast10Messages(roomId);
+            messages.forEach(msg => {
+                if (msg.type == MessageResponseTypes.TEXT_MESSAGE) {
+                    const textMsg = msg as TextMessageResponseDTO;
+                    reduxDispatcher(addOrReplaceMessage({
+                        roomId: roomId,
+                        message: Messagemapper.textMessageResponseDTOToMessage(textMsg, currentUser)
+                    }))
+                }
+            })
+            setMessageLoading(false);
+        }
+        queryLast10Messages();
+    }, [roomId]);
+
 
     useEffect(() => {
         if (isAtBottom) {
             bottomRef.current?.scrollIntoView({ behavior: "smooth" });
         }
     }, [rooms])
-    const messages = rooms[roomId] || [];
 
 
+
+    const handleScroll = () => {
+        if (!containerRef.current) return;
+        if (containerRef.current.scrollTop === 0 && !prevMessageLoading && !messageLoading) {
+            fetchPreviousMessages();
+        }
+
+        const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+        const atBottom = scrollTop + clientHeight >= scrollHeight - 20;
+        setIsAtBottom(atBottom);
+    }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter" && !e.shiftKey) {

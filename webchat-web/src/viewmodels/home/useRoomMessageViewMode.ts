@@ -21,38 +21,6 @@ export default function useRoomMessageViewModel() {
     const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const currentUser = useSelector((state: RootState) => state.auth.username);
     const reduxDispatcher = useDispatch();
-    const [messageLoading, setMessageLoading] = useState(false);
-
-
-    useEffect(()=>{
-        if(!activeRoomId) return;
-        const queryLast10Messages = async () => {
-            setMessageLoading(true);
-            const messages = await MessageService.getRoomLast10Messages(activeRoomId);
-            messages.forEach(msg => {
-                if(msg.type == MessageResponseTypes.TEXT_MESSAGE){
-                    const textMsg = msg as TextMessageResponseDTO;
-                    console.log(textMsg.content)
-                    reduxDispatcher(addOrReplaceMessage({
-                        roomId: activeRoomId,
-                        message : {
-                            content: textMsg.content,
-                            edited: textMsg.createdAt !== textMsg.editedAt,
-                            id: textMsg.id,
-                            owner: textMsg.senderUsername.toLowerCase() === currentUser.toLowerCase(),
-                            roomId: textMsg.roomId,
-                            sender: textMsg.senderUsername,
-                            time: textMsg.createdAt,
-                            type: textMsg.type,
-                            uuid: textMsg.uuid,
-                        }
-                    }))
-                }
-            })
-            setMessageLoading(false);
-        }
-        queryLast10Messages();
-    },[activeRoomId]);
 
     const onMessageReceived = (message: BaseResponseMessageDTO) => {
         if (message.type === MessageResponseTypes.CLIENT_ERROR) {
