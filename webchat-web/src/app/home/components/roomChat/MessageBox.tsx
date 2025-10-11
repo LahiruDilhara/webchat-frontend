@@ -1,3 +1,4 @@
+import { capitalizeFirstLetter } from "@/utils/TextUtil";
 import { formatRelativeTime } from "@/utils/TimeUtil";
 import useMessageBoxViewModel from "@/viewmodels/home/useMessageBoxViewModel";
 import { SendHorizonal } from "lucide-react";
@@ -33,11 +34,11 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                     if (!m.owner) return (
                         <div className="shrink-0 flex flex-row gap-sm" key={m.id}>
                             <div className=" w-fit h-full">
-                                <div className="p-sm bg-amber-950 w-sm h-sm aspect-square rounded-full flex justify-center items-center">L</div>
+                                <div className="p-sm bg-amber-950 w-sm h-sm aspect-square rounded-full flex justify-center items-center">{m.sender.charAt(0).toUpperCase()}</div>
                             </div>
                             <div className="flex-1 min-w-0 shrink-0  flex flex-col gap-sm">
-                                <div className="flex-1 w-full px-sm flex flex-row justify-between gap-md">
-                                    <div className="text-caption">lahiru</div>
+                                <div className="flex-1 w-full px-sm flex flex-row  gap-md">
+                                    <div className="text-caption">{capitalizeFirstLetter(m.sender)}</div>
                                     <div className="text-caption flex flex-row gap-sm ">
                                         <div className="text-caption text-nowrap">{formatRelativeTime(m.time)}</div>
                                         {m.edited && <div className="text-input-placeholder">edited</div>}
