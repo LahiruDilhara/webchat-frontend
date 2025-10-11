@@ -51,7 +51,7 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
             </div>
             <div className="min-h-0 h-fit w-full px-sm py-md gap-sm flex flex-row">
                 <input className="bg-input-bg md:py-lg md:px-md text-caption flex-1 p-sm rounded-2xl placeholder:text-input-placeholder border-input-border focus-within:border-primary-hover focus:border-none focus:border-1 focus:outline-none" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)}></input>
-                <div className="bg-input-bg p-sm rounded-2xl cursor-pointer hover:brightness-50 flex justify-center items-center" onClick={() => { onTextMessageSend(roomId, message); setMessage(""); }}>
+                <div className="bg-input-bg p-sm rounded-2xl cursor-pointer hover:brightness-50 flex justify-center items-center" onClick={() => { onTextMessageSend(roomId, message) }}>
                     <SendHorizonal />
                 </div>
             </div>

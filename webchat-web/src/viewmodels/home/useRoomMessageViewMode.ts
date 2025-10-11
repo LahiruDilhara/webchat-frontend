@@ -8,18 +8,52 @@ import MessageResponseTypes from "@/dto/websocket/responses/MessageResponseTypes
 import NewRoomUserResponseMessageDTO from "@/dto/websocket/responses/NewRoomUserResponseMessageDTO";
 import RoomUserLeftResponseMessageDTO from "@/dto/websocket/responses/RoomUserLeftResponseMessageDTO";
 import useWebSocketManager from "@/hooks/websocket/useWebsSocketManager";
-import { addMessage, addMessageIfIdNotExists, Message, removeMessageFromUUID, replaceMessageByUUID } from "@/slices/message/MessageSlice";
+import { addMessage, addMessageIfIdNotExists, addOrReplaceMessage, Message, removeMessageFromUUID, replaceMessageByUUID } from "@/slices/message/MessageSlice";
 import { generateUUID } from "@/utils/TextUtil";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import TextMessageDTO from "@/dto/websocket/requests/TextMessageDTO";
+import { useQuery } from "@tanstack/react-query";
+import QueryKeys from "@/core/QueryKeys";
+import MessageService from "@/services/MessageService";
 
 export default function useRoomMessageViewModel() {
     const token = useSelector((state: RootState) => state.auth.token);
     const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const currentUser = useSelector((state: RootState) => state.auth.username);
     const reduxDispatcher = useDispatch();
+    const [messageLoading, setMessageLoading] = useState(false);
+
+
+    useEffect(()=>{
+        if(!activeRoomId) return;
+        const queryLast10Messages = async () => {
+            setMessageLoading(true);
+            const messages = await MessageService.getRoomLast10Messages(activeRoomId);
+            messages.forEach(msg => {
+                if(msg.type == MessageResponseTypes.TEXT_MESSAGE){
+                    const textMsg = msg as TextMessageResponseDTO;
+                    reduxDispatcher(addOrReplaceMessage({
+                        roomId: activeRoomId,
+                        message : {
+                            content: textMsg.content,
+                            edited: textMsg.createdAt !== textMsg.editedAt,
+                            id: textMsg.id,
+                            owner: textMsg.senderUsername.toLowerCase() === currentUser.toLowerCase(),
+                            roomId: textMsg.roomId,
+                            sender: textMsg.senderUsername,
+                            time: textMsg.createdAt,
+                            type: textMsg.type,
+                            uuid: textMsg.uuid,
+                        }
+                    }))
+                }
+            })
+            setMessageLoading(false);
+        }
+        queryLast10Messages();
+    },[activeRoomId]);
 
     const onMessageReceived = (message: BaseResponseMessageDTO) => {
         if (message.type === MessageResponseTypes.CLIENT_ERROR) {
@@ -66,6 +100,7 @@ export default function useRoomMessageViewModel() {
     const { connected, connectionError, sessionError, sendMessage } = useWebSocketManager(token, onMessageReceived);
 
     const onRoomJoin = (roomId: string | null) => {
+        console.log("joining room: " + roomId);
         setActiveRoomId(roomId);
         if (!roomId) return;
         const message = new JoinRoomMessageDTO(Number(roomId), generateUUID());
@@ -78,6 +113,7 @@ export default function useRoomMessageViewModel() {
     }
 
     const onRoomLeave = () => {
+        console.log("leaving room: " + activeRoomId);
         if (!activeRoomId) return;
         const message = new LeaveRoomMessageDTO(Number(activeRoomId), generateUUID());
         sendMessage(message, { sendOnly: true });
@@ -135,7 +171,8 @@ export default function useRoomMessageViewModel() {
                     roomId,
                     uuid
                 }))
-            }
+            },
+            timeOutDuration: 10000
         });
     }
 
@@ -144,6 +181,7 @@ export default function useRoomMessageViewModel() {
         activeRoomId,
         onRoomJoin,
         onRoomLeave,
+        sendMessage,
         onSendTextMessage,
     }
 }

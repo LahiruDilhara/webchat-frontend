@@ -27,7 +27,6 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
 
     const pushSentMessage = (message: SentMessage) => {
         sentMessageQueue.current.set(message.uuid, message);
-
         if (sentMessageQueue.current.size > queueSize) {
             const oldestKey = sentMessageQueue.current.keys().next().value;
             if (!oldestKey) return;
