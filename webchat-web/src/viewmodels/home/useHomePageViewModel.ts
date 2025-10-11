@@ -2,7 +2,9 @@ import DualUserRoomDetailsResponseDTO from "@/dto/room/DualUserRoomDetailsRespon
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import useLimitStack from "@/hooks/primitive/useLimitStack";
 import useUserJoinedRoomsQuery from "@/hooks/react-query/useUserJoinedRoomsQuery";
+import { setUnreadMessageCount } from "@/slices/room/RoomUnreadMessageSlice";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function useHomePageViewModel(activeRoomId: string | null) {
 
@@ -10,6 +12,7 @@ export default function useHomePageViewModel(activeRoomId: string | null) {
     const [searchText, setSearchText] = useState<string>("");
     const { rooms, isLoading } = useUserJoinedRoomsQuery();
     const [searchedRooms, setSearchedRooms] = useState<(MultiUserRoomDetailsResponseDTO | DualUserRoomDetailsResponseDTO)[]>(rooms);
+    const reduxDispatcher = useDispatch();
 
     const onSearchTextChange = (text: string) => {
         setSearchText(text);
@@ -30,12 +33,15 @@ export default function useHomePageViewModel(activeRoomId: string | null) {
     const prevStackRef = useRef(recentRooms);
 
     useLayoutEffect(() => {
-        console.log(rooms);
         const prevStack = prevStackRef.current;
         const newStack = prevStack.filter(r => rooms.some(nr => nr.id === r.id));
         setStackDirectly(newStack);
         setSearchedRooms(rooms);
         setSearchText("");
+        rooms.forEach(r => {
+            const unreadMessages = parseInt(r.unreadMessagesCount) || 0;
+            reduxDispatcher(setUnreadMessageCount({roomId:r.id, count:unreadMessages}))
+        });
     }, [rooms]);
 
     useEffect(() => {

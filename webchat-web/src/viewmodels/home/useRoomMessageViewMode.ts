@@ -10,17 +10,22 @@ import RoomUserLeftResponseMessageDTO from "@/dto/websocket/responses/RoomUserLe
 import useWebSocketManager from "@/hooks/websocket/useWebsSocketManager";
 import { addMessage, addMessageIfIdNotExists, addOrReplaceMessage, Message, removeMessageFromUUID, replaceMessageByUUID } from "@/slices/message/MessageSlice";
 import { generateUUID } from "@/utils/TextUtil";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import TextMessageDTO from "@/dto/websocket/requests/TextMessageDTO";
 import MessageService from "@/services/MessageService";
+import { incrementUnreadMessageCount, setUnreadMessageCount } from "@/slices/room/RoomUnreadMessageSlice";
 
 export default function useRoomMessageViewModel() {
     const token = useSelector((state: RootState) => state.auth.token);
     const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
     const currentUser = useSelector((state: RootState) => state.auth.username);
     const reduxDispatcher = useDispatch();
+    const activeRoomRef = useRef<string | null>(activeRoomId);
+    useEffect(() => {
+        activeRoomRef.current = activeRoomId;
+    }, [activeRoomId]);
 
     const onMessageReceived = (message: BaseResponseMessageDTO) => {
         if (message.type === MessageResponseTypes.CLIENT_ERROR) {
@@ -61,6 +66,9 @@ export default function useRoomMessageViewModel() {
                 },
                 roomId: msg.roomId
             }))
+            if (activeRoomRef.current !== msg.roomId) {
+                reduxDispatcher(incrementUnreadMessageCount({ roomId: String(msg.roomId) }));
+            }
         }
     }
 
@@ -141,6 +149,11 @@ export default function useRoomMessageViewModel() {
             timeOutDuration: 10000
         });
     }
+
+    useEffect(() => {
+        if (!activeRoomId) return;
+        reduxDispatcher(setUnreadMessageCount({ roomId: activeRoomId, count: 0 }))
+    }, [activeRoomId])
 
 
     return {

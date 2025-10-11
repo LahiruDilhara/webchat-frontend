@@ -9,6 +9,8 @@ import Image from "next/image";
 import IconOutlinedButton from "@/components/primitive/IconOutlinedButton";
 import AddRoomOverlay from "./AddRoomOverlay";
 import JoinRoomOverlay from "./JoinRoomOverlay";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 
 type props = {
@@ -26,6 +28,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin,
     const [folded, setFolded] = useState(false);
     const [addRoom, setAddRoom] = useState(false);
     const [joinRoom, setJoinRoom] = useState(false);
+    const roomsUnreadMessageCount = useSelector((state:RootState)=>state.roomUnreadMessage.roomUnreadMessages);
 
 
     return (
@@ -65,7 +68,7 @@ const MdHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin,
                         </div>
                         <div className="flex-1 flex flex-col gap-md overflow-y-scroll">
                             {
-                                rooms.map((room) => <MdRoomColumnItem count={parseInt(room.unreadMessagesCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
+                                rooms.map((room) => <MdRoomColumnItem count={roomsUnreadMessageCount[room.id] || 0} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} name={room.name} caption={room.roomMembers.length.toString()} date={room.createdAt} key={room.id} />)
                             }
                             {
                                 rooms.length === 0 &&
