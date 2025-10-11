@@ -99,7 +99,6 @@ export default function useRoomMessageViewModel() {
     const { connected, connectionError, sessionError, sendMessage } = useWebSocketManager(token, onMessageReceived);
 
     const onRoomJoin = (roomId: string | null) => {
-        console.log("joining room: " + roomId);
         setActiveRoomId(roomId);
         if (!roomId) return;
         const message = new JoinRoomMessageDTO(Number(roomId), generateUUID());
@@ -112,7 +111,6 @@ export default function useRoomMessageViewModel() {
     }
 
     const onRoomLeave = () => {
-        console.log("leaving room: " + activeRoomId);
         if (!activeRoomId) return;
         const message = new LeaveRoomMessageDTO(Number(activeRoomId), generateUUID());
         sendMessage(message, { sendOnly: true });
@@ -142,7 +140,7 @@ export default function useRoomMessageViewModel() {
                     roomId,
                     uuid: uuid
                 }))
-                console.log("message sending failed");
+                console.warn("message sending failed");
             },
             onSuccess: (message) => {
                 const msg = message as TextMessageResponseDTO;
@@ -170,6 +168,7 @@ export default function useRoomMessageViewModel() {
                     roomId,
                     uuid
                 }))
+                console.warn("message sending timed out");
             },
             timeOutDuration: 10000
         });
