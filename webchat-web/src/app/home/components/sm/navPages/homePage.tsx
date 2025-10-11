@@ -49,7 +49,7 @@ const HomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, a
             <div className="flex flex-col min-h-0 ">
                 <h1 className="text-h3 pb-sm">Rooms</h1>
                 <div className="flex flex-1 flex-col gap-lg overflow-y-scroll min-h-0">
-                    {rooms.map(room => <SmallRoomColumnItem count={parseInt(room.unreadMessageCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
+                    {rooms.map(room => <SmallRoomColumnItem count={parseInt(room.unreadMessagesCount)} activeRoomId={activeRoomId} id={room.id} onRoomClick={onRoomJoin} caption={room.roomMembers.length.toString()} name={room.name} date={room.createdAt} key={room.id} />)}
                     {
                         rooms.length === 0 &&
                         <div className="h-full text-input-placeholder text-center flex justify-center flex-col items-center p-lg rounded-lg gap-sm">

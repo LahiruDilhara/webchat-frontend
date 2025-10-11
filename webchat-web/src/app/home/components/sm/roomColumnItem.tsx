@@ -25,7 +25,7 @@ const SmallRoomColumnItem = ({ name, caption, date, onRoomClick, id, activeRoomI
                 </div>
                 <div className=" flex flex-col items-end gap-sm">
                     <h1 className="text-caption">{format(createdDate, "yyyy/MM/dd")}</h1>
-                    <h1 className={`text-caption bg-accent rounded-full flex min-w-0 max-w-fit text-end p-0.5 ${isNaN(count) ? "hidden" : ""}`}>{isNaN(count) ? 0 : count}</h1>
+                    <h1 className={`text-caption bg-accent rounded-full flex min-w-0 max-w-fit text-end p-0.5 ${isNaN(count) || count === 0 ? "hidden" : ""}`}>{isNaN(count) ? 0 : count}</h1>
                 </div>
             </div>
         </div>
