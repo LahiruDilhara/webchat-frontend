@@ -14,8 +14,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import TextMessageDTO from "@/dto/websocket/requests/TextMessageDTO";
-import { useQuery } from "@tanstack/react-query";
-import QueryKeys from "@/core/QueryKeys";
 import MessageService from "@/services/MessageService";
 
 export default function useRoomMessageViewModel() {
@@ -34,6 +32,7 @@ export default function useRoomMessageViewModel() {
             messages.forEach(msg => {
                 if(msg.type == MessageResponseTypes.TEXT_MESSAGE){
                     const textMsg = msg as TextMessageResponseDTO;
+                    console.log(textMsg.content)
                     reduxDispatcher(addOrReplaceMessage({
                         roomId: activeRoomId,
                         message : {
