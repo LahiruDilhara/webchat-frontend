@@ -24,6 +24,7 @@ const HomePage = () => {
                     setSearchText={setSearchText}
                     onRoomJoin={onRoomJoin}
                     onRoomLeave={onRoomLeave}
+                    onTextMessageSend={onSendTextMessage}
                 /> :
                 <MdHomePage
                     activeRoomId={activeRoomId}

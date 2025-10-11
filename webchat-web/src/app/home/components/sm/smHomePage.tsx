@@ -14,12 +14,13 @@ type SmHomePageProps = {
     onRoomJoin: (roomId: string) => void
     activeRoomId: string | null
     onRoomLeave: () => void
+    onTextMessageSend: (roomId: string, content: string) => void
 }
 
-const SmHomePage = ({ rooms, recentRooms, searchText, setSearchText, onRoomJoin, activeRoomId, onRoomLeave }: SmHomePageProps) => {
+const SmHomePage = ({ rooms, recentRooms, onTextMessageSend, searchText, setSearchText, onRoomJoin, activeRoomId, onRoomLeave }: SmHomePageProps) => {
     const { activeNavId, navItems } = useSmHomePageViewModel();
     if (activeRoomId !== null) return (
-        <RoomChat onExitRoom={onRoomLeave} roomId={activeRoomId} />
+        <RoomChat onTextMessageSend={onTextMessageSend} onExitRoom={onRoomLeave} roomId={activeRoomId} />
     );
 
     return (

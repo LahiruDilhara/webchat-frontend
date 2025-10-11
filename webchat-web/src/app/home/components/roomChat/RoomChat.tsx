@@ -10,7 +10,6 @@ import RemoveUserRoomOverlay from "./RemoveUserRoomOverlay";
 import DeleteRoomOverlay from "./DeleteRoomOverlay";
 import AddUserRoomOverlay from "./AddUserRoomOverlay";
 import UpdateRoomOverlay from "./UpdateRoomOverlay";
-import MultiUserRoomResponseDTO from "@/dto/room/MultiUserRoomResponseDTO";
 import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResponseDTO";
 import MessageBox from "./MessageBox";
 

@@ -7,10 +7,10 @@ type props = {
     onTextMessageSend: (roomId: string, content: string) => void
 }
 const MessageBox = ({ roomId, onTextMessageSend }: props) => {
-    const { message, messages, setMessage } = useMessageBoxViewModel(roomId);
+    const { message, messages, setMessage, containerRef,bottomRef,handleScroll } = useMessageBoxViewModel(roomId);
     return (
         <div className="bg-card-bg rounded-xl flex flex-col min-h-0 flex-1 md:px-4xl sm:px-lg">
-            <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto px-sm">
+            <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto px-sm" ref={containerRef} onScroll={handleScroll}>
                 {messages.map(m => {
                     if (m.owner) return (
                         <div className="w-11/14  h-fit shrink-0 flex flex-row gap-sm self-end" key={m.id}>
@@ -48,6 +48,7 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                     );
                     return <div></div>
                 })}
+                <div ref={bottomRef}></div>
             </div>
             <div className="min-h-0 h-fit w-full px-sm py-md gap-sm flex flex-row">
                 <input className="bg-input-bg md:py-lg md:px-md text-caption flex-1 p-sm rounded-2xl placeholder:text-input-placeholder border-input-border focus-within:border-primary-hover focus:border-none focus:border-1 focus:outline-none" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)}></input>
