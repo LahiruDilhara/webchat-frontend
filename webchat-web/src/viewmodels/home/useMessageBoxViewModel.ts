@@ -1,8 +1,8 @@
 import { RootState } from "@/app/store";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function useMessageBoxViewModel(roomId: string) {
+export default function useMessageBoxViewModel(roomId: string,onMessageSend: (roomId:string,content:string) => void) {
     const [messageString, setMessageString] = useState("");
     const containerRef = useRef<HTMLDivElement>(null);
     const bottomRef = useRef<HTMLDivElement>(null);
@@ -24,12 +24,31 @@ export default function useMessageBoxViewModel(roomId: string) {
     },[rooms])
     const messages = rooms[roomId] || [];
 
+
+
+    const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
+        if(e.key === "Enter" && !e.shiftKey){
+            e.preventDefault();
+            if(messageString.trim() === "") return;
+            setMessageString("");
+            onMessageSend(roomId,messageString.trim());
+        }
+    }
+
+    const handleTextMessageSend = () => {
+        if(messageString.trim() === "") return;
+        setMessageString("");
+        onMessageSend(roomId,messageString.trim());
+    }
+
     return {
         messages,
         message: messageString,
         setMessage: setMessageString,
         containerRef,
         bottomRef,
-        handleScroll
+        handleScroll,
+        handleKeyDown,
+        handleTextMessageSend
     }
 }

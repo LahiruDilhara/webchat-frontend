@@ -7,7 +7,7 @@ type props = {
     onTextMessageSend: (roomId: string, content: string) => void
 }
 const MessageBox = ({ roomId, onTextMessageSend }: props) => {
-    const { message, messages, setMessage, containerRef,bottomRef,handleScroll } = useMessageBoxViewModel(roomId);
+    const { message, messages, setMessage, containerRef,bottomRef,handleScroll,handleKeyDown,handleTextMessageSend } = useMessageBoxViewModel(roomId, onTextMessageSend);
     return (
         <div className="bg-card-bg rounded-xl flex flex-col min-h-0 flex-1 md:px-4xl sm:px-lg">
             <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto px-sm" ref={containerRef} onScroll={handleScroll}>
@@ -51,8 +51,8 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                 <div ref={bottomRef}></div>
             </div>
             <div className="min-h-0 h-fit w-full px-sm py-md gap-sm flex flex-row">
-                <input className="bg-input-bg md:py-lg md:px-md text-caption flex-1 p-sm rounded-2xl placeholder:text-input-placeholder border-input-border focus-within:border-primary-hover focus:border-none focus:border-1 focus:outline-none" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)}></input>
-                <div className="bg-input-bg p-sm rounded-2xl cursor-pointer hover:brightness-50 flex justify-center items-center" onClick={() => { onTextMessageSend(roomId, message) }}>
+                <input className="bg-input-bg md:py-lg md:px-md text-caption flex-1 p-sm rounded-2xl placeholder:text-input-placeholder border-input-border focus-within:border-primary-hover focus:border-none focus:border-1 focus:outline-none" placeholder="Type a message..." value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <div className="bg-input-bg p-sm rounded-2xl cursor-pointer hover:brightness-50 flex justify-center items-center" onClick={handleTextMessageSend}>
                     <SendHorizonal />
                 </div>
             </div>
