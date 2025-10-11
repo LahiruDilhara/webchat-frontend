@@ -13,7 +13,7 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
     return (
         <div className="bg-card-bg rounded-xl flex flex-col min-h-0 flex-1 md:px-4xl sm:px-lg min-w-0">
             <div className="min-h-0 flex-1 w-full flex gap-md flex-col overflow-y-auto overflow-x-hidden px-sm" ref={containerRef} onScroll={handleScroll}>
-                { prevMessageLoading && <div className="w-full flex justify-center items-center text-accent"><ClipLoader /></div> }
+                { prevMessageLoading && <div className="w-full flex justify-center items-center text-accent"><ClipLoader color="#4A4A4A" /></div> }
                 {messages.map(m => {
                     if (m.owner) return (
                         <div className="w-full  shrink-0 flex flex-row gap-sm self-end" key={m.id}>
@@ -53,6 +53,7 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                 })}
                 {messages.length === 0 && <div className="h-full w-full flex items-center justify-center flex-col gap-sm">
                     <Image src="/images/notFound.svg" alt="no messages" width={100} height={100} className="mx-auto my-8" />
+                    {messageLoading && <div><ClipLoader color="#4A4A4A"/></div>}
                     <h1 className="text-body">No messages found</h1>
                 </div>
                 }
