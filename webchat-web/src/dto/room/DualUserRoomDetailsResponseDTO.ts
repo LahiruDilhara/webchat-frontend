@@ -1,4 +1,4 @@
 import RoomDetailsResponseDTO from "./RoomDetailsResponseDTO";
 
-export default interface DualUserRoomDetailsResponseDTO extends RoomDetailsResponseDTO {
-}
+type DualUserRoomDetailsResponseDTO = RoomDetailsResponseDTO
+export default DualUserRoomDetailsResponseDTO;

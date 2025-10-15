@@ -50,7 +50,7 @@ const MessageBox = ({ roomId, onTextMessageSend }: props) => {
                             </div>
                         </div>
                     );
-                    return <div></div>
+                    return <div key={m.id}></div>
                 })}
                 {messages.length === 0 && <div className="h-full w-full flex items-center justify-center flex-col gap-sm">
                     <Image src="/images/notFound.svg" alt="no messages" width={100} height={100} className="mx-auto my-8" />

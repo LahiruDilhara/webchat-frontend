@@ -2,13 +2,13 @@ import MultiUserRoomDetailsResponseDTO from "@/dto/room/MultiUserRoomDetailsResp
 import UserResponseDto from "@/dto/user/UserResponseDto";
 
 export default class MultiUserRoomDetailsModel implements MultiUserRoomDetailsResponseDTO {
-    closed: boolean;
-    isPrivate: boolean;
-    id: number;
+    closed: string;
+    isPrivate: string;
+    id: string;
     name: string;
-    createdAt: Date;
+    createdAt: string;
     createdBy: string;
-    unreadMessageCount: number;
+    unreadMessagesCount: string;
     type: string;
     roomMembers: UserResponseDto[];
 
@@ -17,9 +17,9 @@ export default class MultiUserRoomDetailsModel implements MultiUserRoomDetailsRe
         this.isPrivate = data.isPrivate;
         this.id = data.id;
         this.name = data.name;
-        this.createdAt = new Date(data.createdAt);
+        this.createdAt = data.createdAt;
         this.createdBy = data.createdBy;
-        this.unreadMessageCount = data.unreadMessageCount;
+        this.unreadMessagesCount = data.unreadMessagesCount;
         this.type = data.type;
         this.roomMembers = data.roomMembers;
     }

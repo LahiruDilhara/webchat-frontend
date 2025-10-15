@@ -1,6 +1,7 @@
+import BaseResponseMessageDTO from "@/dto/websocket/responses/BaseResponseMessageDTO";
 import { useEffect, useRef, useState } from "react";
 
-export default function useWebSocket(urlString: string, onMessage: (data: any) => void, retryCount: number = 3, retryInterval: number = 1000) {
+export default function useWebSocket(urlString: string, onMessage: (data: BaseResponseMessageDTO) => void, retryCount: number = 3, retryInterval: number = 1000) {
     const [connectionError, setConnectionError] = useState<string | null>(null);
     const [connected, setConnected] = useState<boolean>(false);
     const [sessionError, setSessionError] = useState<string | null>(null);
@@ -83,7 +84,7 @@ export default function useWebSocket(urlString: string, onMessage: (data: any) =
         // The cleanup function runs before the effect is re-run or when the component is unmounted.
     }, [])
 
-    const sendMessage = (message: any) => {
+    const sendMessage = (message: unknown) => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
             socketRef.current.send(JSON.stringify(message));
         } else {

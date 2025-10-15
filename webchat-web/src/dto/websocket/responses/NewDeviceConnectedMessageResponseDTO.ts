@@ -1,3 +1,4 @@
 import BaseResponseMessageDTO from "./BaseResponseMessageDTO";
 
-export default interface NewDeviceConnectedMessageResponseDTO extends BaseResponseMessageDTO { }
+type NewDeviceConnectedMessageResponseDTO = BaseResponseMessageDTO
+export default NewDeviceConnectedMessageResponseDTO;

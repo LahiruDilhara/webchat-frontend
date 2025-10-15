@@ -1,3 +1,4 @@
 import BaseMessageDTO from "./BaseMessageDTO";
 
-export default interface MessageDTO extends BaseMessageDTO {}
+type MessageDTO = BaseMessageDTO
+export default MessageDTO;

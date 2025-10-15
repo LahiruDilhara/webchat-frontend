@@ -14,7 +14,7 @@ const SideBar = ({ folded, onRoomClick, rooms, onAddRoomClick }: SideBarProps) =
                 <h1 className={`text-gray-500 font-bold lg:text-xl md:text-lg pb-2 overflow-hidden whitespace-nowrap ${folded ? "opacity-0" : ""}`}>Rooms /</h1>
                 <div className="min-h-0 h-full overflow-y-auto space-y-5">
                     {rooms.map((r) =>
-                        <div className="w-full">
+                        <div className="w-full" key={r.id}>
                             <RoomItem key={r.id} id={r.id} roomName={r.roomName} folded={folded} onClick={() => onRoomClick(r.id)} icon={getRoomLetter(r.roomName)} iconColor={getRoomColor(r.roomName)}></RoomItem>
                         </div>
                     )}

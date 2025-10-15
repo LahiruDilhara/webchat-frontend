@@ -15,7 +15,7 @@ export default function SignUpPage() {
     return (
         <div className="flex flex-col px-md gap-md h-full min-h-0 items-center justify-center md:max-w-4/6 lg:w-full lg:max-w-full lg:grid lg:grid-cols-20 lg:p-lg">
             <div className="w-full flex-1 flex flex-col items-center justify-center gap-sm lg:col-span-12">
-                <div className="text-h1">Let's Get Started</div>
+                <div className="text-h1">Let&apos;s Get Started</div>
                 <div className="text-caption lg:hidden">Please sign up for a new account.</div>
             </div>
             <form className="flex-2 w-full flex flex-col gap-4xl lg:gap-2xl lg:col-span-8" onSubmit={e => { e.preventDefault(); }}>

@@ -58,7 +58,7 @@ export default function useWebSocketManager(token: string, onMessage: (data: Bas
         sentMessageQueue.current.delete(message.uuid);
     };
 
-    const onWebSocketMessage = (data: any) => {
+    const onWebSocketMessage = (data: BaseResponseMessageDTO) => {
         if (!data.type) {
             console.warn("Received message without type:", data);
             return;

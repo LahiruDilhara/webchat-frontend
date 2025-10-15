@@ -3,20 +3,20 @@ import BaseModel from "../baseModel";
 import UserResponseDto from "@/dto/user/UserResponseDto";
 
 export default class DualUserRoomDetailsModel implements DualUserRoomDetailsResponseDTO {
-    id: number;
+    id: string;
     name: string;
-    createdAt: Date;
+    createdAt: string;
     createdBy: string;
-    unreadMessageCount: number;
+    unreadMessagesCount: string;
     type: string;
     roomMembers: UserResponseDto[];
 
     constructor(data: DualUserRoomDetailsResponseDTO) {
         this.id = data.id;
         this.name = data.name;
-        this.createdAt = new Date(data.createdAt);
+        this.createdAt = data.createdAt;
         this.createdBy = data.createdBy;
-        this.unreadMessageCount = data.unreadMessageCount;
+        this.unreadMessagesCount = data.unreadMessagesCount;
         this.type = data.type;
         this.roomMembers = data.roomMembers;
     }
