@@ -8,8 +8,6 @@ COPY . .
 
 RUN npm run build --no-lint
 
-RUN npx tsc next.config.ts --outDir .
-
 FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
@@ -17,7 +15,7 @@ ENV NODE_ENV=production
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./  # Use compiled JS
+COPY --from=builder /app/next.config.ts ./next.config.ts  # safe, Next can read TS config in prod
 
 RUN npm ci --omit=dev
 
