@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  webchat-frontend:
+    build:
+      context: .        # Build from current directory where Dockerfile is
+      dockerfile: Dockerfile
+    image: lahirudilhara/webchat-frontend:latest
+    container_name: webchat-frontend
+    ports:
+      - "3000:3000"   # Map container port 3000 to host
+    environment:
+      NODE_ENV: production
+    restart: always
