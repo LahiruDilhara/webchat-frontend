@@ -35,3 +35,5 @@ jobs:
             lahirudilhara/webchat-frontend:v1.0
           build-args: |
             NODE_ENV=production
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_WS_URL=${{ secrets.NEXT_PUBLIC_WS_URL }}
