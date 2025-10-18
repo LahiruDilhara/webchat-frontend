@@ -35,6 +35,8 @@
   --color-info: #2196f3;
   --color-disabled: #555555;
 
+  --color-nav-bar-bg: #1a1a1a;
+  --color-nav-shadow: #000000;
   --color-nav-item-bg: #2a2a2a;
   --color-nav-item-hover: #3a3a3a;
   --color-nav-item-active: #3131cc;
@@ -240,6 +242,8 @@
     --color-on-card: #e0e0e0;
     --color-card-item: #2e2e2e;
 
+    --color-nav-bar-bg: #1a1a1a;
+    --color-nav-shadow: #252525;
     --color-nav-item-bg: #2a2a2a;
     --color-nav-item-hover: #3a3a3a;
     --color-nav-item-active: #3131cc;
